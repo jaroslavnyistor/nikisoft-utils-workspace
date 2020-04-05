@@ -65,6 +65,12 @@ export class NsDate extends Object {
              : date._value.format(format);
    }
 
+   static toJsDate(date: NsDate): Date {
+      return date == null
+             ? null
+             : date.value.toDate();
+   }
+
    static daysInYear(year: number) {
       const start = NsDate.from(`${year}-01-01`);
       const end = NsDate.clone(start)
@@ -72,6 +78,15 @@ export class NsDate extends Object {
       .addDays(-1);
 
       return end.diffInDays(start);
+   }
+
+   static createNew(year: number, month: number, day: number) {
+      return new NsDate(
+         moment()
+            .year(year)
+            .month(month - 1)
+            .date(day)
+      );
    }
 
    protected get value(): moment.Moment {

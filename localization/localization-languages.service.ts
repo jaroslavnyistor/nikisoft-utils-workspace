@@ -92,7 +92,7 @@ export class LocalizationLanguagesService {
          return error;
       }
 
-      if (args) {
+      if (args != null) {
          result = nsStringFormat(result, args);
       }
 

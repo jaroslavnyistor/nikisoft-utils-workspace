@@ -12,11 +12,11 @@ export function nsFormatNumber(value: number, digits = 2): string {
 
 export function nsCalculatePercentage(value: number, percentage: number, decimals: number): number {
    let result = value * percentage / 100;
-   result = nsRoundNumber(result, decimals);
+   result = nsRoundNumberDown(result, decimals);
    return result;
 }
 
-export function nsRoundNumber(value: number, decimals: number): number {
+export function nsRoundNumberDown(value: number, decimals: number): number {
    return Number(Math.floor(Number(`${value}e${decimals}`)) + 'e-' + decimals);
 }
 

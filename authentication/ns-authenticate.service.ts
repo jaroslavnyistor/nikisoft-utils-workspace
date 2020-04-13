@@ -1,5 +1,5 @@
 import { Inject, Injectable, InjectionToken, Type } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Route, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { NsPageNoPermissionService } from '../../ui/page/no-permission/ns-page-no-permission.service';
 import { nsNullOrEmpty } from '../helpers/strings/ns-helpers-strings';
@@ -15,9 +15,14 @@ const DI_NS_AUTHENTICATION_API_SERVICE = new InjectionToken<NsAuthenticationApiS
    'DI_NS_AUTHENTICATION_API_SERVICE'
 );
 
-export function applyPermissionToRoute(permissionId) {
+export function buildSecureRouteToComponent(path: string, component: Type<any>, permissionId): Route {
    return {
-      permission: permissionId
+      path,
+      component,
+      canActivate: [NsAuthenticateService],
+      data: {
+         permission: permissionId
+      }
    };
 }
 

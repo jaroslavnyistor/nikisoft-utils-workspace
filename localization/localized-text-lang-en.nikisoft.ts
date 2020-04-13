@@ -21,7 +21,8 @@ export function buildLocalizedTextEnNikiSoft() {
       [LocalizedTextIdNikisoft.NotFoundTitle]: 'NOT FOUND',
       [LocalizedTextIdNikisoft.NotFoundSubTitle]: 'Sorry, but we haven\'t found what are you looking for!',
       [LocalizedTextIdNikisoft.NoPermissionTitle]: 'PERMISSION NOT GRANTED',
-      [LocalizedTextIdNikisoft.NoPermissionSubTitle]: 'Sorry, but you have not been granted permission to access the page!',
+      [LocalizedTextIdNikisoft.NoPermissionSubTitle]:
+         'Sorry, but you have not been granted permission to access the page!',
       [LocalizedTextIdNikisoft.UnableToConnectToServer]: 'We are unable to connect to server!',
       [LocalizedTextIdNikisoft.UnknownError]: 'An unknown error has occurred!',
       [LocalizedTextIdNikisoft.ServerFailed]: 'An internal server error has occurred!',
@@ -71,7 +72,8 @@ export function buildLocalizedTextEnNikiSoft() {
       [LocalizedTextIdNikisoft.Date]: 'Date',
       [LocalizedTextIdNikisoft.PickDate]: 'Pick date',
       [LocalizedTextIdNikisoft.List]: 'List',
-      [LocalizedTextIdNikisoft.Validation_StartBeforeFinish]: 'Start date and time must be before finish date and time.',
+      [LocalizedTextIdNikisoft.Validation_StartBeforeFinish]:
+         'Start date and time must be before finish date and time.',
       [LocalizedTextIdNikisoft.Validation_StartFinishSameDate]: 'Start and finish date and time must be on same day.',
       [LocalizedTextIdNikisoft.CalendarMonth_MoveBackward]: 'Load model from previous month',
       [LocalizedTextIdNikisoft.CalendarMonth_MoveToNow]: 'Load model from actual month',
@@ -79,6 +81,7 @@ export function buildLocalizedTextEnNikiSoft() {
       [LocalizedTextIdNikisoft.CalendarMonth_Refresh]: 'Reload model',
       [LocalizedTextIdNikisoft.ErrorsList]: 'List of errors',
       [LocalizedTextIdNikisoft.Settings]: 'Settings',
+      [LocalizedTextIdNikisoft.Setting]: 'Setting',
       [LocalizedTextIdNikisoft.Year]: 'Year',
       [LocalizedTextIdNikisoft.Item]: 'Item',
       [LocalizedTextIdNikisoft.Value]: 'Value',

@@ -76,6 +76,7 @@ export enum LocalizedTextIdNikisoft {
    CalendarMonth_Refresh = 'CalendarMonth_Refresh',
    ErrorsList = 'ErrorsList',
    Settings = 'Settings',
+   Setting = 'Setting',
    Year = 'Year',
    Item = 'Item',
    Value = 'Value',

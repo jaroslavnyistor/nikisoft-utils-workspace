@@ -21,7 +21,8 @@ export function buildLocalizedTextSkNikiSoft() {
       [LocalizedTextIdNikisoft.NotFoundTitle]: 'STRÁNKA NENÁJDENÁ',
       [LocalizedTextIdNikisoft.NotFoundSubTitle]: 'Bohužial, to čo hľadáte, neexistuje!',
       [LocalizedTextIdNikisoft.NoPermissionTitle]: 'POVOLENIE NEBOLO UDELENÉ',
-      [LocalizedTextIdNikisoft.NoPermissionSubTitle]: 'Bohužial, ale nemáte povolenie na prístup k požadovanej stránke!',
+      [LocalizedTextIdNikisoft.NoPermissionSubTitle]:
+         'Bohužial, ale nemáte povolenie na prístup k požadovanej stránke!',
       [LocalizedTextIdNikisoft.UnableToConnectToServer]: 'Nepodarilo sa spojiť so serverom!',
       [LocalizedTextIdNikisoft.UnknownError]: 'Vyskytla sa neznáma chyba!',
       [LocalizedTextIdNikisoft.ServerFailed]: 'Vyskytla sa chyba na serveri!',
@@ -71,7 +72,8 @@ export function buildLocalizedTextSkNikiSoft() {
       [LocalizedTextIdNikisoft.Date]: 'Dátum',
       [LocalizedTextIdNikisoft.PickDate]: 'Vybrať dátum',
       [LocalizedTextIdNikisoft.List]: 'Zoznam',
-      [LocalizedTextIdNikisoft.Validation_StartBeforeFinish]: 'Dátum a čas začiatku musí byť pred dátumom a časom konca.',
+      [LocalizedTextIdNikisoft.Validation_StartBeforeFinish]:
+         'Dátum a čas začiatku musí byť pred dátumom a časom konca.',
       [LocalizedTextIdNikisoft.Validation_StartFinishSameDate]: 'Dátum začiatku a konca musí byť v ten istý deň.',
       [LocalizedTextIdNikisoft.CalendarMonth_MoveBackward]: 'Načítaj dáta z prechadzajúceho mesiaca',
       [LocalizedTextIdNikisoft.CalendarMonth_MoveToNow]: 'Načítaj dáta z aktuálneho mesiaca',
@@ -79,6 +81,7 @@ export function buildLocalizedTextSkNikiSoft() {
       [LocalizedTextIdNikisoft.CalendarMonth_Refresh]: 'Znova načítaj dáta',
       [LocalizedTextIdNikisoft.ErrorsList]: 'Zoznam chýb',
       [LocalizedTextIdNikisoft.Settings]: 'Nastavenia',
+      [LocalizedTextIdNikisoft.Setting]: 'Nastavenie',
       [LocalizedTextIdNikisoft.Year]: 'Rok',
       [LocalizedTextIdNikisoft.Item]: 'Položka',
       [LocalizedTextIdNikisoft.Value]: 'Hodnota',

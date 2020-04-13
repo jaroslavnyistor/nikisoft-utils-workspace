@@ -1,4 +1,4 @@
-import { Inject, Injectable, InjectionToken } from '@angular/core';
+import { Inject, Injectable, InjectionToken, Type } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { NsPageNoPermissionService } from '../../ui/page/no-permission/ns-page-no-permission.service';
@@ -11,7 +11,7 @@ import { NsAuthenticationApiService } from './ns-authentication-api.service';
 import { NsAuthenticationEvent } from './ns-authentication.event';
 import { NsCredentialsStorageService } from './ns-credentials-storage.service';
 
-export const DI_NS_AUTHENTICATION_API_SERVICE = new InjectionToken<NsAuthenticationApiService>(
+const DI_NS_AUTHENTICATION_API_SERVICE = new InjectionToken<NsAuthenticationApiService>(
    'DI_NS_AUTHENTICATION_API_SERVICE'
 );
 
@@ -110,5 +110,11 @@ export class NsAuthenticateService implements CanActivate {
 
    hasPermission(permissionId: number) {
       return permissionId === 0 || this.credentials.hasPermissionById(permissionId);
+   }
+
+   static setAuthService(useClass: Type<NsAuthenticationApiService>) {
+      return {
+         provide: DI_NS_AUTHENTICATION_API_SERVICE, useClass
+      };
    }
 }

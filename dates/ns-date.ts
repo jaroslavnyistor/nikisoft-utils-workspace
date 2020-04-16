@@ -83,9 +83,9 @@ export class NsDate extends Object {
    static createNew(year: number, month: number, day: number) {
       return new NsDate(
          moment()
-            .year(year)
-            .month(month - 1)
-            .date(day)
+         .year(year)
+         .month(month - 1)
+         .date(day)
       );
    }
 

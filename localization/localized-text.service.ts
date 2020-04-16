@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { buildLocalizedTextEnLanguages } from './localized-text-lang-en.languages';
-import { buildLocalizedTextSkLanguages } from './localized-text-lang-sk.languages';
 import { buildLocalizedTextEnNikiSoft } from './localized-text-lang-en.nikisoft';
+import { buildLocalizedTextSkLanguages } from './localized-text-lang-sk.languages';
 import { buildLocalizedTextSkNikiSoft } from './localized-text-lang-sk.nikisoft';
 
 @Injectable({

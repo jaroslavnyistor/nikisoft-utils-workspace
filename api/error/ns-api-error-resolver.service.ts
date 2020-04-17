@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { LocalizationLanguagesService } from '../../../localization/localization-languages.service';
-import { NsApiResponseError, NsApiResponseErrorType } from '../../ns-api-response.error';
-import { NsApiValidationServerError } from './ns-api-validation-server.error';
+import { LocalizationLanguagesService } from '../../localization/localization-languages.service';
+import { NsApiResponseError, NsApiResponseErrorType } from '../ns-api-response.error';
+import { NsApiErrorResponse } from './ns-api-error.response';
 
 @Injectable({
    providedIn: 'root'
 })
-export class NsServerApiErrorResolver {
+export class NsApiErrorResolverService {
    resolve(mapper: any, langService: LocalizationLanguagesService, error: NsApiResponseError): string[] {
       switch (error.type) {
          case NsApiResponseErrorType.UnableToConnectToServer:
@@ -33,7 +33,7 @@ export class NsServerApiErrorResolver {
    private resolveServerValidationErrors(
       mapper: any,
       langService: LocalizationLanguagesService,
-      serverErrors: NsApiValidationServerError[]
+      serverErrors: NsApiErrorResponse[]
    ): string[] {
       const result: string[] = [];
 

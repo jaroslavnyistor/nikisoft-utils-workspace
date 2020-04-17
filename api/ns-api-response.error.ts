@@ -1,4 +1,4 @@
-import { NsApiValidationServerError } from './validation/server/ns-api-validation-server.error';
+import { NsApiErrorResponse } from './error/ns-api-error.response';
 
 export enum NsApiResponseErrorType {
    UnableToConnectToServer = 0,
@@ -13,7 +13,7 @@ const NO_PERMISSION_GRANTED = -2;
 
 export class NsApiResponseError {
    constructor(
-      private _type: NsApiResponseErrorType, private _serverValidationResult: NsApiValidationServerError[] = []) {
+      private _type: NsApiResponseErrorType, private _serverValidationResult: NsApiErrorResponse[] = []) {
    }
 
    get type(): NsApiResponseErrorType {
@@ -24,7 +24,7 @@ export class NsApiResponseError {
       return this._serverValidationResult.some(item => item.code === NO_PERMISSION_GRANTED);
    }
 
-   get serverValidationResult(): NsApiValidationServerError[] {
+   get serverValidationResult(): NsApiErrorResponse[] {
       return this._serverValidationResult;
    }
 }

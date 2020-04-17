@@ -8,6 +8,8 @@ import { NsApiErrorResponse } from './ns-api-error.response';
 })
 export class NsApiErrorResolverService {
    resolve(mapper: any, langService: LocalizationLanguagesService, error: NsApiResponseError): string[] {
+      console.error(error);
+
       switch (error.type) {
          case NsApiResponseErrorType.UnableToConnectToServer:
             return [langService.getUnableToConnectToServer()];

@@ -188,7 +188,7 @@ export class LocalizationLanguagesService {
    static setAppInitializer(): Provider {
       return {
          provide: APP_INITIALIZER,
-         useFactory: (service: LocalizationLanguagesService) => () => service.load(),
+         useFactory: localizationLanguagesServiceAppInitializer,
          deps: [LocalizationLanguagesService],
          multi: true
       };
@@ -199,4 +199,8 @@ export class LocalizationLanguagesService {
          provide: DI_NS_DEFAULT_LANGUAGE, useValue
       };
    }
+}
+
+export function localizationLanguagesServiceAppInitializer(service: LocalizationLanguagesService) {
+   return () => service.load();
 }

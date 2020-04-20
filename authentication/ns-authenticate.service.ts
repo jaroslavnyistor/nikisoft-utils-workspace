@@ -32,6 +32,10 @@ export function buildSecureRouteToComponent(path: string, component: Type<any>, 
 export class NsAuthenticateService implements CanActivate {
    private readonly _authenticationEvent$: BehaviorSubject<NsAuthenticationEvent>;
 
+   get authenticationEvent(): NsAuthenticationEvent {
+      return this._authenticationEvent$.value;
+   }
+
    get authenticationEvent$(): Observable<NsAuthenticationEvent> {
       return this._authenticationEvent$;
    }
@@ -100,14 +104,16 @@ export class NsAuthenticateService implements CanActivate {
    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
       Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      const canNavigate = this.credentials.isLoggedIn;
+      let canNavigate = this.credentials.isLoggedIn;
       if (!canNavigate) {
          this.logout(state.url);
       }
+      else {
+         canNavigate = this.credentials.hasPermission(route.data);
 
-      const hasPermission = this.credentials.hasPermission(route.data);
-      if (!hasPermission) {
-         this._noPermissionService.navigate();
+         if (!canNavigate) {
+            this._noPermissionService.navigate();
+         }
       }
 
       return canNavigate;

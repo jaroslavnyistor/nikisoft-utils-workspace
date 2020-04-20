@@ -32,8 +32,8 @@ export function buildSecureRouteToComponent(path: string, component: Type<any>, 
 export class NsAuthenticateService implements CanActivate {
    private readonly _authenticationEvent$: BehaviorSubject<NsAuthenticationEvent>;
 
-   get authenticationEvent(): NsAuthenticationEvent {
-      return this._authenticationEvent$.value;
+   get userId(): number {
+      return this._authenticationEvent$.value.credentials.id;
    }
 
    get authenticationEvent$(): Observable<NsAuthenticationEvent> {

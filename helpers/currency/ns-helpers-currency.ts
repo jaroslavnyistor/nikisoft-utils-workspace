@@ -6,6 +6,6 @@ const formatterSettings = {
 
 export function nsFormatCurrencyAmount(value: number) {
    return value == null
-          ? null
-          : value.toLocaleString(undefined, formatterSettings);
+      ? null
+      : value.toLocaleString(undefined, formatterSettings);
 }

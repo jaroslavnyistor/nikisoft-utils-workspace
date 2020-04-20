@@ -107,8 +107,7 @@ export class NsAuthenticateService implements CanActivate {
       let canNavigate = this.credentials.isLoggedIn;
       if (!canNavigate) {
          this.logout(state.url);
-      }
-      else {
+      } else {
          canNavigate = this.credentials.hasPermission(route.data);
 
          if (!canNavigate) {

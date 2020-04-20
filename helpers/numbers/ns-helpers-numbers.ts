@@ -1,13 +1,13 @@
 export function nsFormatFloatNumber(value: number, digits = 2): string {
    return value == null
-          ? null
-          : value.toLocaleString(undefined, { maximumFractionDigits: digits, useGrouping: false });
+      ? null
+      : value.toLocaleString(undefined, { maximumFractionDigits: digits, useGrouping: false });
 }
 
 export function nsFormatNumber(value: number, digits = 2): string {
    return value == null
-          ? null
-          : value.toLocaleString(undefined, { minimumIntegerDigits: digits });
+      ? null
+      : value.toLocaleString(undefined, { minimumIntegerDigits: digits });
 }
 
 export function nsCalculatePercentage(value: number, percentage: number, decimals: number): number {

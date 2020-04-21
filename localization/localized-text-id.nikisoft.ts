@@ -80,4 +80,5 @@ export enum LocalizedTextIdNikisoft {
    Year = 'Year',
    Item = 'Item',
    Value = 'Value',
+   Details = 'Details'
 }

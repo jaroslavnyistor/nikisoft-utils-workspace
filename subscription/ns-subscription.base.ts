@@ -1,5 +1,5 @@
 import { OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, PartialObserver, Subscription } from 'rxjs';
 
 export abstract class NsSubscriptionBase implements OnInit, OnDestroy {
    private readonly _subscription = new Subscription();
@@ -14,7 +14,8 @@ export abstract class NsSubscriptionBase implements OnInit, OnDestroy {
       this._subscription.unsubscribe();
    }
 
-   protected addSubscription(subscription: Subscription) {
+   protected subscribeTo<T>(observable: Observable<T>, observer?: PartialObserver<T>) {
+      const subscription = observable.subscribe(observer);
       this._subscription.add(subscription);
    }
 }

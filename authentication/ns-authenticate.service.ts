@@ -11,9 +11,15 @@ import { NsAuthenticationApiService } from './ns-authentication-api.service';
 import { NsAuthenticationEvent } from './ns-authentication.event';
 import { NsCredentialsStorageService } from './ns-credentials-storage.service';
 
-const DI_NS_AUTHENTICATION_API_SERVICE = new InjectionToken<NsAuthenticationApiService>(
+export const DI_NS_AUTHENTICATION_API_SERVICE = new InjectionToken<NsAuthenticationApiService>(
    'DI_NS_AUTHENTICATION_API_SERVICE'
 );
+
+export function setAuthService(useClass: Type<NsAuthenticationApiService>) {
+   return {
+      provide: DI_NS_AUTHENTICATION_API_SERVICE, useClass
+   };
+}
 
 export function buildSecureRouteToComponent(path: string, component: Type<any>, permissionId): Route {
    return {
@@ -120,11 +126,5 @@ export class NsAuthenticateService implements CanActivate {
 
    hasPermission(permissionId: number) {
       return permissionId === 0 || this.credentials.hasPermissionById(permissionId);
-   }
-
-   static setAuthService(useClass: Type<NsAuthenticationApiService>) {
-      return {
-         provide: DI_NS_AUTHENTICATION_API_SERVICE, useClass
-      };
    }
 }

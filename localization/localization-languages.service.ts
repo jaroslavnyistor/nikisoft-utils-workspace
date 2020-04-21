@@ -6,10 +6,29 @@ import { buildLocalizationLanguages, LocalizationLanguage, LocalizationLanguageI
 import { LocalizedTextIdNikisoft } from './localized-text-id.nikisoft';
 import { LocalizedTextService } from './localized-text.service';
 
-const DI_NS_DEFAULT_LANGUAGE = new InjectionToken<LocalizationLanguage>('DI_NS_DEFAULT_LANGUAGE', {
+export const DI_NS_DEFAULT_LANGUAGE = new InjectionToken<LocalizationLanguage>('DI_NS_DEFAULT_LANGUAGE', {
    providedIn: 'root',
    factory: () => LocalizationLanguage.EN
 });
+
+export function setLocalizationLanguagesAppInitializer(): Provider {
+   return {
+      provide: APP_INITIALIZER,
+      useFactory: localizationLanguagesServiceAppInitializer,
+      deps: [LocalizationLanguagesService],
+      multi: true
+   };
+}
+
+export function localizationLanguagesServiceAppInitializer(service: LocalizationLanguagesService) {
+   return () => service.load();
+}
+
+export function setDefaultLanguage(useValue: LocalizationLanguage): Provider {
+   return {
+      provide: DI_NS_DEFAULT_LANGUAGE, useValue
+   };
+}
 
 @Injectable({
    providedIn: 'root'
@@ -184,23 +203,4 @@ export class LocalizationLanguagesService {
    isSelected(language: LocalizationLanguageItem) {
       return language.id === this.selectedLanguageItem.id;
    }
-
-   static setAppInitializer(): Provider {
-      return {
-         provide: APP_INITIALIZER,
-         useFactory: localizationLanguagesServiceAppInitializer,
-         deps: [LocalizationLanguagesService],
-         multi: true
-      };
-   }
-
-   static setDefaultLanguage(useValue: LocalizationLanguage): Provider {
-      return {
-         provide: DI_NS_DEFAULT_LANGUAGE, useValue
-      };
-   }
-}
-
-export function localizationLanguagesServiceAppInitializer(service: LocalizationLanguagesService) {
-   return () => service.load();
 }

@@ -1,6 +1,12 @@
 import { Inject, Injectable, InjectionToken, Provider } from '@angular/core';
 
-const DI_NS_STORAGE_KEY_PREFIX = new InjectionToken<string>('DI_NS_STORAGE_KEY_PREFIX ');
+export const DI_NS_STORAGE_KEY_PREFIX = new InjectionToken<string>('DI_NS_STORAGE_KEY_PREFIX ');
+
+export function setStorageKeyPrefix(useValue: string): Provider {
+   return {
+      provide: DI_NS_STORAGE_KEY_PREFIX, useValue
+   };
+}
 
 @Injectable({
    providedIn: 'root'
@@ -52,11 +58,5 @@ export class NsStorageService {
       result += `:${key}`;
 
       return result;
-   }
-
-   static setStorageKeyPrefix(useValue: string): Provider {
-      return {
-         provide: DI_NS_STORAGE_KEY_PREFIX, useValue
-      };
    }
 }

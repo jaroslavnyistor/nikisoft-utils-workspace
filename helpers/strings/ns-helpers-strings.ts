@@ -82,3 +82,11 @@ export function nsHashCode(s: string) {
 
    return h;
 }
+
+export function nsStringContains(value: string, search: string) {
+   if (nsIsNullOrEmpty(value) || nsIsNullOrEmpty(search)) {
+      return false;
+   }
+
+   return value.indexOf(search) > -1;
+}

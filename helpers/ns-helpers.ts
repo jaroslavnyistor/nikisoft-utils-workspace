@@ -1,4 +1,3 @@
-import { isBoolean, isNumber } from 'util';
 import { nsIsNotNullOrEmpty, nsIsString } from './strings/ns-helpers-strings';
 
 export function nsObjectHasValue(value: any) {
@@ -19,20 +18,28 @@ export function nsIterateObjectProperties(value: any, callback: (prop: string, p
    }
 }
 
+export function nsFormatValue(value: any): string {
+   if (nsIsNumber(value)) {
+      return value;
+   }
+
+   if (nsIsBoolean(value)) {
+      return value;
+   }
+
+   return `"${value}"`;
+}
+
 export function nsIsObject(value: any) {
    return typeof value === 'object';
 }
 
-export function nsFormatValue(propValue: any): string {
-   if (isNumber(propValue)) {
-      return propValue;
-   }
+export function nsIsNumber(value: any): boolean {
+   return typeof value === 'number';
+}
 
-   if (isBoolean(propValue)) {
-      return propValue;
-   }
-
-   return `"${propValue}"`;
+export function nsIsBoolean(value: any): boolean {
+   return typeof value === 'boolean';
 }
 
 export function nsNull(value: any, nullValue: any) {

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { buildLocalizedTextEnLanguages } from './localized-text-lang-en.languages';
 import { buildLocalizedTextEnNikiSoft } from './localized-text-lang-en.nikisoft';
 import { buildLocalizedTextSkLanguages } from './localized-text-lang-sk.languages';
@@ -41,10 +41,10 @@ export class LocalizedTextService {
 
       return this._httpClient.get(`assets/localization/localized-text-lang-${languageCode}.json`)
       .pipe(
-         switchMap(value => (of({
+         map(value => ({
                ...localizedText,
                ...value
-            }))
+            })
          )
       );
    }

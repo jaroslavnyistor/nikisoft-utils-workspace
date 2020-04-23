@@ -27,36 +27,53 @@ export class NsStorageService {
       this._keyStatePrefix = keyStatePrefix;
    }
 
-   save(key: string, value: any) {
+   savePerUser(key: string, value: any) {
       localStorage.setItem(
-         this.getKey(key),
+         this.getKeyPerUser(key),
          JSON.stringify(value)
       );
    }
 
-   load<T>(key: string): T {
+   loadPerUser<T>(key: string): T {
       const savedValue = localStorage.getItem(
-         this.getKey(key)
+         this.getKeyPerUser(key)
       );
 
       return JSON.parse(savedValue);
    }
 
-   delete(key: string) {
+   private getKeyPerUser(key: string) {
+      return `${this._keyStatePrefix}:${this.userId}:${key}`;
+   }
+
+   deletePerUser(key: string) {
       localStorage.removeItem(
-         this.getKey(key)
+         this.getKeyPerUser(key)
       );
    }
 
-   private getKey(key: string) {
-      let result = this._keyStatePrefix;
+   savePerApplication(key: string, value: any) {
+      localStorage.setItem(
+         this.getKeyPerApplication(key),
+         JSON.stringify(value)
+      );
+   }
 
-      if (this.userId != null) {
-         result += `:${this.userId}`;
-      }
+   loadPerApplication<T>(key: string): T {
+      const savedValue = localStorage.getItem(
+         this.getKeyPerApplication(key)
+      );
 
-      result += `:${key}`;
+      return JSON.parse(savedValue);
+   }
 
-      return result;
+   deletePerApplication(key: string) {
+      localStorage.removeItem(
+         this.getKeyPerApplication(key)
+      );
+   }
+
+   private getKeyPerApplication(key: string) {
+      return `${this._keyStatePrefix}:${key}`;
    }
 }

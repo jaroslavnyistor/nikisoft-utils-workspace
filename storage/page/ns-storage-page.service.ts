@@ -5,13 +5,10 @@ const navigationToStateKey = 'app-navigation-to-state';
 const navigationBackStateKey = 'app-navigation-back-state';
 
 export class NsStoragePageService {
-   private readonly _storageService;
-
    constructor(
-      private _model: NsStoragePageModel,
-      storageService: NsStorageService
+      private readonly _model: NsStoragePageModel,
+      private readonly _storageService: NsStorageService
    ) {
-      this._storageService = storageService;
    }
 
    onInit(): void {
@@ -28,7 +25,7 @@ export class NsStoragePageService {
 
    private loadPageState() {
       const stateKey = this._model.getStateKey();
-      const state = this._storageService.load(stateKey);
+      const state = this._storageService.loadPerUser(stateKey);
 
       if (state != null) {
          this._model.setState(state);
@@ -36,19 +33,19 @@ export class NsStoragePageService {
    }
 
    private loadNavigationToState() {
-      const state = this._storageService.load(navigationToStateKey);
+      const state = this._storageService.loadPerUser(navigationToStateKey);
 
       if (state != null) {
-         this._storageService.delete(navigationToStateKey);
+         this._storageService.deletePerUser(navigationToStateKey);
          this._model.onNavigationToState(state);
       }
    }
 
    private loadNavigationBackState() {
-      const state = this._storageService.load(navigationBackStateKey);
+      const state = this._storageService.loadPerUser(navigationBackStateKey);
 
       if (state != null) {
-         this._storageService.delete(navigationBackStateKey);
+         this._storageService.deletePerUser(navigationBackStateKey);
 
          this._model.onNavigationBackState(state);
       }
@@ -71,23 +68,23 @@ export class NsStoragePageService {
 
       if (state != null) {
          const stateKey = this._model.getStateKey();
-         this._storageService.save(stateKey, state);
+         this._storageService.savePerUser(stateKey, state);
       }
    }
 
    saveNavigationToState(state: any) {
       if (state != null) {
-         this._storageService.save(navigationToStateKey, state);
+         this._storageService.savePerUser(navigationToStateKey, state);
       }
    }
 
    saveNavigationBackState(state: any) {
       if (state != null) {
-         this._storageService.save(navigationBackStateKey, state);
+         this._storageService.savePerUser(navigationBackStateKey, state);
       }
    }
 
    deletePageState() {
-      this._storageService.delete(this._model.getStateKey());
+      this._storageService.deletePerUser(this._model.getStateKey());
    }
 }

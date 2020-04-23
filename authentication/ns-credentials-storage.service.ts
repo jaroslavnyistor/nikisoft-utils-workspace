@@ -10,8 +10,8 @@ const keyLanguage = 'language';
    providedIn: 'root'
 })
 export class NsCredentialsStorageService {
-   constructor(private _storage: NsStorageService) {
-      this._storage.userId = JSON.parse(localStorage.getItem(keyId));
+   constructor(private readonly _storage: NsStorageService) {
+      this._storage.userId = _storage.loadPerApplication(keyId);
 
       const credentials = this.credentials;
       if (credentials != null) {
@@ -20,11 +20,11 @@ export class NsCredentialsStorageService {
    }
 
    get language(): string {
-      return localStorage.getItem(keyLanguage);
+      return this._storage.loadPerApplication(keyLanguage);
    }
 
    get credentials(): NsAuthenticateResponseEntity {
-      return this._storage.load(keyCredentials);
+      return this._storage.loadPerUser(keyCredentials);
    }
 
    login(value: NsAuthenticateResponseEntity) {
@@ -48,15 +48,15 @@ export class NsCredentialsStorageService {
    }
 
    private saveCredentials(newCredentials: NsAuthenticateResponseEntity) {
-      this._storage.save(keyCredentials, newCredentials);
+      this._storage.savePerUser(keyCredentials, newCredentials);
    }
 
    private saveUserId(userId: number) {
-      localStorage.setItem(keyId, JSON.stringify(userId));
+      this._storage.savePerApplication(keyId, userId);
       this._storage.userId = userId;
    }
 
    setLanguage(value: string) {
-      localStorage.setItem(keyLanguage, value);
+      this._storage.savePerApplication(keyLanguage, value);
    }
 }

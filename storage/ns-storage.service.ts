@@ -42,14 +42,22 @@ export class NsStorageService {
       return JSON.parse(savedValue);
    }
 
-   private getKeyPerUser(key: string) {
-      return `${this._keyStatePrefix}:${this.userId}:${key}`;
-   }
-
    deletePerUser(key: string) {
       localStorage.removeItem(
          this.getKeyPerUser(key)
       );
+   }
+
+   private getKeyPerUser(key: string) {
+      let resolvedKey = this._keyStatePrefix;
+
+      if (this.userId != null) {
+         resolvedKey += `:${this.userId}`;
+      }
+
+      resolvedKey += `:${key}`;
+
+      return resolvedKey;
    }
 
    savePerApplication(key: string, value: any) {

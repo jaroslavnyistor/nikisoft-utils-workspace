@@ -86,5 +86,6 @@ export function buildLocalizedTextEnNikiSoft() {
       [LocalizedTextIdNikisoft.Item]: 'Item',
       [LocalizedTextIdNikisoft.Value]: 'Value',
       [LocalizedTextIdNikisoft.Details]: 'Details',
+      [LocalizedTextIdNikisoft.Version]: 'Version',
    };
 }

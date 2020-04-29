@@ -86,5 +86,6 @@ export function buildLocalizedTextSkNikiSoft() {
       [LocalizedTextIdNikisoft.Item]: 'Položka',
       [LocalizedTextIdNikisoft.Value]: 'Hodnota',
       [LocalizedTextIdNikisoft.Details]: 'Detaily',
+      [LocalizedTextIdNikisoft.Version]: 'Verzia',
    };
 }

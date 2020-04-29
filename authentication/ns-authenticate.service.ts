@@ -71,7 +71,6 @@ export class NsAuthenticateService implements CanActivate {
 
    public authenticate(userName: string, password: string): Observable<NsAuthenticateResponseEntity> {
       return this._apiService.authenticate(userName, password);
-
    }
 
    public login(

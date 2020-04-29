@@ -27,4 +27,17 @@ export class NsApiResponseError {
    get serverValidationResult(): NsApiErrorResponse[] {
       return this._serverValidationResult;
    }
+
+   toString(): string {
+      return `${this._type}: ${this._serverValidationResult}`;
+   }
+
+   static forServerValidationFailed(code: number): NsApiResponseError {
+      return new NsApiResponseError(
+         NsApiResponseErrorType.ServerValidationFailed,
+         [
+            { code, subCodes: [] }
+         ]
+      )
+   }
 }

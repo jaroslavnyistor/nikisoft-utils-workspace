@@ -106,7 +106,7 @@ export class LocalizationLanguagesService {
       this._selectedLanguageItem = this._languageItems.find(e => e.language === language);
    }
 
-   text(prop: any, args?: any): string {
+   translate(prop: any, args?: any): string {
       let result = this._definition[prop];
 
       if (result === undefined) {
@@ -123,71 +123,71 @@ export class LocalizationLanguagesService {
    }
 
    getCancelText(): string {
-      return this.text(LocalizedTextIdNikisoft.Cancel);
+      return this.translate(LocalizedTextIdNikisoft.Cancel);
    }
 
    getSaveText(): string {
-      return this.text(LocalizedTextIdNikisoft.Save);
+      return this.translate(LocalizedTextIdNikisoft.Save);
    }
 
    getValidationEmailIncorrectFormat(): string {
-      return this.text(LocalizedTextIdNikisoft.Validation_EmailIncorrectFormat);
+      return this.translate(LocalizedTextIdNikisoft.Validation_EmailIncorrectFormat);
    }
 
    getValidationMaxLengthExceed(value: number): string {
-      return this.text(LocalizedTextIdNikisoft.Validation_MaxLength, value);
+      return this.translate(LocalizedTextIdNikisoft.Validation_MaxLength, value);
    }
 
    getValidationIsLessThanMinLength(value: number): string {
-      return this.text(LocalizedTextIdNikisoft.Validation_MinLength, value);
+      return this.translate(LocalizedTextIdNikisoft.Validation_MinLength, value);
    }
 
    getValidationMaxValueExceed(value: number): string {
-      return this.text(LocalizedTextIdNikisoft.Validation_MaxValue, value);
+      return this.translate(LocalizedTextIdNikisoft.Validation_MaxValue, value);
    }
 
    getValidationIsLessThanMinValue(value: number): string {
-      return this.text(LocalizedTextIdNikisoft.Validation_MinValue, value);
+      return this.translate(LocalizedTextIdNikisoft.Validation_MinValue, value);
    }
 
    getValidationRequired(): string {
-      return this.text(LocalizedTextIdNikisoft.Validation_Required);
+      return this.translate(LocalizedTextIdNikisoft.Validation_Required);
    }
 
    getNotAuthorized(): string {
-      return this.text(LocalizedTextIdNikisoft.NotAuthorized);
+      return this.translate(LocalizedTextIdNikisoft.NotAuthorized);
    }
 
    getRequestedServiceNotFound(): string {
-      return this.text(LocalizedTextIdNikisoft.RequestedServiceNotFound);
+      return this.translate(LocalizedTextIdNikisoft.RequestedServiceNotFound);
    }
 
    getServerFailed(): string {
-      return this.text(LocalizedTextIdNikisoft.ServerFailed);
+      return this.translate(LocalizedTextIdNikisoft.ServerFailed);
    }
 
    getUnableToConnectToServer(): string {
-      return this.text(LocalizedTextIdNikisoft.UnableToConnectToServer);
+      return this.translate(LocalizedTextIdNikisoft.UnableToConnectToServer);
    }
 
    getUnknownError(): string {
-      return this.text(LocalizedTextIdNikisoft.UnknownError);
+      return this.translate(LocalizedTextIdNikisoft.UnknownError);
    }
 
    getDeleteTitle(): string {
-      return this.text(LocalizedTextIdNikisoft.DeleteTitle);
+      return this.translate(LocalizedTextIdNikisoft.DeleteTitle);
    }
 
    getDeleteMessage(): string {
-      return this.text(LocalizedTextIdNikisoft.DeleteMessage);
+      return this.translate(LocalizedTextIdNikisoft.DeleteMessage);
    }
 
    getOrderAsc(): string {
-      return this.text(LocalizedTextIdNikisoft.OrderAsc);
+      return this.translate(LocalizedTextIdNikisoft.OrderAsc);
    }
 
    getOrderDesc(): string {
-      return this.text(LocalizedTextIdNikisoft.OrderDesc);
+      return this.translate(LocalizedTextIdNikisoft.OrderDesc);
    }
 
    selectLanguage(language: LocalizationLanguageItem) {

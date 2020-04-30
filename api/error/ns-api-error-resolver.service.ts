@@ -41,12 +41,12 @@ export class NsApiErrorResolverService {
 
       serverErrors.forEach(serverError => {
          if (serverError.subCodes.length === 0) {
-            const errorText = this.getServerErrorText(mapper, langService, serverError.code);
+            const errorText = NsApiErrorResolverService.getServerErrorText(mapper, langService, serverError.code);
             result.push(errorText);
          } else {
             const subCodesMapper = mapper[serverError.code];
             serverError.subCodes.forEach(code => {
-               const subErrorText = this.getServerErrorText(subCodesMapper, langService, code);
+               const subErrorText = NsApiErrorResolverService.getServerErrorText(subCodesMapper, langService, code);
                result.push(subErrorText);
             });
          }
@@ -55,8 +55,8 @@ export class NsApiErrorResolverService {
       return result;
    }
 
-   private getServerErrorText(mapper: any, langService: LocalizationLanguagesService, code: number) {
+   private static getServerErrorText(mapper: any, langService: LocalizationLanguagesService, code: number) {
       const textId = mapper[code];
-      return langService.text(textId);
+      return langService.translate(textId);
    }
 }

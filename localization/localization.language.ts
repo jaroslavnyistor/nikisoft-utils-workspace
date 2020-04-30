@@ -18,13 +18,13 @@ export function buildLocalizationLanguages(langService: LocalizationLanguagesSer
       {
          id: 1,
          language: LocalizationLanguage.EN,
-         text: langService.text(LocalizedTextIdLanguages.LanguageEn),
+         text: langService.translate(LocalizedTextIdLanguages.LanguageEn),
          textShortcut: 'EN'
       },
       {
          id: 2,
          language: LocalizationLanguage.SK,
-         text: langService.text(LocalizedTextIdLanguages.LanguageSk),
+         text: langService.translate(LocalizedTextIdLanguages.LanguageSk),
          textShortcut: 'SK'
       }
    ];

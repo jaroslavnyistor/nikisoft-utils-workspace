@@ -87,5 +87,6 @@ export function buildLocalizedTextSkNikiSoft() {
       [LocalizedTextIdNikisoft.Value]: 'Hodnota',
       [LocalizedTextIdNikisoft.Details]: 'Detaily',
       [LocalizedTextIdNikisoft.Version]: 'Verzia',
+      [LocalizedTextIdNikisoft.GoToHomePage]: 'Vrátiť sa domovskú stránku',
    };
 }

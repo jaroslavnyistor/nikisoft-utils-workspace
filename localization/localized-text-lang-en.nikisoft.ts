@@ -87,5 +87,6 @@ export function buildLocalizedTextEnNikiSoft() {
       [LocalizedTextIdNikisoft.Value]: 'Value',
       [LocalizedTextIdNikisoft.Details]: 'Details',
       [LocalizedTextIdNikisoft.Version]: 'Version',
+      [LocalizedTextIdNikisoft.GoToHomePage]: 'Go to home page',
    };
 }

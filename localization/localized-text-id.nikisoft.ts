@@ -82,4 +82,5 @@ export enum LocalizedTextIdNikisoft {
    Value = 'Value',
    Details = 'Details',
    Version = 'Version',
+   GoToHomePage = 'GoToHomePage',
 }

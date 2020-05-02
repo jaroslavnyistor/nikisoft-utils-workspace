@@ -23,24 +23,24 @@ export class NsNavigationService {
       service.saveNavigationBackState(navigationBackState);
    }
 
-   protected async navigate(url: string, queryParams: Params = null, state: any = null) {
-      await this._routerService.navigate(url, queryParams, state);
+   protected navigate(url: string, queryParams: Params = null, state: any = null) {
+      return this._routerService.navigate(url, queryParams, state);
    }
 
-   async toLogin(returnUrl: string = null) {
+   toLogin(returnUrl: string = null): Promise<void> {
       const queryParams: Params = {
          returnUrl: nsNullOrEmpty(returnUrl, this._routerService.url)
       };
 
-      await this.navigate(loginRoute, queryParams);
+      return this.navigate(loginRoute, queryParams);
    }
 
-   async toReturnUrl(returnUrl: string) {
-      await this.navigate(returnUrl);
+   toReturnUrl(returnUrl: string) {
+      return this.navigate(returnUrl);
    }
 
-   async toUrl(route: string) {
-      await this.navigate(route);
+   toUrl(route: string) {
+      return this.navigate(route);
    }
 }
 

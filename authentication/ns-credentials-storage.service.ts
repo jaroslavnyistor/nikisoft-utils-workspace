@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NsStorageService } from '../storage/ns-storage.service';
-import { NsAuthenticateResponseEntity } from './ns-authenticate-response.entity';
+import { newNsAuthenticateResponseEntity, NsAuthenticateResponseEntity } from './ns-authenticate-response.entity';
 
 const keyId = 'id';
 const keyCredentials = 'credentials';
@@ -24,7 +24,7 @@ export class NsCredentialsStorageService {
    }
 
    get credentials(): NsAuthenticateResponseEntity {
-      return this._storage.loadPerUser(keyCredentials);
+      return this._storage.loadPerApplication(keyCredentials);
    }
 
    login(value: NsAuthenticateResponseEntity) {
@@ -32,23 +32,15 @@ export class NsCredentialsStorageService {
       this.saveCredentials(value);
    }
 
-   logout(value: NsAuthenticateResponseEntity) {
-      const credentials = this.credentials;
+   logout() {
+      const credentials = newNsAuthenticateResponseEntity()
+      this.saveCredentials(credentials);
 
-      if (credentials && credentials.id > 0) {
-         const newCredentials = {
-            ...value,
-            id: credentials.id,
-         };
-
-         this.saveCredentials(newCredentials);
-      }
-
-      this.saveUserId(value.id);
+      this.saveUserId(credentials.id);
    }
 
    private saveCredentials(newCredentials: NsAuthenticateResponseEntity) {
-      this._storage.savePerUser(keyCredentials, newCredentials);
+      this._storage.savePerApplication(keyCredentials, newCredentials);
    }
 
    private saveUserId(userId: number) {

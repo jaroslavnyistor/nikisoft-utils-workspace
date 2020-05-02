@@ -69,29 +69,27 @@ export class NsAuthenticateService implements CanActivate {
       );
    }
 
-   public authenticate(userName: string, password: string): Observable<NsAuthenticateResponseEntity> {
+   authenticate(userName: string, password: string): Observable<NsAuthenticateResponseEntity> {
       return this._apiService.authenticate(userName, password);
    }
 
-   public login(
-      credentials: NsAuthenticateResponseEntity,
-      returnUrl: string
-   ) {
+   login(credentials: NsAuthenticateResponseEntity, returnUrl: string) {
       this._credentialsStorageService.login(credentials);
       this.notifyAuthenticationEvent(returnUrl);
 
       this._navService.toReturnUrl(returnUrl);
    }
 
-   public logout(url?: string) {
-      this._credentialsStorageService.logout(newNsAuthenticateResponseEntity());
-
-      this._apiService.logout();
-
+   logout(url?: string) {
       const routerUrl = nsNullOrEmpty(url, this._routerService.url);
-      this.notifyAuthenticationEvent(routerUrl);
 
-      this._navService.toLogin(routerUrl);
+      this._navService.toLogin(routerUrl)
+      .then(() => {
+         this._credentialsStorageService.logout();
+         this._apiService.logout();
+
+         this.notifyAuthenticationEvent(routerUrl);
+      });
    }
 
    private notifyAuthenticationEvent(url: string) {

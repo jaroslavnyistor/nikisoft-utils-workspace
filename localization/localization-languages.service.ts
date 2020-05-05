@@ -97,7 +97,7 @@ export class LocalizationLanguagesService {
       this.selectLanguageItem(localizationLanguage);
 
       const language = LocalizationLanguagesService.resolveLanguage();
-      NsDate.locale(language);
+      NsDate.initialize(language);
    }
 
    private static resolveLanguage(): string {

@@ -89,8 +89,20 @@ export class NsDate extends Object {
       );
    }
 
-   static locale(language: string) {
+   static initialize(language: string) {
       moment.locale(language);
+   }
+
+   static weekdays(): string[] {
+      return moment.weekdays(true);
+   }
+
+   static weekdaysShort(): string[] {
+      return moment.weekdaysShort(true);
+   }
+
+   static weekdaysMin(): string[] {
+      return moment.weekdaysMin(true);
    }
 
    protected get value(): moment.Moment {
@@ -197,14 +209,7 @@ export class NsDate extends Object {
    }
 
    toStartOfWeek(): this {
-      let dayOfWeek = this.dayOfWeek;
-      if (dayOfWeek === 0) {
-         dayOfWeek = 7;
-      }
-
-      dayOfWeek--;
-
-      this.addDays(-dayOfWeek);
+      this._value.startOf('week');
       return this;
    }
 
@@ -216,6 +221,12 @@ export class NsDate extends Object {
 
    toEndOfMonth(): this {
       this._value.endOf('month');
+
+      return this;
+   }
+
+   toEndOfWeek(): this {
+      this._value.endOf('week');
 
       return this;
    }

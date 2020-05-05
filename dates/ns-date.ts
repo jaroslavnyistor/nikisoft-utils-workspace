@@ -89,6 +89,10 @@ export class NsDate extends Object {
       );
    }
 
+   static locale(language: string) {
+      moment.locale(language);
+   }
+
    protected get value(): moment.Moment {
       return this._value;
    }

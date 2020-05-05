@@ -1,6 +1,7 @@
 import { APP_INITIALIZER, Inject, Injectable, InjectionToken, Provider } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { NsCredentialsStorageService } from '../authentication/ns-credentials-storage.service';
+import { NsDate } from '../dates/ns-date';
 import { nsStringFormat } from '../helpers/strings/ns-helpers-strings';
 import { buildLocalizationLanguages, LocalizationLanguage, LocalizationLanguageItem } from './localization.language';
 import { LocalizedTextIdNikisoft } from './localized-text-id.nikisoft';
@@ -85,13 +86,29 @@ export class LocalizationLanguagesService {
 
       return this._localizedTextService.download(language)
       .pipe(
-         tap(value => {
-            this._definition = value;
-
-            this.selectLanguageItem(language);
-         })
+         tap(value => this.initialize(value, language))
       )
       .toPromise();
+   }
+
+   private initialize(definition: any, localizationLanguage: LocalizationLanguage) {
+      this._definition = definition;
+
+      this.selectLanguageItem(localizationLanguage);
+
+      const language = LocalizationLanguagesService.resolveLanguage();
+      NsDate.locale(language);
+   }
+
+   private static resolveLanguage(): string {
+      let language;
+      if (window.navigator.languages) {
+         language = window.navigator.languages[0];
+      } else {
+         language = window.navigator.language;
+      }
+
+      return language;
    }
 
    private saveSelectedLanguage(language: LocalizationLanguage) {

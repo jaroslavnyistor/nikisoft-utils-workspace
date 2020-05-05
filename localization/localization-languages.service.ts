@@ -100,7 +100,7 @@ export class LocalizationLanguagesService {
       NsDate.initialize(language);
    }
 
-   private static resolveLanguage(): string {
+   static resolveLanguage(): string {
       let language;
       if (window.navigator.languages) {
          language = window.navigator.languages[0];

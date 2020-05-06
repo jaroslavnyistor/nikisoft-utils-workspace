@@ -1,6 +1,6 @@
 import { Inject, Injectable, InjectionToken, Type } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Route, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { NsPageNoPermissionService } from '../../ui/page/no-permission/ns-page-no-permission.service';
 import { nsNullOrEmpty } from '../helpers/strings/ns-helpers-strings';
 import { NsNavigationService } from '../navigation/ns-navigation.service';
@@ -8,7 +8,6 @@ import { NsRouterService } from '../navigation/ns-router.service';
 import { newNsAuthenticateResponseEntity, NsAuthenticateResponseEntity } from './ns-authenticate-response.entity';
 import { NsAuthenticateResponseModel } from './ns-authenticate-response.model';
 import { NsAuthenticationApiService } from './ns-authentication-api.service';
-import { NsAuthenticationEvent } from './ns-authentication.event';
 import { NsCredentialsStorageService } from './ns-credentials-storage.service';
 
 export const DI_NS_AUTHENTICATION_API_SERVICE = new InjectionToken<NsAuthenticationApiService>(
@@ -36,25 +35,18 @@ export function buildSecureRouteToComponent(path: string, component: Type<any>, 
    providedIn: 'root'
 })
 export class NsAuthenticateService implements CanActivate {
-   private readonly _authenticationEvent$: BehaviorSubject<NsAuthenticationEvent>;
+   private readonly _model: NsAuthenticateResponseModel;
 
    get userId(): number {
-      return this._authenticationEvent$.value.credentials.id;
+      return this._model.id;
    }
 
-   get authenticationEvent$(): Observable<NsAuthenticationEvent> {
-      return this._authenticationEvent$;
+   get isLoggedIn$(): Observable<boolean> {
+      return this._model.isLoggedIn$;
    }
 
-   private get credentials(): NsAuthenticateResponseModel {
-      const entity: NsAuthenticateResponseEntity =
-         this._credentialsStorageService.credentials || newNsAuthenticateResponseEntity();
-
-      return new NsAuthenticateResponseModel(entity);
-   }
-
-   get isLoggedIn(): boolean {
-      return this.credentials != null && this.credentials.isLoggedIn;
+   get changes$(): Observable<NsAuthenticateResponseModel> {
+      return this._model.changes$;
    }
 
    constructor(
@@ -64,64 +56,53 @@ export class NsAuthenticateService implements CanActivate {
       private _credentialsStorageService: NsCredentialsStorageService,
       private _routerService: NsRouterService
    ) {
-      this._authenticationEvent$ = new BehaviorSubject<NsAuthenticationEvent>(
-         this.createAuthenticationEvent(undefined)
-      );
+      this._model = new NsAuthenticateResponseModel();
+
+      const entity = this._credentialsStorageService.credentials || newNsAuthenticateResponseEntity()
+      this._model.update(entity);
    }
 
    authenticate(userName: string, password: string): Observable<NsAuthenticateResponseEntity> {
       return this._apiService.authenticate(userName, password);
    }
 
-   login(credentials: NsAuthenticateResponseEntity, returnUrl: string) {
-      this._credentialsStorageService.login(credentials);
-      this.notifyAuthenticationEvent(returnUrl);
+   login(entity: NsAuthenticateResponseEntity, returnUrl: string): Promise<void> {
+      this._credentialsStorageService.login(entity);
+      this._model.update(entity);
 
-      this._navService.toReturnUrl(returnUrl);
+      return this._navService.toReturnUrl(returnUrl);
    }
 
-   logout(url?: string) {
+   logout(url?: string): Promise<void> {
       const routerUrl = nsNullOrEmpty(url, this._routerService.url);
 
-      this._navService.toLogin(routerUrl)
+      return this._navService.toLogin(routerUrl)
       .then(() => {
          this._credentialsStorageService.logout();
          this._apiService.logout();
 
-         this.notifyAuthenticationEvent(routerUrl);
+         this._model.update(newNsAuthenticateResponseEntity());
       });
-   }
-
-   private notifyAuthenticationEvent(url: string) {
-      const authenticationEvent = this.createAuthenticationEvent(url);
-      this._authenticationEvent$.next(authenticationEvent);
-   }
-
-   private createAuthenticationEvent(url: string) {
-      return {
-         credentials: this.credentials,
-         url
-      };
    }
 
    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
       Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      let canNavigate = this.credentials.isLoggedIn;
-      if (!canNavigate) {
+      if (!this._model.isLoggedIn) {
          this.logout(state.url);
-      } else {
-         canNavigate = this.credentials.hasPermission(route.data);
 
-         if (!canNavigate) {
-            this._noPermissionService.navigate();
-         }
+         return false;
       }
 
-      return canNavigate;
+      if (!this._model.hasPermission(route.data)) {
+         this._noPermissionService.navigate();
+         return false;
+      }
+
+      return true;
    }
 
    hasPermission(permissionId: number) {
-      return permissionId === 0 || this.credentials.hasPermissionById(permissionId);
+      return this._model.hasPermissionById(permissionId);
    }
 }

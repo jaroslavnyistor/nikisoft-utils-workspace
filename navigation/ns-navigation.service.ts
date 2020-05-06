@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Provider, Type } from '@angular/core';
 import { Params } from '@angular/router';
 import { loginRoute } from '../../ui/page/login/login.routes';
 import { nsNullOrEmpty } from '../helpers/strings/ns-helpers-strings';
@@ -7,11 +7,19 @@ import { NsStoragePageModel } from '../storage/page/ns-storage-page.model';
 import { NsStoragePageService } from '../storage/page/ns-storage-page.service';
 import { NsRouterService } from './ns-router.service';
 
-@Injectable({
-   providedIn: 'root'
-})
-export class NsNavigationService {
-   constructor(
+export function registerNavigationService<TService extends NsNavigationService>(
+   service: Type<TService>): Provider[] {
+   return [
+      service,
+      {
+         useExisting: service,
+         provide: NsNavigationService
+      }
+   ];
+}
+
+export abstract class NsNavigationService {
+   protected constructor(
       protected _routerService: NsRouterService,
       private _storageService: NsStorageService
    ) {

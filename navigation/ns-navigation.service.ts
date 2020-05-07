@@ -1,4 +1,3 @@
-import { Provider, Type } from '@angular/core';
 import { Params } from '@angular/router';
 import { loginRoute } from '../../ui/page/login/login.routes';
 import { nsNullOrEmpty } from '../helpers/strings/ns-helpers-strings';
@@ -6,17 +5,6 @@ import { NsStorageService } from '../storage/ns-storage.service';
 import { NsStoragePageModel } from '../storage/page/ns-storage-page.model';
 import { NsStoragePageService } from '../storage/page/ns-storage-page.service';
 import { NsRouterService } from './ns-router.service';
-
-export function registerNavigationService<TService extends NsNavigationService>(
-   service: Type<TService>): Provider[] {
-   return [
-      service,
-      {
-         useExisting: service,
-         provide: NsNavigationService
-      }
-   ];
-}
 
 export abstract class NsNavigationService {
    protected constructor(
@@ -33,6 +21,10 @@ export abstract class NsNavigationService {
 
    protected navigate(url: string, queryParams: Params = null, state: any = null) {
       return this._routerService.navigate(url, queryParams, state);
+   }
+
+   toHomePage(): Promise<void> {
+      return this.navigate('/');
    }
 
    toLogin(returnUrl: string = null): Promise<void> {

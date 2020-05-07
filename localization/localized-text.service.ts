@@ -43,18 +43,18 @@ export class LocalizedTextService {
          `assets/localization/localized-text-lang-${languageCode}.json`,
          {
             headers: {
-               'Cache-Control':  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+               'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
                'Pragma': 'no-cache',
                'Expires': '0'
             }
          }
       )
-      .pipe(
-         map(value => ({
-               ...localizedText,
-               ...value
-            })
-         )
-      );
+         .pipe(
+            map(value => ({
+                  ...localizedText,
+                  ...value
+               })
+            )
+         );
    }
 }

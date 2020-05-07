@@ -29,10 +29,10 @@ export class NsApiService implements NsAuthenticationApiService {
 
    public authenticate(userName: string, password: string): Observable<NsAuthenticateResponseEntity> {
       const request = new NsApiRequest(urlAuthenticate)
-      .withBody({
-         userName,
-         password
-      });
+         .withBody({
+            userName,
+            password
+         });
 
       return this.post<NsAuthenticateResponseEntity>(request);
    }
@@ -45,7 +45,7 @@ export class NsApiService implements NsAuthenticationApiService {
 
    private appendAuthorization(request: NsApiRequest) {
       request.withHeader('Authorization', `Bearer ${this._credentialsStorageService.credentials.token}`)
-      .withHeader('DeviceName', 'web');
+         .withHeader('DeviceName', 'web');
    }
 
    private post<TData>(request: NsApiRequest): Observable<TData> {
@@ -54,10 +54,10 @@ export class NsApiService implements NsAuthenticationApiService {
          request.body,
          request.options
       )
-      .pipe(
-         retry(3),
-         catchError(error => this.handleErrorResponse(error))
-      );
+         .pipe(
+            retry(3),
+            catchError(error => this.handleErrorResponse(error))
+         );
    }
 
    private handleErrorResponse(error: HttpErrorResponse): Observable<any> {

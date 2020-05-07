@@ -13,14 +13,14 @@ export class NsDateTime extends NsDate {
 
    static min(): NsDateTime {
       return NsDateTime.from()
-      .setDate(1970, 1, 1)
-      .setBeginOfDay();
+         .setDate(1970, 1, 1)
+         .setBeginOfDay();
    }
 
    static max(): NsDateTime {
       return NsDateTime.from()
-      .setDate(2099, 11, 31)
-      .setEndOfDay();
+         .setDate(2099, 11, 31)
+         .setEndOfDay();
    }
 
    static timeOnly(hours: number, minutes: number, date?: string): NsDateTime {
@@ -35,7 +35,7 @@ export class NsDateTime extends NsDate {
 
    static fromAsString(value?: any): string {
       return NsDateTime.from(value)
-      .toString();
+         .toString();
    }
 
    static from(value?: any): NsDateTime {
@@ -85,9 +85,9 @@ export class NsDateTime extends NsDate {
 
    setTime(hour: number, minutes: number, seconds = 0, milliseconds = 0): this {
       return this.setHour(hour)
-      .setMinutes(minutes)
-      .setSeconds(seconds)
-      .setMilliseconds(milliseconds);
+         .setMinutes(minutes)
+         .setSeconds(seconds)
+         .setMilliseconds(milliseconds);
    }
 
    setHour(hour: number): this {
@@ -136,14 +136,14 @@ export class NsDateTime extends NsDate {
 
    setBeginOfDay(): this {
       return this.setHour(0)
-      .resetMinutesSecondsMilliseconds();
+         .resetMinutesSecondsMilliseconds();
    }
 
    setEndOfDay(): this {
       return this.setHour(23)
-      .setMinutes(59)
-      .setSeconds(59)
-      .setMilliseconds(999);
+         .setMinutes(59)
+         .setSeconds(59)
+         .setMilliseconds(999);
    }
 
    resetMinutesSecondsMilliseconds(): this {
@@ -184,14 +184,14 @@ export class NsDateTime extends NsDate {
 
    toStartOfDay(): this {
       return this.setHour(0)
-      .resetMinutesSecondsMilliseconds();
+         .resetMinutesSecondsMilliseconds();
    }
 
    toEndOfDay(): this {
       return this.setHour(23)
-      .setMinutes(59)
-      .setSeconds(59)
-      .setMilliseconds(999);
+         .setMinutes(59)
+         .setSeconds(59)
+         .setMilliseconds(999);
    }
 
    toHumanReadableString(includeSeconds = false): string {

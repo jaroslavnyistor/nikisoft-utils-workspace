@@ -6,12 +6,12 @@ export class NsDate extends Object {
 
    static min(): NsDate {
       return NsDate.from()
-      .setDate(1970, 1, 1);
+         .setDate(1970, 1, 1);
    }
 
    static max(): NsDate {
       return NsDate.from()
-      .setDate(2099, 11, 31);
+         .setDate(2099, 11, 31);
    }
 
    static clone(value: NsDate) {
@@ -28,7 +28,7 @@ export class NsDate extends Object {
 
    static fromAsString(value?: any): string {
       return NsDate.from(value)
-      .toString();
+         .toString();
    }
 
    static from(value?: string) {
@@ -74,8 +74,8 @@ export class NsDate extends Object {
    static daysInYear(year: number) {
       const start = NsDate.from(`${year}-01-01`);
       const end = NsDate.clone(start)
-      .addYears(1)
-      .addDays(-1);
+         .addYears(1)
+         .addDays(-1);
 
       return end.diffInDays(start);
    }
@@ -83,9 +83,9 @@ export class NsDate extends Object {
    static createNew(year: number, month: number, day: number) {
       return new NsDate(
          moment()
-         .year(year)
-         .month(month - 1)
-         .date(day)
+            .year(year)
+            .month(month - 1)
+            .date(day)
       );
    }
 
@@ -134,9 +134,9 @@ export class NsDate extends Object {
 
       this._value = moment(value);
       this._value.hours(0)
-      .minutes(0)
-      .seconds(0)
-      .milliseconds(0);
+         .minutes(0)
+         .seconds(0)
+         .milliseconds(0);
    }
 
    toString(): string {
@@ -149,8 +149,8 @@ export class NsDate extends Object {
 
    setDate(year: number, month: number, day: number): this {
       return this.setYear(year)
-      .setMonth(month)
-      .setDay(day);
+         .setMonth(month)
+         .setDay(day);
    }
 
    setYear(value: number): this {

@@ -85,10 +85,10 @@ export class LocalizationLanguagesService {
       }
 
       return this._localizedTextService.download(language)
-      .pipe(
-         tap(value => this.initialize(value, language))
-      )
-      .toPromise();
+         .pipe(
+            tap(value => this.initialize(value, language))
+         )
+         .toPromise();
    }
 
    private initialize(definition: any, localizationLanguage: LocalizationLanguage) {

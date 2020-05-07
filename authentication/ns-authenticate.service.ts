@@ -77,12 +77,12 @@ export class NsAuthenticateService implements CanActivate {
       const routerUrl = nsNullOrEmpty(url, this._routerService.url);
 
       return this._navService.toLogin(routerUrl)
-      .then(() => {
-         this._credentialsStorageService.logout();
-         this._apiService.logout();
+         .then(() => {
+            this._credentialsStorageService.logout();
+            this._apiService.logout();
 
-         this._model.update(newNsAuthenticateResponseEntity());
-      });
+            this._model.update(newNsAuthenticateResponseEntity());
+         });
    }
 
    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):

@@ -14,12 +14,6 @@ export const DI_NS_AUTHENTICATION_API_SERVICE = new InjectionToken<NsAuthenticat
    'DI_NS_AUTHENTICATION_API_SERVICE'
 );
 
-export function setAuthService(useClass: Type<NsAuthenticationApiService>) {
-   return {
-      provide: DI_NS_AUTHENTICATION_API_SERVICE, useClass
-   };
-}
-
 export function buildSecureRouteToComponent(path: string, component: Type<any>, permissionId): Route {
    return {
       path,

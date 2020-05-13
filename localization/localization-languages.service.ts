@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, Inject, Injectable, InjectionToken, Provider } from '@angular/core';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { NsCredentialsStorageService } from '../authentication/ns-credentials-storage.service';
 import { NsDate } from '../dates/ns-date';
@@ -12,23 +12,8 @@ export const DI_NS_DEFAULT_LANGUAGE = new InjectionToken<LocalizationLanguage>('
    factory: () => LocalizationLanguage.EN
 });
 
-export function setLocalizationLanguagesAppInitializer(): Provider {
-   return {
-      provide: APP_INITIALIZER,
-      useFactory: localizationLanguagesServiceAppInitializer,
-      deps: [LocalizationLanguagesService],
-      multi: true
-   };
-}
-
 export function localizationLanguagesServiceAppInitializer(service: LocalizationLanguagesService) {
    return () => service.load();
-}
-
-export function setDefaultLanguage(useValue: LocalizationLanguage): Provider {
-   return {
-      provide: DI_NS_DEFAULT_LANGUAGE, useValue
-   };
 }
 
 @Injectable({

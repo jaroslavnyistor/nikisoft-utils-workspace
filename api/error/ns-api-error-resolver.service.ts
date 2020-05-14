@@ -7,46 +7,45 @@ import { NsApiErrorResponse } from './ns-api-error.response';
    providedIn: 'root'
 })
 export class NsApiErrorResolverService {
-   resolve(mapper: any, langService: LocalizationLanguagesService, error: NsApiResponseError): string[] {
+   constructor(private readonly _langService: LocalizationLanguagesService) {
+   }
+
+   resolve(mapper: any, error: NsApiResponseError): string[] {
       console.error(error);
+
+      if (mapper == null) {
+         return [this._langService.getUnknownError()];
+      }
 
       switch (error.type) {
          case NsApiResponseErrorType.UnableToConnectToServer:
-            return [langService.getUnableToConnectToServer()];
+            return [this._langService.getUnableToConnectToServer()];
          case NsApiResponseErrorType.UnknownError:
-            return [langService.getUnknownError()];
+            return [this._langService.getUnknownError()];
          case NsApiResponseErrorType.ServerFailed:
-            return [langService.getServerFailed()];
+            return [this._langService.getServerFailed()];
          case NsApiResponseErrorType.RequestedServiceNotFound:
-            return [langService.getRequestedServiceNotFound()];
+            return [this._langService.getRequestedServiceNotFound()];
          case NsApiResponseErrorType.NotAuthorized:
-            return [langService.getNotAuthorized()];
+            return [this._langService.getNotAuthorized()];
          case NsApiResponseErrorType.ServerValidationFailed:
-            return this.resolveServerValidationErrors(
-               mapper,
-               langService,
-               error.serverValidationResult
-            );
+            return this.resolveServerValidationErrors(mapper, error.serverValidationResult);
          default:
-            return [langService.getUnknownError()];
+            return [this._langService.getUnknownError()];
       }
    }
 
-   private resolveServerValidationErrors(
-      mapper: any,
-      langService: LocalizationLanguagesService,
-      serverErrors: NsApiErrorResponse[]
-   ): string[] {
+   private resolveServerValidationErrors(mapper: any, serverErrors: NsApiErrorResponse[]): string[] {
       const result: string[] = [];
 
       serverErrors.forEach(serverError => {
          if (serverError.subCodes.length === 0) {
-            const errorText = NsApiErrorResolverService.getServerErrorText(mapper, langService, serverError.code);
+            const errorText = NsApiErrorResolverService.getServerErrorText(mapper, this._langService, serverError.code);
             result.push(errorText);
          } else {
             const subCodesMapper = mapper[serverError.code];
             serverError.subCodes.forEach(code => {
-               const subErrorText = NsApiErrorResolverService.getServerErrorText(subCodesMapper, langService, code);
+               const subErrorText = NsApiErrorResolverService.getServerErrorText(subCodesMapper, this._langService, code);
                result.push(subErrorText);
             });
          }

@@ -1,9 +1,6 @@
 import { LocalizedTextIdNikisoft } from '../localization/localized-text-id.nikisoft';
+import { NsAuthenticateResponseError } from './ns-authenticate-error.response';
 
-export enum NsAuthenticateResponseError {
-   BadUserNameOrPassword = 1
-}
-
-export const nsAuthenticateResponseErrorResolver = {
+export const nsAuthenticateErrorMapper = {
    [NsAuthenticateResponseError.BadUserNameOrPassword]: LocalizedTextIdNikisoft.BadUserNameOrPassword,
 };

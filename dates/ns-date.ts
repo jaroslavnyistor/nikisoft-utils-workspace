@@ -129,6 +129,10 @@ export class NsDate extends Object {
       return this._value.daysInMonth();
    }
 
+   get isWeekend(): boolean {
+      return this.dayOfWeek === 0 || this.dayOfWeek === 6;
+   }
+
    protected constructor(value?: any) {
       super();
 

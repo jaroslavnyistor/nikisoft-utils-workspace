@@ -1,7 +1,7 @@
 import { Data } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { NsDateTime } from '../dates/ns-date-time';
-import { nsIsNotNullOrEmpty, nsJoin } from '../helpers/strings/ns-helpers-strings';
+import { nsIsNotNullOrEmpty, nsIsNullOrEmpty, nsJoin } from '../helpers/strings/ns-helpers-strings';
 import { NsAuthenticateResponseEntity } from './ns-authenticate-response.entity';
 import { NsAuthenticateRouteData } from './ns-authenticate-route-data';
 
@@ -9,6 +9,7 @@ const statusIntervalMs = 15 * 1000;
 
 export class NsAuthenticateResponseModel {
    private readonly _isLoggedIn$: BehaviorSubject<boolean>;
+   private readonly _loginExpired$: BehaviorSubject<boolean>;
    private readonly _changes$: BehaviorSubject<NsAuthenticateResponseModel>;
 
    private _entity: NsAuthenticateResponseEntity;
@@ -23,6 +24,10 @@ export class NsAuthenticateResponseModel {
 
    get isLoggedIn$(): Observable<boolean> {
       return this._isLoggedIn$;
+   }
+
+   get loginExpired$(): BehaviorSubject<boolean> {
+      return this._loginExpired$;
    }
 
    get changes$(): Observable<NsAuthenticateResponseModel> {
@@ -47,6 +52,7 @@ export class NsAuthenticateResponseModel {
 
    constructor() {
       this._isLoggedIn$ = new BehaviorSubject<boolean>(false);
+      this._loginExpired$ = new BehaviorSubject<boolean>(false);
       this._changes$ = new BehaviorSubject<NsAuthenticateResponseModel>(this);
 
       this._intervalId = window.setInterval(
@@ -58,9 +64,16 @@ export class NsAuthenticateResponseModel {
    private checkTokenExpiration() {
       const isLoggedIn = this._hasToken && !this.hasTokenExpired();
       this._isLoggedIn$.next(isLoggedIn);
+
+      if (this._hasToken && !isLoggedIn) {
+         this._loginExpired$.next(true);
+      }
    }
 
    update(entity: NsAuthenticateResponseEntity) {
+      const isNewToken = (this._entity == null || nsIsNullOrEmpty(this._entity.token))
+         && nsIsNotNullOrEmpty(entity.token);
+
       this._entity = entity;
 
       this._expires = NsDateTime.from(this._entity.expires);
@@ -70,6 +83,10 @@ export class NsAuthenticateResponseModel {
       this._changes$.next(this);
 
       this.checkTokenExpiration();
+
+      if (isNewToken) {
+         this._loginExpired$.next(false);
+      }
    }
 
    private hasTokenExpired(): boolean {

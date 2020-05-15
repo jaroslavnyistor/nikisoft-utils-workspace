@@ -1,20 +1,12 @@
-import { Inject, Injectable, InjectionToken } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { NsCredentialsStorageService } from '../authentication/ns-credentials-storage.service';
 import { NsDate } from '../dates/ns-date';
 import { nsStringFormat } from '../helpers/strings/ns-helpers-strings';
+import { DI_NS_DEFAULT_LANGUAGE } from './localization-languages.di-tokens';
 import { buildLocalizationLanguages, LocalizationLanguage, LocalizationLanguageItem } from './localization.language';
 import { LocalizedTextIdNikisoft } from './localized-text-id.nikisoft';
 import { LocalizedTextService } from './localized-text.service';
-
-export const DI_NS_DEFAULT_LANGUAGE = new InjectionToken<LocalizationLanguage>('DI_NS_DEFAULT_LANGUAGE', {
-   providedIn: 'root',
-   factory: () => LocalizationLanguage.EN
-});
-
-export function localizationLanguagesServiceAppInitializer(service: LocalizationLanguagesService) {
-   return () => service.load();
-}
 
 @Injectable({
    providedIn: 'root'

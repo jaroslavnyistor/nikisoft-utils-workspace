@@ -63,10 +63,14 @@ export class NsAuthenticateResponseModel {
 
    private checkTokenExpiration() {
       const isLoggedIn = this._hasToken && !this.hasTokenExpired();
-      this._isLoggedIn$.next(isLoggedIn);
+      const hasValueChanged = this._isLoggedIn$.value !== isLoggedIn;
 
-      if (this._hasToken && !isLoggedIn) {
-         this._loginExpired$.next(true);
+      if (hasValueChanged) {
+         this._isLoggedIn$.next(isLoggedIn);
+
+         if (this._hasToken && !isLoggedIn) {
+            this._loginExpired$.next(true);
+         }
       }
    }
 

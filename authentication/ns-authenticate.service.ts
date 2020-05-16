@@ -1,6 +1,7 @@
 import { Inject, Injectable, Type } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Route, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { NsPageNoPermissionService } from '../../ui/page/no-permission/ns-page-no-permission.service';
 import { nsNullOrEmpty } from '../helpers/strings/ns-helpers-strings';
 import { NsNavigationService } from '../navigation/ns-navigation.service';
@@ -92,9 +93,19 @@ export class NsAuthenticateService implements CanActivate {
    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
       Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      if (!this._model.isLoggedIn) {
-         this.logout(state.url);
+      return this._model.isLoggedIn$
+         .pipe(
+            map(isLoggedIn => this.resolveCanActive(route, state, isLoggedIn))
+         )
+   }
 
+   private resolveCanActive(
+      route: ActivatedRouteSnapshot,
+      state: RouterStateSnapshot,
+      isLoggedIn: boolean
+   ): boolean {
+      if (!isLoggedIn) {
+         this.logout(state.url);
          return false;
       }
 

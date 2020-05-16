@@ -62,15 +62,19 @@ export class NsAuthenticateResponseModel {
    }
 
    private checkTokenExpiration() {
-      const isLoggedIn = this._hasToken && !this.hasTokenExpired();
+      const isLoggedIn = this.getIsLoggedIn();
       const hasValueChanged = this._isLoggedIn$.value !== isLoggedIn;
 
       if (hasValueChanged) {
          this._isLoggedIn$.next(isLoggedIn);
+      }
 
-         if (this._hasToken && !isLoggedIn) {
-            this._loginExpired$.next(true);
-         }
+      this.validateTokenExpiration();
+   }
+
+   private validateTokenExpiration() {
+      if (this._hasToken && !this.getIsLoggedIn()) {
+         this._loginExpired$.next(true);
       }
    }
 
@@ -86,11 +90,17 @@ export class NsAuthenticateResponseModel {
 
       this._changes$.next(this);
 
-      this.checkTokenExpiration();
+      this._isLoggedIn$.next(this.getIsLoggedIn());
 
       if (isNewToken) {
          this._loginExpired$.next(false);
       }
+
+      this.validateTokenExpiration();
+   }
+
+   private getIsLoggedIn(): boolean {
+      return this._hasToken && !this.hasTokenExpired();
    }
 
    private hasTokenExpired(): boolean {

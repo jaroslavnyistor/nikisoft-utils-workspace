@@ -1,5 +1,9 @@
 import { nsIsNotNullOrEmpty, nsIsString } from './strings/ns-helpers-strings';
 
+export function nsObjectIsNullValue(value: any, property: any, defaultValue: any) {
+   return value == null ? defaultValue : value[property];
+}
+
 export function nsObjectHasValue(value: any) {
    if (nsIsString(value)) {
       return nsIsNotNullOrEmpty(value as string);

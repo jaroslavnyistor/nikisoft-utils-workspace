@@ -56,7 +56,7 @@ export class NsAuthenticateResponseModel {
 
       this._loginExpired$ = combineLatest([this._changes$, timer(0, statusIntervalMs)])
          .pipe(
-            map(() => this.getIsLoggedIn())
+            map(() => this._hasToken && !this.getIsLoggedIn())
          );
    }
 

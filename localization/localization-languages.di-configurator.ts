@@ -8,16 +8,23 @@ export function localizationLanguagesServiceAppInitializer(service: Localization
 }
 
 export class LocalizationLanguagesDiConfigurator {
-   static configure(defaultLanguage: LocalizationLanguage): Provider[] {
-      return [
-         {
-            provide: APP_INITIALIZER,
-            useFactory: localizationLanguagesServiceAppInitializer,
-            deps: [LocalizationLanguagesService],
-            multi: true
-         },
+   static configure(defaultLanguage: LocalizationLanguage, usesLocalization: boolean): Provider[] {
+      let providers: Provider[] = [
          { provide: DI_NS_DEFAULT_LANGUAGE, useValue: defaultLanguage },
       ];
-   }
 
+      if (usesLocalization) {
+         providers = [
+            ...providers,
+            {
+               provide: APP_INITIALIZER,
+               useFactory: localizationLanguagesServiceAppInitializer,
+               deps: [LocalizationLanguagesService],
+               multi: true
+            }
+         ];
+      }
+
+      return providers;
+   }
 }

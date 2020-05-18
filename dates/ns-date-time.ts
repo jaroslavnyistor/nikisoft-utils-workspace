@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { nsJoin } from '../helpers/strings/ns-helpers-strings';
+import { nsStringJoin } from '../helpers/strings/ns-helpers-strings';
 import { NsDate } from './ns-date';
 
 export class NsDateTime extends NsDate {
@@ -45,7 +45,7 @@ export class NsDateTime extends NsDate {
    static formatTimeOnlyRangeAsString(start: any, finish: any) {
       const startDateTime = NsDateTime.formatTimeOnlyAsString(start);
       const finishDateTime = NsDateTime.formatTimeOnlyAsString(finish);
-      return nsJoin(' - ', [startDateTime, finishDateTime]);
+      return nsStringJoin(' - ', [startDateTime, finishDateTime]);
    }
 
    static formatTimeOnlyAsString(value?: any): string {

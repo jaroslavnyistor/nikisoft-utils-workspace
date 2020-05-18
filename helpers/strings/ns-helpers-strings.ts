@@ -29,7 +29,7 @@ export function nsStringFormat(value: string, ...params: any[]) {
    return result;
 }
 
-export function nsJoin(separator: string, values: string[]) {
+export function nsStringJoin(separator: string, values: string[]) {
    let result = '';
 
    values.forEach(value => {

@@ -19,8 +19,9 @@ export class NsRouterService {
       return this._router.url;
    }
 
-   constructor(private _router: Router,
-               private _storageService: NsStorageService
+   constructor(
+      private _router: Router,
+      private _storageService: NsStorageService
    ) {
       this._isNavigating$ = _router.events
          .pipe(

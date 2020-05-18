@@ -42,10 +42,15 @@ export class NsApiErrorResolverService {
          if (serverError.subCodes.length === 0) {
             const errorText = NsApiErrorResolverService.getServerErrorText(mapper, this._langService, serverError.code);
             result.push(errorText);
-         } else {
+         }
+         else {
             const subCodesMapper = mapper[serverError.code];
             serverError.subCodes.forEach(code => {
-               const subErrorText = NsApiErrorResolverService.getServerErrorText(subCodesMapper, this._langService, code);
+               const subErrorText = NsApiErrorResolverService.getServerErrorText(
+                  subCodesMapper,
+                  this._langService,
+                  code
+               );
                result.push(subErrorText);
             });
          }

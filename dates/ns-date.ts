@@ -61,14 +61,14 @@ export class NsDate extends Object {
 
    static formatDate(date: NsDate, format: string) {
       return date == null
-         ? ''
-         : date._value.format(format);
+             ? ''
+             : date._value.format(format);
    }
 
    static toJsDate(date: NsDate): Date {
       return date == null
-         ? null
-         : date.value.toDate();
+             ? null
+             : date.value.toDate();
    }
 
    static daysInYear(year: number) {

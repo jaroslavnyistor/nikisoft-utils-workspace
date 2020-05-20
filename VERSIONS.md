@@ -1,6 +1,10 @@
 # NikiSoft-Web-Utils
 
 ## Versions
+
+### 1.3.0.0
+
+### 1.2.0.0
 - NsDate.isWeekend function added
 - DI refactored - created configurator classes to configure DI and provide service and model
 - Fixed isLoggedIn observable notified even the value has not changed

@@ -5,3 +5,5 @@ export const DI_NS_DEFAULT_LANGUAGE = new InjectionToken<LocalizationLanguage>('
    providedIn: 'root',
    factory: () => LocalizationLanguage.EN
 });
+
+export const DI_NS_USES_LOCALIZATION = new InjectionToken<boolean>('DI_NS_USES_LOCALIZATION');

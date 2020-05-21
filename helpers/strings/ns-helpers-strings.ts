@@ -29,6 +29,13 @@ export function nsStringFormat(value: string, ...params: any[]) {
    return result;
 }
 
+export function nsStringJoinBySpace(...texts: string[]) {
+   return nsStringJoin(
+      ' ',
+      texts
+   );
+}
+
 export function nsStringJoin(separator: string, values: string[]) {
    let result = '';
 

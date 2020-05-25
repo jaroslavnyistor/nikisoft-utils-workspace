@@ -1,3 +1,7 @@
+export function nsArrayIsEmpty(value: any[], count = 0) {
+   return nsArrayHasItems(value, count) === false;
+}
+
 export function nsArrayHasItems(value: any[], count = 0) {
    return value != null && value.length > count;
 }

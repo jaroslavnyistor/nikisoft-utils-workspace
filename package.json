@@ -12,13 +12,15 @@
   },
   "keywords": [
     "utils",
-    "javascript",
-    "NikiSoft"
+    "javascript"
   ],
   "author": "NikiSoft",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jaroslavnyistor/ns-js-utils/issues"
   },
-  "homepage": "https://github.com/jaroslavnyistor/ns-js-utils#readme"
+  "homepage": "https://github.com/jaroslavnyistor/ns-js-utils#readme",
+  "devDependencies": {
+    "typescript": "^3.9.3"
+  }
 }

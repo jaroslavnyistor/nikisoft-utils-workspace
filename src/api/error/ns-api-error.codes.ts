@@ -1,4 +1,4 @@
 export enum NsApiErrorCodes {
-   QueryFailed = -1,
-   NoPermissionGranted = -2,
+  QueryFailed = -1,
+  NoPermissionGranted = -2,
 }

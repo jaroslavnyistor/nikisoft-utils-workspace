@@ -13,87 +13,72 @@ import { NsApiResponseError, NsApiResponseErrorType } from './ns-api-response.er
 const urlAuthenticate = 'api/authenticate';
 
 @Injectable({
-   providedIn: 'root'
+  providedIn: 'root',
 })
 export class NsApiService implements NsAuthenticationApiService {
-   constructor(
-      private _httpClient: HttpClient,
-      private _credentialsStorageService: NsCredentialsStorageService,
-      private _noPermissionNavService: NsPageNoPermissionService,
-      private _notFoundNavService: NsPageNotFoundService
-   ) {
-   }
+  constructor(
+    private _httpClient: HttpClient,
+    private _credentialsStorageService: NsCredentialsStorageService,
+    private _noPermissionNavService: NsPageNoPermissionService,
+    private _notFoundNavService: NsPageNotFoundService,
+  ) {}
 
-   logout(): void {
-   }
+  logout(): void {}
 
-   public authenticate(userName: string, password: string): Observable<NsAuthenticateResponseEntity> {
-      const request = new NsApiRequest(urlAuthenticate)
-         .withBody({
-            userName,
-            password
-         });
+  public authenticate(userName: string, password: string): Observable<NsAuthenticateResponseEntity> {
+    const request = new NsApiRequest(urlAuthenticate).withBody({
+      userName,
+      password,
+    });
 
-      return this.post<NsAuthenticateResponseEntity>(request);
-   }
+    return this.post<NsAuthenticateResponseEntity>(request);
+  }
 
-   postAuth<TData>(request: NsApiRequest): Observable<TData> {
-      this.appendAuthorization(request);
+  postAuth<TData>(request: NsApiRequest): Observable<TData> {
+    this.appendAuthorization(request);
 
-      return this.post<TData>(request);
-   }
+    return this.post<TData>(request);
+  }
 
-   private appendAuthorization(request: NsApiRequest) {
-      request.withHeader('Authorization', `Bearer ${this._credentialsStorageService.credentials.token}`)
-         .withHeader('DeviceName', 'web');
-   }
+  private appendAuthorization(request: NsApiRequest) {
+    request
+      .withHeader('Authorization', `Bearer ${this._credentialsStorageService.credentials.token}`)
+      .withHeader('DeviceName', 'web');
+  }
 
-   private post<TData>(request: NsApiRequest): Observable<TData> {
-      return this._httpClient.post<TData>(
-         request.url,
-         request.body,
-         request.options
-      )
-         .pipe(
-            retry(3),
-            catchError(error => this.handleErrorResponse(error))
-         );
-   }
+  private post<TData>(request: NsApiRequest): Observable<TData> {
+    return this._httpClient.post<TData>(request.url, request.body, request.options).pipe(
+      retry(3),
+      catchError((error) => this.handleErrorResponse(error)),
+    );
+  }
 
-   private handleErrorResponse(error: HttpErrorResponse): Observable<any> {
-      if (error.error instanceof ErrorEvent || error.status === 504) {
-         console.error('An error occurred:', error.error);
-         return throwError(new NsApiResponseError(NsApiResponseErrorType.UnableToConnectToServer));
+  private handleErrorResponse(error: HttpErrorResponse): Observable<any> {
+    if (error.error instanceof ErrorEvent || error.status === 504) {
+      return throwError(new NsApiResponseError(NsApiResponseErrorType.UnableToConnectToServer));
+    }
+
+    if (error.status === NsApiResponseErrorType.ServerValidationFailed) {
+      const responseError = new NsApiResponseError(NsApiResponseErrorType.ServerValidationFailed, error.error);
+
+      if (responseError.hasNoPermissionGrantedError) {
+        this._noPermissionNavService.navigate();
+        return EMPTY;
       }
 
-      if (error.status === NsApiResponseErrorType.ServerValidationFailed) {
-         const responseError = new NsApiResponseError(
-            NsApiResponseErrorType.ServerValidationFailed,
-            error.error
-         );
+      return throwError(responseError);
+    }
 
-         if (responseError.hasNoPermissionGrantedError) {
-            this._noPermissionNavService.navigate();
-            return EMPTY;
-         }
+    if (error.status === NsApiResponseErrorType.RequestedServiceNotFound) {
+      this._notFoundNavService.navigate();
+      return EMPTY;
+    }
 
-         return throwError(responseError);
-      }
+    const errorType: NsApiResponseErrorType = error.status;
+    if (errorType) {
+      return throwError(new NsApiResponseError(errorType));
+    }
 
-      if (error.status === NsApiResponseErrorType.RequestedServiceNotFound) {
-         this._notFoundNavService.navigate();
-         return EMPTY;
-      }
-
-      const errorType: NsApiResponseErrorType = error.status;
-      if (errorType) {
-         return throwError(new NsApiResponseError(errorType));
-      }
-
-      console.error(
-         `Backend returned code ${error.status}, ` +
-         `body was: ${error.error}`);
-
-      return throwError(new NsApiResponseError(NsApiResponseErrorType.UnknownError));
-   }
+    return throwError(new NsApiResponseError(NsApiResponseErrorType.UnknownError));
+  }
 }

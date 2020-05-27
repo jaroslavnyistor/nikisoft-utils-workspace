@@ -9,193 +9,189 @@ import { LocalizedTextIdNikisoft } from './localized-text-id.nikisoft';
 import { LocalizedTextService } from './localized-text.service';
 
 @Injectable({
-   providedIn: 'root'
+  providedIn: 'root',
 })
 export class LocalizationLanguagesService {
-   private readonly _storageService: NsCredentialsStorageService;
-   private readonly _localizedTextService: LocalizedTextService;
-   private readonly _defaultLanguage: LocalizationLanguage;
-   private _languageItems: LocalizationLanguageItem[];
-   private _definition: any;
-   private _selectedLanguageItem: LocalizationLanguageItem;
+  private readonly _storageService: NsCredentialsStorageService;
+  private readonly _localizedTextService: LocalizedTextService;
+  private readonly _defaultLanguage: LocalizationLanguage;
+  private _languageItems: LocalizationLanguageItem[];
+  private _definition: any;
+  private _selectedLanguageItem: LocalizationLanguageItem;
 
-   get currentLanguageCode(): string {
-      return this._selectedLanguageItem.language;
-   }
+  get currentLanguageCode(): string {
+    return this._selectedLanguageItem.language;
+  }
 
-   get languageItems(): LocalizationLanguageItem[] {
-      return this._languageItems;
-   }
+  get languageItems(): LocalizationLanguageItem[] {
+    return this._languageItems;
+  }
 
-   get selectedLanguageItem(): LocalizationLanguageItem {
-      return this._selectedLanguageItem;
-   }
+  get selectedLanguageItem(): LocalizationLanguageItem {
+    return this._selectedLanguageItem;
+  }
 
-   set selectedLanguageItem(value: LocalizationLanguageItem) {
-      if (this._selectedLanguageItem.id === value.id) {
-         return;
-      }
+  set selectedLanguageItem(value: LocalizationLanguageItem) {
+    if (this._selectedLanguageItem.id === value.id) {
+      return;
+    }
 
-      this._selectedLanguageItem = value;
+    this._selectedLanguageItem = value;
 
-      this.saveSelectedLanguage(value.language);
-      window.location.reload();
-   }
+    this.saveSelectedLanguage(value.language);
+    window.location.reload();
+  }
 
-   constructor(
-      storageService: NsCredentialsStorageService,
-      localizedTextService: LocalizedTextService,
-      @Inject(DI_NS_DEFAULT_LANGUAGE) defaultLanguage: LocalizationLanguage = null
-   ) {
-      this._storageService = storageService;
-      this._localizedTextService = localizedTextService;
-      this._defaultLanguage = defaultLanguage || LocalizationLanguage.EN;
-   }
+  constructor(
+    storageService: NsCredentialsStorageService,
+    localizedTextService: LocalizedTextService,
+    @Inject(DI_NS_DEFAULT_LANGUAGE) defaultLanguage: LocalizationLanguage = null,
+  ) {
+    this._storageService = storageService;
+    this._localizedTextService = localizedTextService;
+    this._defaultLanguage = defaultLanguage || LocalizationLanguage.EN;
+  }
 
-   load() {
-      let language = this._storageService.language as LocalizationLanguage;
+  load() {
+    let language = this._storageService.language as LocalizationLanguage;
 
-      if (!language) {
-         language = this._defaultLanguage;
+    if (!language) {
+      language = this._defaultLanguage;
 
-         this._storageService.setLanguage(language);
-      }
-
-      return this._localizedTextService.download(language)
-         .pipe(
-            tap(value => this.initialize(value, language))
-         )
-         .toPromise();
-   }
-
-   private initialize(definition: any, localizationLanguage: LocalizationLanguage) {
-      this._definition = definition;
-
-      this.selectLanguageItem(localizationLanguage);
-
-      const language = LocalizationLanguagesService.resolveLanguage();
-      NsDate.initialize(language);
-   }
-
-   static resolveLanguage(): string {
-      let language;
-      if (window.navigator.languages) {
-         language = window.navigator.languages[0];
-      }
-      else {
-         language = window.navigator.language;
-      }
-
-      return language;
-   }
-
-   private saveSelectedLanguage(language: LocalizationLanguage) {
       this._storageService.setLanguage(language);
-   }
+    }
 
-   private selectLanguageItem(language: LocalizationLanguage) {
-      if (this._languageItems == null) {
-         this._languageItems = buildLocalizationLanguages(this);
-      }
+    return this._localizedTextService
+      .download(language)
+      .pipe(tap((value) => this.initialize(value, language)))
+      .toPromise();
+  }
 
-      this._selectedLanguageItem = this._languageItems.find(e => e.language === language);
-   }
+  private initialize(definition: any, localizationLanguage: LocalizationLanguage) {
+    this._definition = definition;
 
-   translate(prop: any, args?: any): string {
-      let result = this._definition[prop];
+    this.selectLanguageItem(localizationLanguage);
 
-      if (result === undefined) {
-         const error = `---Property ${prop} is not defined!---`;
-         console.error(error);
-         return error;
-      }
+    const language = LocalizationLanguagesService.resolveLanguage();
+    NsDate.initialize(language);
+  }
 
-      if (args != null) {
-         result = nsStringFormat(result, args);
-      }
+  static resolveLanguage(): string {
+    let language;
+    if (window.navigator.languages) {
+      language = window.navigator.languages[0];
+    } else {
+      language = window.navigator.language;
+    }
 
-      return result;
-   }
+    return language;
+  }
 
-   getCancelText(): string {
-      return this.translate(LocalizedTextIdNikisoft.Cancel);
-   }
+  private saveSelectedLanguage(language: LocalizationLanguage) {
+    this._storageService.setLanguage(language);
+  }
 
-   getSaveText(): string {
-      return this.translate(LocalizedTextIdNikisoft.Save);
-   }
+  private selectLanguageItem(language: LocalizationLanguage) {
+    if (this._languageItems == null) {
+      this._languageItems = buildLocalizationLanguages(this);
+    }
 
-   getValidationEmailIncorrectFormat(): string {
-      return this.translate(LocalizedTextIdNikisoft.Validation_EmailIncorrectFormat);
-   }
+    this._selectedLanguageItem = this._languageItems.find((e) => e.language === language);
+  }
 
-   getValidationMaxLengthExceed(value: number): string {
-      return this.translate(LocalizedTextIdNikisoft.Validation_MaxLength, value);
-   }
+  translate(prop: any, args?: any): string {
+    let result = this._definition[prop];
 
-   getValidationIsLessThanMinLength(value: number): string {
-      return this.translate(LocalizedTextIdNikisoft.Validation_MinLength, value);
-   }
+    if (result === undefined) {
+      return `---Property ${prop} is not defined!---`;
+    }
 
-   getValidationMaxValueExceed(value: number): string {
-      return this.translate(LocalizedTextIdNikisoft.Validation_MaxValue, value);
-   }
+    if (args != null) {
+      result = nsStringFormat(result, args);
+    }
 
-   getValidationIsLessThanMinValue(value: number): string {
-      return this.translate(LocalizedTextIdNikisoft.Validation_MinValue, value);
-   }
+    return result;
+  }
 
-   getValidationRequired(): string {
-      return this.translate(LocalizedTextIdNikisoft.Validation_Required);
-   }
+  getCancelText(): string {
+    return this.translate(LocalizedTextIdNikisoft.Cancel);
+  }
 
-   getNotAuthorized(): string {
-      return this.translate(LocalizedTextIdNikisoft.NotAuthorized);
-   }
+  getSaveText(): string {
+    return this.translate(LocalizedTextIdNikisoft.Save);
+  }
 
-   getRequestedServiceNotFound(): string {
-      return this.translate(LocalizedTextIdNikisoft.RequestedServiceNotFound);
-   }
+  getValidationEmailIncorrectFormat(): string {
+    return this.translate(LocalizedTextIdNikisoft.Validation_EmailIncorrectFormat);
+  }
 
-   getServerFailed(): string {
-      return this.translate(LocalizedTextIdNikisoft.ServerFailed);
-   }
+  getValidationMaxLengthExceed(value: number): string {
+    return this.translate(LocalizedTextIdNikisoft.Validation_MaxLength, value);
+  }
 
-   getUnableToConnectToServer(): string {
-      return this.translate(LocalizedTextIdNikisoft.UnableToConnectToServer);
-   }
+  getValidationIsLessThanMinLength(value: number): string {
+    return this.translate(LocalizedTextIdNikisoft.Validation_MinLength, value);
+  }
 
-   getUnknownError(): string {
-      return this.translate(LocalizedTextIdNikisoft.UnknownError);
-   }
+  getValidationMaxValueExceed(value: number): string {
+    return this.translate(LocalizedTextIdNikisoft.Validation_MaxValue, value);
+  }
 
-   getDeleteTitle(): string {
-      return this.translate(LocalizedTextIdNikisoft.DeleteTitle);
-   }
+  getValidationIsLessThanMinValue(value: number): string {
+    return this.translate(LocalizedTextIdNikisoft.Validation_MinValue, value);
+  }
 
-   getDeleteMessage(): string {
-      return this.translate(LocalizedTextIdNikisoft.DeleteMessage);
-   }
+  getValidationRequired(): string {
+    return this.translate(LocalizedTextIdNikisoft.Validation_Required);
+  }
 
-   getOrderAsc(): string {
-      return this.translate(LocalizedTextIdNikisoft.OrderAsc);
-   }
+  getNotAuthorized(): string {
+    return this.translate(LocalizedTextIdNikisoft.NotAuthorized);
+  }
 
-   getOrderDesc(): string {
-      return this.translate(LocalizedTextIdNikisoft.OrderDesc);
-   }
+  getRequestedServiceNotFound(): string {
+    return this.translate(LocalizedTextIdNikisoft.RequestedServiceNotFound);
+  }
 
-   selectLanguage(language: LocalizationLanguageItem) {
-      this.selectedLanguageItem = language;
-   }
+  getServerFailed(): string {
+    return this.translate(LocalizedTextIdNikisoft.ServerFailed);
+  }
 
-   getLanguageCheckIconStyle(language: LocalizationLanguageItem) {
-      return {
-         visibility: this.isSelected(language) ? 'visible' : 'hidden'
-      };
-   }
+  getUnableToConnectToServer(): string {
+    return this.translate(LocalizedTextIdNikisoft.UnableToConnectToServer);
+  }
 
-   isSelected(language: LocalizationLanguageItem) {
-      return language.id === this.selectedLanguageItem.id;
-   }
+  getUnknownError(): string {
+    return this.translate(LocalizedTextIdNikisoft.UnknownError);
+  }
+
+  getDeleteTitle(): string {
+    return this.translate(LocalizedTextIdNikisoft.DeleteTitle);
+  }
+
+  getDeleteMessage(): string {
+    return this.translate(LocalizedTextIdNikisoft.DeleteMessage);
+  }
+
+  getOrderAsc(): string {
+    return this.translate(LocalizedTextIdNikisoft.OrderAsc);
+  }
+
+  getOrderDesc(): string {
+    return this.translate(LocalizedTextIdNikisoft.OrderDesc);
+  }
+
+  selectLanguage(language: LocalizationLanguageItem) {
+    this.selectedLanguageItem = language;
+  }
+
+  getLanguageCheckIconStyle(language: LocalizationLanguageItem) {
+    return {
+      visibility: this.isSelected(language) ? 'visible' : 'hidden',
+    };
+  }
+
+  isSelected(language: LocalizationLanguageItem) {
+    return language.id === this.selectedLanguageItem.id;
+  }
 }

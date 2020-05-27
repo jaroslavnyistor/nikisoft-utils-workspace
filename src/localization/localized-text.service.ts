@@ -9,64 +9,46 @@ import { buildLocalizedTextSkLanguages } from './localized-text-lang-sk.language
 import { buildLocalizedTextSkNikiSoft } from './localized-text-lang-sk.nikisoft';
 
 @Injectable({
-   providedIn: 'root'
+  providedIn: 'root',
 })
 export class LocalizedTextService {
-   private readonly baseLocalizedTextMap = {
-      en: [
-         buildLocalizedTextEnNikiSoft,
-         buildLocalizedTextEnLanguages,
-      ],
-      sk: [
-         buildLocalizedTextSkNikiSoft,
-         buildLocalizedTextSkLanguages,
-      ]
-   };
+  private readonly baseLocalizedTextMap = {
+    en: [buildLocalizedTextEnNikiSoft, buildLocalizedTextEnLanguages],
+    sk: [buildLocalizedTextSkNikiSoft, buildLocalizedTextSkLanguages],
+  };
 
-   constructor(
-      private readonly _httpClient: HttpClient,
-      @Inject(DI_NS_USES_LOCALIZATION) private readonly _useLocalization: boolean
-   ) {
-   }
+  constructor(
+    private readonly _httpClient: HttpClient,
+    @Inject(DI_NS_USES_LOCALIZATION) private readonly _useLocalization: boolean,
+  ) {}
 
-   download(languageCode: string): Observable<any> {
-      let localizedText = {};
+  download(languageCode: string): Observable<any> {
+    let localizedText = {};
 
-      const builders = this.baseLocalizedTextMap[languageCode];
+    const builders = this.baseLocalizedTextMap[languageCode];
 
-      if (builders == null) {
-         throw new Error(`Language ${languageCode} not supported`);
-      }
+    if (builders == null) {
+      throw new Error(`Language ${languageCode} not supported`);
+    }
 
-      builders.forEach(builder => localizedText = Object.assign(
-         localizedText,
-         builder()
-      ));
+    builders.forEach((builder) => (localizedText = Object.assign(localizedText, builder())));
 
-      return this._useLocalization
-             ? this.downloadTexts$(languageCode, localizedText)
-             : of(localizedText);
-   }
+    return this._useLocalization ? this.downloadTexts$(languageCode, localizedText) : of(localizedText);
+  }
 
-   private downloadTexts$(languageCode: string, localizedText: any): Observable<any> {
-      return this.getHttpRequest$(languageCode)
-         .pipe(
-            map(value => ({ ...localizedText, ...value }))
-         );
-   }
+  private downloadTexts$(languageCode: string, localizedText: any): Observable<any> {
+    return this.getHttpRequest$(languageCode).pipe(map((value) => ({ ...localizedText, ...value })));
+  }
 
-   private getHttpRequest$(languageCode: string) {
-      const headers = {
-         headers: {
-            'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
-            Pragma: 'no-cache',
-            Expires: '0'
-         }
-      };
+  private getHttpRequest$(languageCode: string) {
+    const headers = {
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+        Pragma: 'no-cache',
+        Expires: '0',
+      },
+    };
 
-      return this._httpClient.get(
-         `assets/localization/localized-text-lang-${languageCode}.json`,
-         headers
-      );
-   }
+    return this._httpClient.get(`assets/localization/localized-text-lang-${languageCode}.json`, headers);
+  }
 }

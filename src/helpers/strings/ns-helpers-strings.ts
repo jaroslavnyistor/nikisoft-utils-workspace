@@ -1,99 +1,96 @@
 export function nsStringLength(value: string) {
-   return value == null ? 0 : value.length;
+  return value == null ? 0 : value.length;
 }
 
 export function nsIsNullOrEmpty(value: string) {
-   return value == null || value.length === 0;
+  return value == null || value.length === 0;
 }
 
 export function nsIsNotNullOrEmpty(value: string) {
-   return !nsIsNullOrEmpty(value);
+  return !nsIsNullOrEmpty(value);
 }
 
 export function nsNullOrEmpty(value: string, defaultValue: string) {
-   return nsIsNullOrEmpty(value) ? defaultValue : value;
+  return nsIsNullOrEmpty(value) ? defaultValue : value;
 }
 
 export function nsStringFormat(value: string, ...params: any[]) {
-   let result = value;
+  let result = value;
 
-   if (params != null) {
-      params.forEach((param, index) => {
-         if (nsIsNotNullOrEmpty(param)) {
-            const replacement = `{{${index}}}`;
-            result = result.replace(replacement, param);
-         }
-      });
-   }
+  if (params != null) {
+    params.forEach((param, index) => {
+      if (nsIsNotNullOrEmpty(param)) {
+        const replacement = `{{${index}}}`;
+        result = result.replace(replacement, param);
+      }
+    });
+  }
 
-   return result;
+  return result;
 }
 
 export function nsStringJoinBySpace(...texts: string[]) {
-   return nsStringJoin(
-      ' ',
-      texts
-   );
+  return nsStringJoin(' ', texts);
 }
 
 export function nsStringJoin(separator: string, values: string[]) {
-   let result = '';
+  let result = '';
 
-   values.forEach(value => {
-      if (nsIsNotNullOrEmpty(value)) {
-         result += value;
-         result += separator;
-      }
-   });
+  values.forEach((value) => {
+    if (nsIsNotNullOrEmpty(value)) {
+      result += value;
+      result += separator;
+    }
+  });
 
-   if (result.length > separator.length) {
-      result = result.slice(0, result.length - separator.length);
-   }
+  if (result.length > separator.length) {
+    result = result.slice(0, result.length - separator.length);
+  }
 
-   return result;
+  return result;
 }
 
 export function nsIsString(value: any) {
-   return value != null && value.length !== undefined;
+  return value != null && value.length !== undefined;
 }
 
 export function nsPrefixIfNotNullOrEmpty(value: string, prefix: string) {
-   if (nsIsNullOrEmpty(value)) {
-      return '';
-   }
+  if (nsIsNullOrEmpty(value)) {
+    return '';
+  }
 
-   return `${prefix}${value}`;
+  return `${prefix}${value}`;
 }
 
 export function nsPostfixIfNotNullOrEmpty(value: string, postfix: string) {
-   if (nsIsNullOrEmpty(value)) {
-      return '';
-   }
+  if (nsIsNullOrEmpty(value)) {
+    return '';
+  }
 
-   return `${value}${postfix}`;
+  return `${value}${postfix}`;
 }
 
 export function nsStringToNumber(value: string) {
-   return value == null ? null : Number.parseFloat(value);
+  return value == null ? null : Number.parseFloat(value);
 }
 
 export function nsStringFirstUpper(value: string) {
-   return value[0].toUpperCase() + value.substr(1);
+  return value[0].toUpperCase() + value.substr(1);
 }
 
 export function nsHashCode(s: string) {
-   let h;
-   for (let i = 0; i < s.length; i++) {
-      h = Math.imul(31, h) + s.charCodeAt(i) | 0;
-   }
+  let h;
+  for (let i = 0; i < s.length; i++) {
+    h = Math.imul(31, h) + s.charCodeAt(i);
+  }
 
-   return h;
+  return h;
 }
 
 export function nsStringContains(value: string, search: string) {
-   if (nsIsNullOrEmpty(value) || nsIsNullOrEmpty(search)) {
-      return false;
-   }
+  if (nsIsNullOrEmpty(value) || nsIsNullOrEmpty(search)) {
+    return false;
+  }
 
-   return value.indexOf(search) > -1;
+  return value.indexOf(search) > -1;
 }

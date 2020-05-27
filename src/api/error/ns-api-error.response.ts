@@ -1,4 +1,4 @@
 export interface NsApiErrorResponse {
-   code: number;
-   subCodes: number[];
+  code: number;
+  subCodes: number[];
 }

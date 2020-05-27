@@ -3,13 +3,12 @@ import { NsRouterService } from '../../navigation/ns-router.service';
 import { routeNotFound } from './ns-page-not-found.route';
 
 @Injectable({
-   providedIn: 'root'
+  providedIn: 'root',
 })
 export class NsPageNotFoundService {
-   constructor(private _routerService: NsRouterService) {
-   }
+  constructor(private _routerService: NsRouterService) {}
 
-   navigate() {
-      this._routerService.navigateByUrl(routeNotFound);
-   }
+  navigate() {
+    this._routerService.navigateByUrl(routeNotFound);
+  }
 }

@@ -1,11 +1,11 @@
 export interface NsStoragePageModel {
-   getStateKey(): string;
+  getStateKey(): string;
 
-   getState(): any;
+  getState(): any;
 
-   setState(state: any);
+  setState(state: any);
 
-   onNavigationToState(state: any);
+  onNavigationToState(state: any);
 
-   onNavigationBackState(state: any);
+  onNavigationBackState(state: any);
 }

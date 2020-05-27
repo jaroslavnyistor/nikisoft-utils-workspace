@@ -2,6 +2,6 @@ import { LocalizedTextIdNikisoft } from '../../localization/localized-text-id.ni
 import { NsApiErrorCodes } from './ns-api-error.codes';
 
 export const nsApiErrorMapper = {
-   [NsApiErrorCodes.QueryFailed]: LocalizedTextIdNikisoft.QueryFailed,
-   [NsApiErrorCodes.NoPermissionGranted]: LocalizedTextIdNikisoft.NoPermissionGranted,
+  [NsApiErrorCodes.QueryFailed]: LocalizedTextIdNikisoft.QueryFailed,
+  [NsApiErrorCodes.NoPermissionGranted]: LocalizedTextIdNikisoft.NoPermissionGranted,
 };

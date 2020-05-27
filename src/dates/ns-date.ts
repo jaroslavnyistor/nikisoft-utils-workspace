@@ -2,281 +2,263 @@ import * as moment from 'moment';
 import { nsIsNotNullOrEmpty } from '../helpers/strings/ns-helpers-strings';
 
 export class NsDate extends Object {
-   protected _value: moment.Moment;
-
-   static min(): NsDate {
-      return NsDate.from()
-         .setDate(1970, 1, 1);
-   }
-
-   static max(): NsDate {
-      return NsDate.from()
-         .setDate(2099, 11, 31);
-   }
-
-   static clone(value: NsDate) {
-      return new NsDate(value.toString());
-   }
-
-   static nowAsString(): string {
-      return NsDate.now().toString();
-   }
-
-   static now(): NsDate {
-      return new NsDate();
-   }
-
-   static fromAsString(value?: any): string {
-      return NsDate.from(value)
-         .toString();
-   }
-
-   static from(value?: string) {
-      return new NsDate(value);
-   }
-
-   static formatUi(dateString: string): string {
-      let result = '';
-
-      if (nsIsNotNullOrEmpty(dateString)) {
-         const date = new NsDate(dateString);
-         result = date.value.format('ll');
-      }
-
-      return result;
-   }
-
-   static formatLongMonthFullYear(date: NsDate): string {
-      if (date == null) {
-         return '';
-      }
-
-      let month = date.value.format('MMMM');
-      month = month.charAt(0).toUpperCase() + month.substr(1);
-
-      const year = date.value.format('YYYY');
-
-      return `${month} ${year}`;
-   }
-
-   static formatDate(date: NsDate, format: string) {
-      return date == null
-             ? ''
-             : date._value.format(format);
-   }
-
-   static toJsDate(date: NsDate): Date {
-      return date == null
-             ? null
-             : date.value.toDate();
-   }
-
-   static daysInYear(year: number) {
-      const start = NsDate.from(`${year}-01-01`);
-      const end = NsDate.clone(start)
-         .addYears(1)
-         .addDays(-1);
-
-      return end.diffInDays(start);
-   }
-
-   static createNew(year: number, month: number, day: number) {
-      return new NsDate(
-         moment()
-            .year(year)
-            .month(month - 1)
-            .date(day)
-      );
-   }
-
-   static initialize(language: string) {
-      moment.locale(language);
-   }
-
-   static weekdays(): string[] {
-      return moment.weekdays(true);
-   }
-
-   static weekdaysShort(): string[] {
-      return moment.weekdaysShort(true);
-   }
-
-   static weekdaysMin(): string[] {
-      return moment.weekdaysMin(true);
-   }
+  protected _value: moment.Moment;
+
+  static min(): NsDate {
+    return NsDate.from().setDate(1970, 1, 1);
+  }
+
+  static max(): NsDate {
+    return NsDate.from().setDate(2099, 11, 31);
+  }
+
+  static clone(value: NsDate) {
+    return new NsDate(value.toString());
+  }
+
+  static nowAsString(): string {
+    return NsDate.now().toString();
+  }
+
+  static now(): NsDate {
+    return new NsDate();
+  }
+
+  static fromAsString(value?: any): string {
+    return NsDate.from(value).toString();
+  }
 
-   protected get value(): moment.Moment {
-      return this._value;
-   }
+  static from(value?: string) {
+    return new NsDate(value);
+  }
 
-   get year(): number {
-      return this.value.year();
-   }
+  static formatUi(dateString: string): string {
+    let result = '';
 
-   get month(): number {
-      return this.value.month();
-   }
+    if (nsIsNotNullOrEmpty(dateString)) {
+      const date = new NsDate(dateString);
+      result = date.value.format('ll');
+    }
 
-   get day(): number {
-      return this.value.date();
-   }
+    return result;
+  }
 
-   get dayOfWeek(): number {
-      return this.value.day();
-   }
+  static formatLongMonthFullYear(date: NsDate): string {
+    if (date == null) {
+      return '';
+    }
 
-   get daysInMonth(): number {
-      return this._value.daysInMonth();
-   }
+    let month = date.value.format('MMMM');
+    month = month.charAt(0).toUpperCase() + month.substr(1);
 
-   get isWeekend(): boolean {
-      return this.dayOfWeek === 0 || this.dayOfWeek === 6;
-   }
+    const year = date.value.format('YYYY');
 
-   protected constructor(value?: any) {
-      super();
+    return `${month} ${year}`;
+  }
 
-      this._value = moment(value);
-      this._value.hours(0)
-         .minutes(0)
-         .seconds(0)
-         .milliseconds(0);
-   }
+  static formatDate(date: NsDate, format: string) {
+    return date == null ? '' : date._value.format(format);
+  }
 
-   toString(): string {
-      return this.value.toISOString(true);
-   }
+  static toJsDate(date: NsDate): Date {
+    return date == null ? null : date.value.toDate();
+  }
 
-   toDateOnlyString(): string {
-      return this.value.format('YYYY-MM-DD');
-   }
+  static daysInYear(year: number) {
+    const start = NsDate.from(`${year}-01-01`);
+    const end = NsDate.clone(start).addYears(1).addDays(-1);
 
-   setDate(year: number, month: number, day: number): this {
-      return this.setYear(year)
-         .setMonth(month)
-         .setDay(day);
-   }
+    return end.diffInDays(start);
+  }
 
-   setYear(value: number): this {
-      this.value.year(value);
+  static createNew(year: number, month: number, day: number) {
+    return new NsDate(
+      moment()
+        .year(year)
+        .month(month - 1)
+        .date(day),
+    );
+  }
 
-      return this;
-   }
+  static initialize(language: string) {
+    moment.locale(language);
+  }
 
-   setMonth(value: number): this {
-      this.value.month(value);
+  static weekdays(): string[] {
+    return moment.weekdays(true);
+  }
 
-      return this;
-   }
+  static weekdaysShort(): string[] {
+    return moment.weekdaysShort(true);
+  }
 
-   setDay(value: number): this {
-      this.value.date(value);
+  static weekdaysMin(): string[] {
+    return moment.weekdaysMin(true);
+  }
 
-      return this;
-   }
+  protected get value(): moment.Moment {
+    return this._value;
+  }
 
-   addYears(value: number): this {
-      this.value.add(value, 'y');
+  get year(): number {
+    return this.value.year();
+  }
 
-      return this;
-   }
+  get month(): number {
+    return this.value.month();
+  }
 
-   addMonths(value: number): this {
-      this.value.add(value, 'M');
+  get day(): number {
+    return this.value.date();
+  }
 
-      return this;
-   }
+  get dayOfWeek(): number {
+    return this.value.day();
+  }
 
-   addDays(value: number): this {
-      this.value.add(value, 'd');
+  get daysInMonth(): number {
+    return this._value.daysInMonth();
+  }
 
-      return this;
-   }
+  get isWeekend(): boolean {
+    return this.dayOfWeek === 0 || this.dayOfWeek === 6;
+  }
 
-   toTomorrow(): this {
-      return this.addDays(1);
-   }
+  protected constructor(value?: any) {
+    super();
 
-   toStartOfNextMonth(): this {
-      this.toStartOfMonth();
-      return this.addMonths(1);
-   }
+    this._value = moment(value);
+    this._value.hours(0).minutes(0).seconds(0).milliseconds(0);
+  }
 
-   toStartOfYear(): this {
-      this.value.startOf('year');
-      return this;
-   }
+  toString(): string {
+    return this.value.toISOString(true);
+  }
 
-   toStartOfMonth(): this {
-      this.value.startOf('month');
-      return this;
-   }
+  toDateOnlyString(): string {
+    return this.value.format('YYYY-MM-DD');
+  }
 
-   toStartOfWeek(): this {
-      this._value.startOf('week');
-      return this;
-   }
+  setDate(year: number, month: number, day: number): this {
+    return this.setYear(year).setMonth(month).setDay(day);
+  }
 
-   toEndOfYear(): this {
-      this._value.endOf('year');
+  setYear(value: number): this {
+    this.value.year(value);
 
-      return this;
-   }
+    return this;
+  }
 
-   toEndOfMonth(): this {
-      this._value.endOf('month');
+  setMonth(value: number): this {
+    this.value.month(value);
 
-      return this;
-   }
+    return this;
+  }
 
-   toEndOfWeek(): this {
-      this._value.endOf('week');
+  setDay(value: number): this {
+    this.value.date(value);
 
-      return this;
-   }
+    return this;
+  }
 
-   isBefore(other: NsDate): boolean {
-      return this.value.isBefore(other.value, 'day');
-   }
+  addYears(value: number): this {
+    this.value.add(value, 'y');
 
-   isSameOrBefore(other: NsDate): boolean {
-      return this.value.isSameOrBefore(other.value, 'day');
-   }
+    return this;
+  }
 
-   isAfter(other: NsDate): boolean {
-      return this.value.isAfter(other.value, 'day');
-   }
+  addMonths(value: number): this {
+    this.value.add(value, 'M');
 
-   isSameOrAfter(other: NsDate): boolean {
-      return this.value.isSameOrAfter(other.value, 'day');
-   }
+    return this;
+  }
 
-   isSame(other: NsDate): boolean {
-      return other != null
-         && this.isSameMonthYear(other)
-         && this.day === other.day;
-   }
+  addDays(value: number): this {
+    this.value.add(value, 'd');
 
-   isSameMonthYear(other: NsDate): boolean {
-      return other != null
-         && this.year === other.year
-         && this.month === other.month;
-   }
+    return this;
+  }
 
-   isToday() {
-      const now = new NsDate();
-      return now.isSame(this);
-   }
+  toTomorrow(): this {
+    return this.addDays(1);
+  }
 
-   isBetween(from: NsDate, to: NsDate) {
-      return this.isAfter(from) && this.isBefore(to);
-   }
+  toStartOfNextMonth(): this {
+    this.toStartOfMonth();
+    return this.addMonths(1);
+  }
 
-   diffInDays(other: NsDate) {
-      return this.value.diff(other.value, 'days');
-   }
+  toStartOfYear(): this {
+    this.value.startOf('year');
+    return this;
+  }
 
-   toHumanReadableString(): string {
-      return this._value.format('ll');
-   }
+  toStartOfMonth(): this {
+    this.value.startOf('month');
+    return this;
+  }
+
+  toStartOfWeek(): this {
+    this._value.startOf('week');
+    return this;
+  }
+
+  toEndOfYear(): this {
+    this._value.endOf('year');
+
+    return this;
+  }
+
+  toEndOfMonth(): this {
+    this._value.endOf('month');
+
+    return this;
+  }
+
+  toEndOfWeek(): this {
+    this._value.endOf('week');
+
+    return this;
+  }
+
+  isBefore(other: NsDate): boolean {
+    return this.value.isBefore(other.value, 'day');
+  }
+
+  isSameOrBefore(other: NsDate): boolean {
+    return this.value.isSameOrBefore(other.value, 'day');
+  }
+
+  isAfter(other: NsDate): boolean {
+    return this.value.isAfter(other.value, 'day');
+  }
+
+  isSameOrAfter(other: NsDate): boolean {
+    return this.value.isSameOrAfter(other.value, 'day');
+  }
+
+  isSame(other: NsDate): boolean {
+    return other != null && this.isSameMonthYear(other) && this.day === other.day;
+  }
+
+  isSameMonthYear(other: NsDate): boolean {
+    return other != null && this.year === other.year && this.month === other.month;
+  }
+
+  isToday() {
+    const now = new NsDate();
+    return now.isSame(this);
+  }
+
+  isBetween(from: NsDate, to: NsDate) {
+    return this.isAfter(from) && this.isBefore(to);
+  }
+
+  diffInDays(other: NsDate) {
+    return this.value.diff(other.value, 'days');
+  }
+
+  toHumanReadableString(): string {
+    return this._value.format('ll');
+  }
 }

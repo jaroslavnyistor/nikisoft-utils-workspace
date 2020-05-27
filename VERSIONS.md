@@ -2,16 +2,17 @@
 
 ## Versions
 
-### 1.3.0.0
+### 1.3.1
+- Published as NPM package
 
-### 1.2.0.0
+### 1.2.0
 - NsDate.isWeekend function added
 - DI refactored - created configurator classes to configure DI and provide service and model
 - Fixed isLoggedIn observable notified even the value has not changed
 - Fixed notification of isLoggedIn
 - ns-authenticate-response.model.ts uses rxjs-like approach
 
-### 1.1.0.0
+### 1.1.0
 - Renamed text method to translate in localization-languages.service
 - Fixed logout of user state of visible page has not been saved
 - Fixed setting correct date and time locale and use in month calendar
@@ -19,7 +20,7 @@
 - Refactored authentication service and model
 - Refactored setup of DI providers in app.module
 
-### 1.0.0.0
+### 1.0.0
 - ns-subscription.* classes to simplify access to service and models
 - storing values to local storage with support of storing state of pages
 - NsNavigationService for navigating

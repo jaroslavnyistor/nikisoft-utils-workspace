@@ -16,7 +16,7 @@ export class NsMap<TKey, TValue> {
 
   get(key: TKey): TValue {
     const internalKey = NsMap.getInternalKey(key);
-    return  this._internalMap[internalKey] || null;
+    return this._internalMap[internalKey] || null;
   }
 
   push(key: TKey, value: TValue) {

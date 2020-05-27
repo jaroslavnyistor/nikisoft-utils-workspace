@@ -1,5 +1,5 @@
 import { Params } from '@angular/router';
-import { loginRoute } from '../../ui/page/login/login.routes';
+import { loginRoute } from '../authentication/login/login.route';
 import { nsNullOrEmpty } from '../helpers/strings/ns-helpers-strings';
 import { NsStorageService } from '../storage/ns-storage.service';
 import { NsStoragePageModel } from '../storage/page/ns-storage-page.model';

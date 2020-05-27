@@ -2,11 +2,11 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { NsPageNoPermissionService } from '../../ui/page/no-permission/ns-page-no-permission.service';
-import { NsPageNotFoundService } from '../../ui/page/not-found/ns-page-not-found.service';
 import { NsAuthenticateResponseEntity } from '../authentication/ns-authenticate-response.entity';
 import { NsAuthenticationApiService } from '../authentication/ns-authentication-api.service';
 import { NsCredentialsStorageService } from '../authentication/ns-credentials-storage.service';
+import { NsPageNoPermissionService } from './no-permission/ns-page-no-permission.service';
+import { NsPageNotFoundService } from './not-found/ns-page-not-found.service';
 import { NsApiRequest } from './ns-api-request';
 import { NsApiResponseError, NsApiResponseErrorType } from './ns-api-response.error';
 

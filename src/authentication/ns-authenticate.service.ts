@@ -2,7 +2,7 @@ import { Inject, Injectable, Type } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Route, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NsPageNoPermissionService } from '../../ui/page/no-permission/ns-page-no-permission.service';
+import { NsPageNoPermissionService } from '../api/no-permission/ns-page-no-permission.service';
 import { nsNullOrEmpty } from '../helpers/strings/ns-helpers-strings';
 import { NsNavigationService } from '../navigation/ns-navigation.service';
 import { NsRouterService } from '../navigation/ns-router.service';

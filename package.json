@@ -4,6 +4,7 @@
   "description": "Set of helper functions",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,5 +23,12 @@
   "homepage": "https://github.com/jaroslavnyistor/ns-js-utils#readme",
   "devDependencies": {
     "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "@angular/common": "^9.1.9",
+    "@angular/core": "^9.1.9",
+    "@angular/router": "^9.1.9",
+    "moment": "^2.26.0",
+    "rxjs": "^6.5.5"
   }
 }

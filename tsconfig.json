@@ -14,7 +14,13 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ns-js-utils": [
+        "dist/ns-js-utils/ns-js-utils",
+        "dist/ns-js-utils"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

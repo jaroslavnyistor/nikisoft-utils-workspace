@@ -1,6 +1,10 @@
-import { nsIsNotNullOrEmpty, nsIsString } from './strings/ns-helpers-strings';
+import { nsIsNotNullOrEmpty, nsIsString } from './strings';
 
-export function nsObjectIsNullValue(value: any, property: any, defaultValue: any) {
+export function nsObjectIsNullValue(
+  value: any,
+  property: any,
+  defaultValue: any
+) {
   return value == null ? defaultValue : value[property];
 }
 
@@ -12,7 +16,10 @@ export function nsObjectHasValue(value: any) {
   return value != null;
 }
 
-export function nsIterateObjectProperties(value: any, callback: (prop: string, propValue: any) => void) {
+export function nsIterateObjectProperties(
+  value: any,
+  callback: (prop: string, propValue: any) => void
+) {
   for (const prop in value) {
     if (value.hasOwnProperty(prop)) {
       const propValue = value[prop];

@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import { nsStringJoin } from '../helpers/strings/ns-helpers-strings';
 import { NsDate } from './ns-date';
 

@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import { nsIsNotNullOrEmpty } from '../helpers/strings/ns-helpers-strings';
 
 export class NsDate extends Object {

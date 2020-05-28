@@ -1,4 +1,4 @@
-import { nsIsNotNullOrEmpty, nsIsString } from './strings';
+import { nsIsNotNullOrEmpty, nsIsString } from './strings/ns-helpers-strings';
 
 export function nsObjectIsNullValue(
   value: any,

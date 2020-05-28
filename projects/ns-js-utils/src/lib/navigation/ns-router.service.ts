@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { NavigationEnd, NavigationExtras, NavigationStart, Params, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { NavigationExtras, Params } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { filter, flatMap } from 'rxjs/operators';
 import { NsStorageService } from '../storage/ns-storage.service';

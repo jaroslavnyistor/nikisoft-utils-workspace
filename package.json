@@ -1,5 +1,5 @@
 {
-  "name": "ns-js-utils",
+  "name": "ns-js-utils-workspace",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "start-lib": "ng build ns-js-utils --watch",
     "build-lib": "ng build ns-js-utils --prod",
     "lint-lib": "ng lint ns-js-utils",
-    "start-app": "ng serve",
+    "start-app": "ng serve --port=4701",
     "build-app": "ng build",
     "test-app": "ng test",
     "lint-app": "ng lint",

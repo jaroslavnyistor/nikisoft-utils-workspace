@@ -17,6 +17,9 @@
       "dom"
     ],
     "paths": {
+      "@angular/*": [
+        "./node_modules/@angular/*"
+      ],
       "ns-js-utils": [
         "dist/ns-js-utils/ns-js-utils",
         "dist/ns-js-utils"

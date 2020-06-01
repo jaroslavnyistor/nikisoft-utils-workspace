@@ -6,8 +6,8 @@ import { catchError, retry } from 'rxjs/operators';
 import { NsAuthenticateResponseEntity } from '../authentication/ns-authenticate-response.entity';
 import { NsAuthenticationApiService } from '../authentication/ns-authentication-api.service';
 import { NsCredentialsStorageService } from '../authentication/ns-credentials-storage.service';
-import { NsPageNoPermissionService } from './no-permission/ns-page-no-permission.service';
-import { NsPageNotFoundService } from './not-found/ns-page-not-found.service';
+import { NsNoPermissionService } from './no-permission/ns-no-permission.service';
+import { NsNotFoundService } from './not-found/ns-not-found.service';
 import { NsApiRequest } from './ns-api-request';
 import { NsApiResponseError, NsApiResponseErrorType } from './ns-api-response.error';
 
@@ -20,8 +20,8 @@ export class NsApiService implements NsAuthenticationApiService {
   constructor(
     private _httpClient: HttpClient,
     private _credentialsStorageService: NsCredentialsStorageService,
-    private _noPermissionNavService: NsPageNoPermissionService,
-    private _notFoundNavService: NsPageNotFoundService,
+    private _noPermissionNavService: NsNoPermissionService,
+    private _notFoundNavService: NsNotFoundService,
   ) {}
 
   logout(): void {}

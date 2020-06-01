@@ -2,7 +2,7 @@ import { Inject, Injectable, Type } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Route, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NsPageNoPermissionService } from '../api/no-permission/ns-page-no-permission.service';
+import { NsNoPermissionService } from '../api/no-permission/ns-no-permission.service';
 import { nsNullOrEmpty } from '../helpers/strings/ns-helpers-strings';
 import { NsNavigationService } from '../navigation/ns-navigation.service';
 import { NsRouterService } from '../navigation/ns-router.service';
@@ -48,7 +48,7 @@ export class NsAuthenticateService implements CanActivate {
     @Inject(DI_NS_AUTHENTICATION_API_SERVICE) private readonly _apiService: NsAuthenticationApiService,
     @Inject(DI_NS_AUTHENTICATION_TO_LOGIN_ON_EXPIRATION) private readonly _toLoginOnExpiration: boolean,
     private readonly _navService: NsNavigationService,
-    private readonly _noPermissionService: NsPageNoPermissionService,
+    private readonly _noPermissionService: NsNoPermissionService,
     private readonly _credentialsStorageService: NsCredentialsStorageService,
     private readonly _routerService: NsRouterService,
   ) {

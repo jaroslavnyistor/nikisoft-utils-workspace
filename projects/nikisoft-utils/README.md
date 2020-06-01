@@ -1,2 +1,2 @@
-# NikiSoft-Web-Utils
-Set of helper functions in Javascript
+# nikisoft-utils
+Set of helper functions in Javascript. The library is also published in NPM registry.

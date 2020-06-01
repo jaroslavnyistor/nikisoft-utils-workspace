@@ -1,5 +1,5 @@
 /*
- * Public API Surface of ns-js-utils
+ * Public API Surface of nikisoft-utils
  *
  * To generate all public-api as one index.ts do following:
  * 1. npm install create-ts-index --save-dev

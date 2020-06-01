@@ -3,38 +3,38 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ns-js-utils": {
+    "nikisoft-utils": {
       "projectType": "library",
-      "root": "projects/ns-js-utils",
-      "sourceRoot": "projects/ns-js-utils/src",
+      "root": "projects/nikisoft-utils",
+      "sourceRoot": "projects/nikisoft-utils/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/ns-js-utils/tsconfig.lib.json",
-            "project": "projects/ns-js-utils/ng-package.json"
+            "tsConfig": "projects/nikisoft-utils/tsconfig.lib.json",
+            "project": "projects/nikisoft-utils/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ns-js-utils/tsconfig.lib.prod.json"
+              "tsConfig": "projects/nikisoft-utils/tsconfig.lib.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ns-js-utils/src/test.ts",
-            "tsConfig": "projects/ns-js-utils/tsconfig.spec.json",
-            "karmaConfig": "projects/ns-js-utils/karma.conf.js"
+            "main": "projects/nikisoft-utils/src/test.ts",
+            "tsConfig": "projects/nikisoft-utils/tsconfig.spec.json",
+            "karmaConfig": "projects/nikisoft-utils/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ns-js-utils/tsconfig.lib.json",
-              "projects/ns-js-utils/tsconfig.spec.json"
+              "projects/nikisoft-utils/tsconfig.lib.json",
+              "projects/nikisoft-utils/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -43,32 +43,32 @@
         }
       }
     },
-    "ns-js-utils-playground": {
+    "nikisoft-utils-playground": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "sass"
         }
       },
-      "root": "projects/ns-js-utils-playground",
-      "sourceRoot": "projects/ns-js-utils-playground/src",
+      "root": "projects/nikisoft-utils-playground",
+      "sourceRoot": "projects/nikisoft-utils-playground/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ns-js-utils-playground",
-            "index": "projects/ns-js-utils-playground/src/index.html",
-            "main": "projects/ns-js-utils-playground/src/main.ts",
-            "polyfills": "projects/ns-js-utils-playground/src/polyfills.ts",
-            "tsConfig": "projects/ns-js-utils-playground/tsconfig.app.json",
+            "outputPath": "dist/nikisoft-utils-playground",
+            "index": "projects/nikisoft-utils-playground/src/index.html",
+            "main": "projects/nikisoft-utils-playground/src/main.ts",
+            "polyfills": "projects/nikisoft-utils-playground/src/polyfills.ts",
+            "tsConfig": "projects/nikisoft-utils-playground/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "projects/ns-js-utils-playground/src/favicon.ico",
-              "projects/ns-js-utils-playground/src/assets"
+              "projects/nikisoft-utils-playground/src/favicon.ico",
+              "projects/nikisoft-utils-playground/src/assets"
             ],
             "styles": [
-              "projects/ns-js-utils-playground/src/styles.sass"
+              "projects/nikisoft-utils-playground/src/styles.sass"
             ],
             "scripts": []
           },
@@ -76,8 +76,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/ns-js-utils-playground/src/environments/environment.ts",
-                  "with": "projects/ns-js-utils-playground/src/environments/environment.prod.ts"
+                  "replace": "projects/nikisoft-utils-playground/src/environments/environment.ts",
+                  "with": "projects/nikisoft-utils-playground/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -106,33 +106,33 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ns-js-utils-playground:build"
+            "browserTarget": "nikisoft-utils-playground:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ns-js-utils-playground:build:production"
+              "browserTarget": "nikisoft-utils-playground:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ns-js-utils-playground:build"
+            "browserTarget": "nikisoft-utils-playground:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ns-js-utils-playground/src/test.ts",
-            "polyfills": "projects/ns-js-utils-playground/src/polyfills.ts",
-            "tsConfig": "projects/ns-js-utils-playground/tsconfig.spec.json",
-            "karmaConfig": "projects/ns-js-utils-playground/karma.conf.js",
+            "main": "projects/nikisoft-utils-playground/src/test.ts",
+            "polyfills": "projects/nikisoft-utils-playground/src/polyfills.ts",
+            "tsConfig": "projects/nikisoft-utils-playground/tsconfig.spec.json",
+            "karmaConfig": "projects/nikisoft-utils-playground/karma.conf.js",
             "assets": [
-              "projects/ns-js-utils-playground/src/favicon.ico",
-              "projects/ns-js-utils-playground/src/assets"
+              "projects/nikisoft-utils-playground/src/favicon.ico",
+              "projects/nikisoft-utils-playground/src/assets"
             ],
             "styles": [
-              "projects/ns-js-utils-playground/src/styles.sass"
+              "projects/nikisoft-utils-playground/src/styles.sass"
             ],
             "scripts": []
           }
@@ -141,9 +141,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ns-js-utils-playground/tsconfig.app.json",
-              "projects/ns-js-utils-playground/tsconfig.spec.json",
-              "projects/ns-js-utils-playground/e2e/tsconfig.json"
+              "projects/nikisoft-utils-playground/tsconfig.app.json",
+              "projects/nikisoft-utils-playground/tsconfig.spec.json",
+              "projects/nikisoft-utils-playground/e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -153,12 +153,12 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "projects/ns-js-utils-playground/e2e/protractor.conf.js",
-            "devServerTarget": "ns-js-utils-playground:serve"
+            "protractorConfig": "projects/nikisoft-utils-playground/e2e/protractor.conf.js",
+            "devServerTarget": "nikisoft-utils-playground:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ns-js-utils-playground:serve:production"
+              "devServerTarget": "nikisoft-utils-playground:serve:production"
             }
           }
         }
@@ -167,5 +167,5 @@
   "cli": {
     "analytics": "9fce2733-f785-4be8-836d-6d0eb7755d2b"
   },
-  "defaultProject": "ns-js-utils-playground"
+  "defaultProject": "nikisoft-utils-playground"
 }

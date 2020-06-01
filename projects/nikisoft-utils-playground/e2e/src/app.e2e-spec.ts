@@ -11,7 +11,7 @@ describe('workspace-project App', () => {
   it('should display welcome message', () => {
     page.navigateTo();
     expect(page.getTitleText()).toEqual(
-      'ns-js-utils-playground app is running!'
+      'nikisoft-utils-playground app is running!'
     );
   });
 

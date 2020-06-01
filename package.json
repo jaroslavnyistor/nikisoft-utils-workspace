@@ -1,12 +1,12 @@
 {
-  "name": "ns-js-utils-workspace",
+  "name": "nikisoft-utils-workspace",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "format": "prettier --write \"projects/**/*.ts\"",
-    "start-lib": "ng build ns-js-utils --watch",
-    "build-lib": "ng build ns-js-utils --prod",
-    "lint-lib": "ng lint ns-js-utils",
+    "start-lib": "ng build nikisoft-utils --watch",
+    "build-lib": "ng build nikisoft-utils --prod",
+    "lint-lib": "ng lint nikisoft-utils",
     "start-app": "ng serve --port=4701",
     "build-app": "ng build",
     "test-app": "ng test",
@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "~9.1.9",
     "@angular/router": "~9.1.9",
     "moment": "^2.26.0",
-    "ns-js-utils": "file:dist/ns-js-utils",
+    "nikisoft-utils": "file:dist/nikisoft-utils",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

@@ -1,10 +1,10 @@
 {
-  "name": "ns-js-utils",
+  "name": "nikisoft-utils",
   "version": "1.4.0",
   "description": "Set of helper functions",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jaroslavnyistor/ns-js-utils.git"
+    "url": "git+https://github.com/jaroslavnyistor/nikisoft-utils-workspace.git"
   },
   "keywords": [
     "utils",
@@ -13,9 +13,9 @@
   "author": "NikiSoft",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jaroslavnyistor/ns-js-utils/issues"
+    "url": "https://github.com/jaroslavnyistor/nikisoft-utils-workspace/issues"
   },
-  "homepage": "https://github.com/jaroslavnyistor/ns-js-utils#readme",
+  "homepage": "https://github.com/jaroslavnyistor/nikisoft-utils-workspace#readme",
   "peerDependencies": {
     "@angular/common": "^9.1.9",
     "@angular/core": "^9.1.9",

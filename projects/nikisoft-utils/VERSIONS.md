@@ -1,4 +1,4 @@
-# NikiSoft-Web-Utils
+# nikisoft-utils
 
 ## Versions
 

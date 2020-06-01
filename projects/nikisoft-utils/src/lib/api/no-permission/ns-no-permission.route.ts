@@ -1,1 +1,1 @@
-export const routeNoPermission = "no-permission";
+export const routeNoPermission = 'no-permission';

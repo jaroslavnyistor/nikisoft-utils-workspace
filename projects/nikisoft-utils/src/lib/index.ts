@@ -31,6 +31,7 @@ export * from './helpers/ns-helpers';
 export * from './helpers/numbers/ns-helpers-numbers';
 export * from './helpers/strings/ns-helpers-strings';
 export * from './helpers/strings/ns-string-builder';
+export * from './localization/language';
 export * from './localization/localization-languages.di-configurator';
 export * from './localization/localization-languages.di-tokens';
 export * from './localization/localization-languages.service';

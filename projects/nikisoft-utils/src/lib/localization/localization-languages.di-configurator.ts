@@ -1,11 +1,7 @@
-import { APP_INITIALIZER, Provider } from '@angular/core';
-import { DI_NS_DEFAULT_LANGUAGE, DI_NS_USES_LOCALIZATION } from './localization-languages.di-tokens';
-import { LocalizationLanguagesService } from './localization-languages.service';
-import { LocalizationLanguage } from './localization.language';
-
-export function provideResolveLanguage() {
-  return () => LocalizationLanguagesService.resolveLanguage();
-}
+import { APP_INITIALIZER, Provider } from "@angular/core";
+import { DI_NS_DEFAULT_LANGUAGE, DI_NS_USES_LOCALIZATION } from "./localization-languages.di-tokens";
+import { LocalizationLanguagesService } from "./localization-languages.service";
+import { LocalizationLanguage } from "./localization.language";
 
 export function localizationLanguagesServiceAppInitializer(service: LocalizationLanguagesService) {
   return () => service.load();

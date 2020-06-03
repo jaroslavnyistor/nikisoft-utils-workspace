@@ -1,12 +1,13 @@
-import { Inject, Injectable } from '@angular/core';
-import { tap } from 'rxjs/operators';
-import { NsCredentialsStorageService } from '../authentication/ns-credentials-storage.service';
-import { NsDate } from '../dates/ns-date';
-import { nsStringFormat } from '../helpers/strings/ns-helpers-strings';
-import { DI_NS_DEFAULT_LANGUAGE } from './localization-languages.di-tokens';
-import { buildLocalizationLanguages, LocalizationLanguage, LocalizationLanguageItem } from './localization.language';
-import { LocalizedTextIdNikisoft } from './localized-text-id.nikisoft';
-import { LocalizedTextService } from './localized-text.service';
+import { Inject, Injectable } from "@angular/core";
+import { tap } from "rxjs/operators";
+import { NsCredentialsStorageService } from "../authentication/ns-credentials-storage.service";
+import { NsDate } from "../dates/ns-date";
+import { nsStringFormat } from "../helpers/strings/ns-helpers-strings";
+import { resolveLanguage } from "./language";
+import { DI_NS_DEFAULT_LANGUAGE } from "./localization-languages.di-tokens";
+import { buildLocalizationLanguages, LocalizationLanguage, LocalizationLanguageItem } from "./localization.language";
+import { LocalizedTextIdNikisoft } from "./localized-text-id.nikisoft";
+import { LocalizedTextService } from "./localized-text.service";
 
 @Injectable({
   providedIn: 'root',
@@ -72,19 +73,8 @@ export class LocalizationLanguagesService {
 
     this.selectLanguageItem(localizationLanguage);
 
-    const language = LocalizationLanguagesService.resolveLanguage();
+    const language = resolveLanguage();
     NsDate.initialize(language);
-  }
-
-  static resolveLanguage(): string {
-    let language;
-    if (window.navigator.languages) {
-      language = window.navigator.languages[0];
-    } else {
-      language = window.navigator.language;
-    }
-
-    return language;
   }
 
   private saveSelectedLanguage(language: LocalizationLanguage) {

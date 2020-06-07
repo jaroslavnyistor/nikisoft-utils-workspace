@@ -1,8 +1,8 @@
 import { Data } from '@angular/router';
 import { BehaviorSubject, combineLatest, Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NsDateTime } from '../dates/ns-date-time';
-import { nsIsNotNullOrEmpty, nsStringJoin } from '../helpers/strings/ns-helpers-strings';
+import { NsDateTime } from '../objects/ns-date-time';
+import { NsString } from '../objects/ns-string';
 import { NsAuthenticateResponseEntity } from './ns-authenticate-response.entity';
 import { NsAuthenticateRouteData } from './ns-authenticate-route-data';
 
@@ -60,8 +60,8 @@ export class NsAuthenticateResponseModel {
     this._entity = entity;
 
     this._expires = NsDateTime.from(this._entity.expires);
-    this._fullName = nsStringJoin(' ', [this._entity.firstName, this._entity.lastName]);
-    this._hasToken = nsIsNotNullOrEmpty(this._entity.token);
+    this._fullName = NsString.join(' ', [this._entity.firstName, this._entity.lastName]);
+    this._hasToken = NsString.isNotNullOrEmpty(this._entity.token);
 
     this._changes$.next(this);
   }

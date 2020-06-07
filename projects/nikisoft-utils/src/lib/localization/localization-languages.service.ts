@@ -1,13 +1,13 @@
-import { Inject, Injectable } from "@angular/core";
-import { tap } from "rxjs/operators";
-import { NsCredentialsStorageService } from "../authentication/ns-credentials-storage.service";
-import { NsDate } from "../dates/ns-date";
-import { nsStringFormat } from "../helpers/strings/ns-helpers-strings";
-import { resolveLanguage } from "./language";
-import { DI_NS_DEFAULT_LANGUAGE } from "./localization-languages.di-tokens";
-import { buildLocalizationLanguages, LocalizationLanguage, LocalizationLanguageItem } from "./localization.language";
-import { LocalizedTextIdNikisoft } from "./localized-text-id.nikisoft";
-import { LocalizedTextService } from "./localized-text.service";
+import { Inject, Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators';
+import { NsCredentialsStorageService } from '../authentication/ns-credentials-storage.service';
+import { NsDate } from '../objects/ns-date';
+import { NsString } from '../objects/ns-string';
+import { resolveLanguage } from './language';
+import { DI_NS_DEFAULT_LANGUAGE } from './localization-languages.di-tokens';
+import { buildLocalizationLanguages, LocalizationLanguage, LocalizationLanguageItem } from './localization.language';
+import { LocalizedTextIdNikisoft } from './localized-text-id.nikisoft';
+import { LocalizedTextService } from './localized-text.service';
 
 @Injectable({
   providedIn: 'root',
@@ -97,7 +97,7 @@ export class LocalizationLanguagesService {
     }
 
     if (args != null) {
-      result = nsStringFormat(result, args);
+      result = NsString.format(result, args);
     }
 
     return result;

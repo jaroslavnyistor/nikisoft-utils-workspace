@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NsDate } from 'nikisoft-utils';
+import { NsDate } from '../../../nikisoft-utils/src/lib/objects/ns-date';
 
 @Component({
   selector: 'app-root',

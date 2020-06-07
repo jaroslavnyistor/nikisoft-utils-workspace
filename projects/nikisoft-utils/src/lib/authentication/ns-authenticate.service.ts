@@ -3,9 +3,9 @@ import { ActivatedRouteSnapshot, CanActivate, Route, RouterStateSnapshot, UrlTre
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NsNoPermissionService } from '../api/no-permission/ns-no-permission.service';
-import { nsNullOrEmpty } from '../helpers/strings/ns-helpers-strings';
 import { NsNavigationService } from '../navigation/ns-navigation.service';
 import { NsRouterService } from '../navigation/ns-router.service';
+import { NsString } from '../objects/ns-string';
 import { newNsAuthenticateResponseEntity, NsAuthenticateResponseEntity } from './ns-authenticate-response.entity';
 import { NsAuthenticateResponseModel } from './ns-authenticate-response.model';
 import {
@@ -78,7 +78,7 @@ export class NsAuthenticateService implements CanActivate {
   }
 
   logout(url?: string): Promise<void> {
-    const routerUrl = nsNullOrEmpty(url, this._routerService.url);
+    const routerUrl = NsString.nullOrEmpty(url, this._routerService.url);
 
     return this._navService.toLogin(routerUrl).then(() => {
       this._credentialsStorageService.logout();

@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { NsDate } from '../dates/ns-date';
+import { NsDate } from '../objects/ns-date';
 import { NsAuthenticateResponseEntity } from './ns-authenticate-response.entity';
 
 export interface NsAuthenticationApiService {

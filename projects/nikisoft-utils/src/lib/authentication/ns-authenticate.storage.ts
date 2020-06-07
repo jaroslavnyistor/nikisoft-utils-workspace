@@ -9,7 +9,7 @@ const keyLanguage = 'language';
 @Injectable({
   providedIn: 'root',
 })
-export class NsCredentialsStorageService {
+export class NsAuthenticateStorage {
   constructor(private readonly _storage: NsStorageService) {
     this._storage.userId = _storage.loadPerApplication(keyId);
 

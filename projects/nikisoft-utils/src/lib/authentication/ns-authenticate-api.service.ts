@@ -2,13 +2,13 @@ import { Observable, of } from 'rxjs';
 import { NsDate } from '../objects/ns-date';
 import { NsAuthenticateResponseEntity } from './ns-authenticate-response.entity';
 
-export interface NsAuthenticationApiService {
+export interface NsAuthenticateApiService {
   authenticate(userName: string, password: string): Observable<NsAuthenticateResponseEntity>;
 
   logout(): void;
 }
 
-export class NsNoAuthenticationApiService implements NsAuthenticationApiService {
+export class NsNoAuthenticateApiService implements NsAuthenticateApiService {
   authenticate(userName: string, password: string): Observable<NsAuthenticateResponseEntity> {
     return of({
       id: 1,

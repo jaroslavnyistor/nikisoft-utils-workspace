@@ -38,6 +38,8 @@ export class NsArray {
    * @param value
    */
   static exceptNull<T>(value: T[]): T[] {
-    return value == null ? null : value.filter((item) => item != null);
+    const callback = (item) => item != null;
+
+    return value == null ? null : value.filter(callback);
   }
 }

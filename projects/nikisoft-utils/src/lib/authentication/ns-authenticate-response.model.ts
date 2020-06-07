@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { NsDateTime } from '../objects/ns-date-time';
 import { NsString } from '../objects/ns-string';
 import { NsAuthenticateResponseEntity } from './ns-authenticate-response.entity';
-import { NsAuthenticateRouteData } from './ns-authenticate-route-data';
+import { NsAuthenticateRouteData } from './ns-authenticate-route.data';
 
 const statusIntervalMs = 15 * 1000;
 

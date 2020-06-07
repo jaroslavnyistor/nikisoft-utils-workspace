@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { NsAuthenticateResponseEntity } from '../authentication/ns-authenticate-response.entity';
-import { NsAuthenticationApiService } from '../authentication/ns-authentication-api.service';
-import { NsCredentialsStorageService } from '../authentication/ns-credentials-storage.service';
+import { NsAuthenticateApiService } from '../authentication/ns-authenticate-api.service';
+import { NsAuthenticateStorage } from '../authentication/ns-authenticate.storage';
 import { NsNoPermissionService } from './no-permission/ns-no-permission.service';
 import { NsNotFoundService } from './not-found/ns-not-found.service';
 import { NsApiRequest } from './ns-api-request';
@@ -16,10 +16,10 @@ const urlAuthenticate = 'api/authenticate';
 @Injectable({
   providedIn: 'root',
 })
-export class NsApiService implements NsAuthenticationApiService {
+export class NsApiService implements NsAuthenticateApiService {
   constructor(
     private _httpClient: HttpClient,
-    private _credentialsStorageService: NsCredentialsStorageService,
+    private _credentialsStorageService: NsAuthenticateStorage,
     private _noPermissionNavService: NsNoPermissionService,
     private _notFoundNavService: NsNotFoundService,
   ) {}

@@ -1,11 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { NsCredentialsStorageService } from '../authentication/ns-credentials-storage.service';
+import { NsAuthenticateStorage } from '../authentication/ns-authenticate.storage';
 import { NsDate } from '../objects/ns-date';
+import { NsLanguage } from '../objects/ns-language';
 import { NsString } from '../objects/ns-string';
-import { resolveLanguage } from './language';
 import { DI_NS_DEFAULT_LANGUAGE } from './localization-languages.di-tokens';
-import { buildLocalizationLanguages, LocalizationLanguage, LocalizationLanguageItem } from './localization.language';
+import { LocalizationLanguage, LocalizationLanguageItem } from './localization.language';
+import { LocalizedTextIdLanguages } from './localized-text-id.languages';
 import { LocalizedTextIdNikisoft } from './localized-text-id.nikisoft';
 import { LocalizedTextService } from './localized-text.service';
 
@@ -13,7 +14,7 @@ import { LocalizedTextService } from './localized-text.service';
   providedIn: 'root',
 })
 export class LocalizationLanguagesService {
-  private readonly _storageService: NsCredentialsStorageService;
+  private readonly _storageService: NsAuthenticateStorage;
   private readonly _localizedTextService: LocalizedTextService;
   private readonly _defaultLanguage: LocalizationLanguage;
   private _languageItems: LocalizationLanguageItem[];
@@ -44,7 +45,7 @@ export class LocalizationLanguagesService {
   }
 
   constructor(
-    storageService: NsCredentialsStorageService,
+    storageService: NsAuthenticateStorage,
     localizedTextService: LocalizedTextService,
     @Inject(DI_NS_DEFAULT_LANGUAGE) defaultLanguage: LocalizationLanguage = null,
   ) {
@@ -73,7 +74,7 @@ export class LocalizationLanguagesService {
 
     this.selectLanguageItem(localizationLanguage);
 
-    const language = resolveLanguage();
+    const language = NsLanguage.resolve();
     NsDate.initialize(language);
   }
 
@@ -83,10 +84,27 @@ export class LocalizationLanguagesService {
 
   private selectLanguageItem(language: LocalizationLanguage) {
     if (this._languageItems == null) {
-      this._languageItems = buildLocalizationLanguages(this);
+      this._languageItems = LocalizationLanguagesService.buildLocalizationLanguages(this);
     }
 
     this._selectedLanguageItem = this._languageItems.find((e) => e.language === language);
+  }
+
+  private static buildLocalizationLanguages(langService: LocalizationLanguagesService): LocalizationLanguageItem[] {
+    return [
+      {
+        id: 1,
+        language: LocalizationLanguage.EN,
+        text: langService.translate(LocalizedTextIdLanguages.LanguageEn),
+        textShortcut: 'EN',
+      },
+      {
+        id: 2,
+        language: LocalizationLanguage.SK,
+        text: langService.translate(LocalizedTextIdLanguages.LanguageSk),
+        textShortcut: 'SK',
+      },
+    ];
   }
 
   translate(prop: any, args?: any): string {

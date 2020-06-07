@@ -1,5 +1,5 @@
-import { Inject, Injectable, Type } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Route, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Inject, Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NsNoPermissionService } from '../api/no-permission/ns-no-permission.service';
@@ -12,19 +12,8 @@ import {
   DI_NS_AUTHENTICATION_API_SERVICE,
   DI_NS_AUTHENTICATION_TO_LOGIN_ON_EXPIRATION,
 } from './ns-authenticate.di-tokens';
-import { NsAuthenticationApiService } from './ns-authentication-api.service';
-import { NsCredentialsStorageService } from './ns-credentials-storage.service';
-
-export function buildSecureRouteToComponent(path: string, component: Type<any>, permissionId): Route {
-  return {
-    path,
-    component,
-    canActivate: [NsAuthenticateService],
-    data: {
-      permission: permissionId,
-    },
-  };
-}
+import { NsAuthenticateApiService } from './ns-authenticate-api.service';
+import { NsAuthenticateStorage } from './ns-authenticate.storage';
 
 @Injectable({
   providedIn: 'root',
@@ -45,11 +34,11 @@ export class NsAuthenticateService implements CanActivate {
   }
 
   constructor(
-    @Inject(DI_NS_AUTHENTICATION_API_SERVICE) private readonly _apiService: NsAuthenticationApiService,
+    @Inject(DI_NS_AUTHENTICATION_API_SERVICE) private readonly _apiService: NsAuthenticateApiService,
     @Inject(DI_NS_AUTHENTICATION_TO_LOGIN_ON_EXPIRATION) private readonly _toLoginOnExpiration: boolean,
     private readonly _navService: NsNavigationService,
     private readonly _noPermissionService: NsNoPermissionService,
-    private readonly _credentialsStorageService: NsCredentialsStorageService,
+    private readonly _credentialsStorageService: NsAuthenticateStorage,
     private readonly _routerService: NsRouterService,
   ) {
     this._model = new NsAuthenticateResponseModel();

@@ -1,49 +1,90 @@
 import moment from 'moment';
-import { nsStringJoin } from '../helpers/strings/ns-helpers-strings';
 import { NsDate } from './ns-date';
+import { NsString } from './ns-string';
 
+/**
+ * Class which helps to abstract away work with date and time
+ */
 export class NsDateTime extends NsDate {
-  static now(): NsDateTime {
-    return new NsDateTime();
-  }
-
-  static nowAsString(): string {
-    return NsDateTime.now().toString();
-  }
-
+  /**
+   * Returns minimal value.
+   * @returns {NsDateTime}
+   */
   static min(): NsDateTime {
     return NsDateTime.from().setDate(1970, 1, 1).setBeginOfDay();
   }
 
+  /**
+   * Returns maximal value
+   * @returns {NsDate}
+   */
   static max(): NsDateTime {
     return NsDateTime.from().setDate(2099, 11, 31).setEndOfDay();
   }
 
-  static timeOnly(hours: number, minutes: number, date?: string): NsDateTime {
-    const result = NsDateTime.from(date);
-    result.setTime(hours, minutes);
-    return result;
+  /**
+   * Get current date and time.
+   */
+  static now(): NsDateTime {
+    return new NsDateTime();
   }
 
+  /**
+   * Gets current date and time as string
+   */
+  static nowAsString(): string {
+    return NsDateTime.now().toString();
+  }
+
+  /**
+   * Creates a cloned value. If value is null, returns null
+   * @param value Instance of NsDateTime or null.
+   */
   static clone(value: NsDateTime): NsDateTime {
-    return new NsDateTime(value.toString());
+    return value == null ? null : new NsDateTime(value.toString());
   }
 
+  /**
+   * Returns string converted from value to NsDate and then to string.
+   * If value is null, returns null.
+   * @param value Value to convert
+   */
   static fromAsString(value?: any): string {
-    return NsDateTime.from(value).toString();
+    return value == null ? null : NsDateTime.from(value).toString();
   }
 
+  /**
+   * Returns instance of NsDateTime from value. If value is null, returns null.
+   * @param value Value to convert
+   */
   static from(value?: any): NsDateTime {
-    return new NsDateTime(value);
+    return value == null ? null : new NsDateTime(value);
   }
 
-  static formatTimeOnlyRangeAsString(start: any, finish: any) {
-    const startDateTime = NsDateTime.formatTimeOnlyAsString(start);
-    const finishDateTime = NsDateTime.formatTimeOnlyAsString(finish);
-    return nsStringJoin(' - ', [startDateTime, finishDateTime]);
+  /**
+   * Converts string to Date object.
+   * @param value Value to convert
+   */
+  static toJsDateFromString(value: string): Date {
+    const result = NsDateTime.from(value);
+    return NsDateTime.toJsDate(result);
   }
 
-  static formatTimeOnlyAsString(value?: any): string {
+  /**
+   * Converts instance of NsDateTime to Date object.
+   * @param date Instance of NsDate.
+   */
+  static toJsDate(date: NsDateTime): Date {
+    return date == null ? null : date.value.toDate();
+  }
+
+  static formatDateRangeAsHoursAndMinutesOnly(start: any, finish: any) {
+    const startDateTime = NsDateTime.formatAsHoursAndMinutesOnly(start);
+    const finishDateTime = NsDateTime.formatAsHoursAndMinutesOnly(finish);
+    return NsString.join(' - ', [startDateTime, finishDateTime]);
+  }
+
+  static formatAsHoursAndMinutesOnly(value?: any): string {
     if (value == null) {
       return null;
     }
@@ -147,19 +188,19 @@ export class NsDateTime extends NsDate {
   }
 
   isBefore(other: NsDateTime): boolean {
-    return this.value.isBefore(other.value, 'second');
+    return other == null || this.value.isBefore(other.value, 'second');
   }
 
   isSameOrBefore(other: NsDateTime): boolean {
-    return this.value.isSameOrBefore(other.value, 'second');
+    return other == null || this.value.isSameOrBefore(other.value, 'second');
   }
 
   isAfter(other: NsDateTime): boolean {
-    return this.value.isAfter(other.value, 'second');
+    return other == null || this.value.isAfter(other.value, 'second');
   }
 
   isSameOrAfter(other: NsDateTime): boolean {
-    return this.value.isSameOrAfter(other.value, 'second');
+    return other == null || this.value.isSameOrAfter(other.value, 'second');
   }
 
   isSameDate(other: NsDateTime): boolean {

@@ -1,46 +1,91 @@
-import moment from 'moment';
-import { nsIsNotNullOrEmpty } from '../helpers/strings/ns-helpers-strings';
+import moment, { isMoment } from 'moment';
+import { NsString } from './ns-string';
 
+/**
+ * Class which helps to abstract away work with date only.
+ */
 export class NsDate extends Object {
   protected _value: moment.Moment;
 
+  /**
+   * Returns minimal value.
+   * @returns {NsDate}
+   */
   static min(): NsDate {
-    return NsDate.from().setDate(1970, 1, 1);
+    return NsDate.now().setDate(1970, 1, 1);
   }
 
+  /**
+   * Returns maximal value
+   * @returns {NsDate}
+   */
   static max(): NsDate {
-    return NsDate.from().setDate(2099, 11, 31);
+    return NsDate.now().setDate(2099, 11, 31);
   }
 
-  static clone(value: NsDate) {
-    return new NsDate(value.toString());
+  /**
+   * Creates a cloned value. If value is null, returns null
+   * @param value Instance of NsDate or null.
+   */
+  static clone(value: NsDate): NsDate {
+    return value == null ? null : new NsDate(value.toString());
   }
 
+  /**
+   * Returns current date as string
+   */
   static nowAsString(): string {
     return NsDate.now().toString();
   }
 
+  /**
+   * Returns current date as instance of NsDate
+   */
   static now(): NsDate {
     return new NsDate();
   }
 
-  static fromAsString(value?: any): string {
-    return NsDate.from(value).toString();
+  /**
+   * Returns string converted from value to NsDate and then to string.
+   * If value is null, returns null.
+   * @param value Value to convert
+   */
+  static fromAsString(value: string): string {
+    return value == null ? null : NsDate.from(value).toString();
   }
 
-  static from(value?: string) {
-    return new NsDate(value);
+  /**
+   * Returns instance of NsDate from value. If value is null, returns null.
+   * @param value Value to convert
+   */
+  static from(value: string): NsDate {
+    return value == null ? null : new NsDate(value);
+  }
+
+  /**
+   * Converts string to Date object.
+   * @param value Value to convert
+   */
+  static toJsDateFromString(value: string): Date {
+    const result = NsDate.from(value);
+    return NsDate.toJsDate(result);
+  }
+
+  /**
+   * Converts instance of NsDate to Date object.
+   * @param date Instance of NsDate.
+   */
+  static toJsDate(date: NsDate): Date {
+    return date == null ? null : date.value.toDate();
   }
 
   static formatUi(dateString: string): string {
-    let result = '';
-
-    if (nsIsNotNullOrEmpty(dateString)) {
-      const date = new NsDate(dateString);
-      result = date.value.format('ll');
+    if (NsString.isNullOrEmpty(dateString)) {
+      return '';
     }
 
-    return result;
+    const date = new NsDate(dateString);
+    return date.value.format('ll');
   }
 
   static formatLongMonthFullYear(date: NsDate): string {
@@ -54,14 +99,6 @@ export class NsDate extends Object {
     const year = date.value.format('YYYY');
 
     return `${month} ${year}`;
-  }
-
-  static formatDate(date: NsDate, format: string) {
-    return date == null ? '' : date._value.format(format);
-  }
-
-  static toJsDate(date: NsDate): Date {
-    return date == null ? null : date.value.toDate();
   }
 
   static daysInYear(year: number) {
@@ -94,6 +131,15 @@ export class NsDate extends Object {
 
   static weekdaysMin(): string[] {
     return moment.weekdaysMin(true);
+  }
+
+  /**
+   * Check if date param is Moment, then converts it to ISO string, otherwise
+   * returns the value of date param.
+   * @param date
+   */
+  static anyDateToString(date: any): string {
+    return isMoment(date) ? date.toISOString() : date;
   }
 
   protected get value(): moment.Moment {
@@ -222,19 +268,19 @@ export class NsDate extends Object {
   }
 
   isBefore(other: NsDate): boolean {
-    return this.value.isBefore(other.value, 'day');
+    return other == null || this.value.isBefore(other.value, 'day');
   }
 
   isSameOrBefore(other: NsDate): boolean {
-    return this.value.isSameOrBefore(other.value, 'day');
+    return other == null || this.value.isSameOrBefore(other.value, 'day');
   }
 
   isAfter(other: NsDate): boolean {
-    return this.value.isAfter(other.value, 'day');
+    return other == null || this.value.isAfter(other.value, 'day');
   }
 
   isSameOrAfter(other: NsDate): boolean {
-    return this.value.isSameOrAfter(other.value, 'day');
+    return other == null || this.value.isSameOrAfter(other.value, 'day');
   }
 
   isSame(other: NsDate): boolean {
@@ -246,8 +292,7 @@ export class NsDate extends Object {
   }
 
   isToday() {
-    const now = new NsDate();
-    return now.isSame(this);
+    return NsDate.now().isSame(this);
   }
 
   isBetween(from: NsDate, to: NsDate) {

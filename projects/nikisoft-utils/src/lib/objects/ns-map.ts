@@ -1,8 +1,17 @@
-import { nsIterateObjectProperties } from '../helpers/ns-helpers';
+/**
+ * Class which imitates dictionary-like map.
+ */
+import { NsObject } from './ns-object';
 
 export class NsMap<TKey, TValue> {
   private readonly _internalMap = {};
 
+  /**
+   * Gets value based on provided key, if the key does not exists, then
+   * creates the value and stores it in the map.
+   * @param key Key
+   * @param creator Function which creates a new value
+   */
   getOrCreate(key: TKey, creator: () => TValue): TValue {
     let value = this.get(key);
 
@@ -14,11 +23,21 @@ export class NsMap<TKey, TValue> {
     return value;
   }
 
+  /**
+   * Gets the key. If the keys is not in map, returns null.
+   * @param key Key
+   */
   get(key: TKey): TValue {
     const internalKey = NsMap.getInternalKey(key);
     return this._internalMap[internalKey] || null;
   }
 
+  /**
+   * Pushes a new value for the given key. If there is already a value,
+   * the value is overwritten.
+   * @param key Key
+   * @param value New value
+   */
   push(key: TKey, value: TValue) {
     const internalKey = NsMap.getInternalKey(key);
     this._internalMap[internalKey] = value;
@@ -31,7 +50,7 @@ export class NsMap<TKey, TValue> {
   flat(): TValue[] {
     const result: TValue[] = [];
 
-    nsIterateObjectProperties(this._internalMap, (prop) => {
+    NsObject.iterateProperties(this._internalMap, (prop) => {
       const value = this._internalMap[prop];
       result.push(value);
     });
@@ -39,7 +58,7 @@ export class NsMap<TKey, TValue> {
     return result;
   }
 
-  initializeFromArray(array: TValue[], keyCallback: (item: TValue) => TKey) {
+  fromArray(array: TValue[], keyCallback: (item: TValue) => TKey) {
     array.forEach((item) => {
       const key = keyCallback(item);
       this.push(key, item);

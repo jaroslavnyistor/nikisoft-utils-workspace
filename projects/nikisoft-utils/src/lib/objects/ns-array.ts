@@ -1,6 +1,8 @@
 /**
  * Set of functions which operates on array objects.
  */
+import { NsObject } from "./ns-object";
+
 export class NsArray {
   /**
    * Determines if array is empty or count of items in array is equal to count param.
@@ -41,5 +43,17 @@ export class NsArray {
     const callback = (item) => item != null;
 
     return value == null ? null : value.filter(callback);
+  }
+
+  /**
+   * For each item in array, applies transformation for null values, otherwise
+   * leaves the array as it is.
+   * @param value The array
+   * @param defaultValue Default value for item which is null|undefined.
+   */
+  static nullOrDefaultValue<T>(value: T[], defaultValue: T): T[] {
+    const callback = (item) => NsObject.nullOrDefaultValue(item, defaultValue);
+
+    return value == null ? null : value.map(callback);
   }
 }

@@ -11,7 +11,3 @@ export class NsLanguage {
     return language;
   }
 }
-
-export function resolveLanguageFactory() {
-  return () => NsLanguage.resolve();
-}

@@ -13,6 +13,10 @@ import { NsApiResponseError, NsApiResponseErrorType } from './ns-api-response.er
 
 const urlAuthenticate = 'api/authenticate';
 
+/**
+ * Exposes API to authenticate, logout user and send POST request with authorization
+ * token to API
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -24,8 +28,16 @@ export class NsApiService implements NsAuthenticateApiService {
     private _notFoundNavService: NsNotFoundService,
   ) {}
 
+  /**
+   * Logs out user
+   */
   logout(): void {}
 
+  /**
+   * Authenticates user based on user name and password
+   * @param userName User name
+   * @param password Password
+   */
   public authenticate(userName: string, password: string): Observable<NsAuthenticateResponseEntity> {
     const request = new NsApiRequest(urlAuthenticate).withBody({
       userName,
@@ -35,6 +47,10 @@ export class NsApiService implements NsAuthenticateApiService {
     return this.post<NsAuthenticateResponseEntity>(request);
   }
 
+  /**
+   * Sends a POST request with authorization token
+   * @param request
+   */
   postAuth<TData>(request: NsApiRequest): Observable<TData> {
     this.appendAuthorization(request);
 

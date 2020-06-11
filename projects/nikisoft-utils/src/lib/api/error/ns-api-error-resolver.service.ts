@@ -3,12 +3,20 @@ import { LocalizationLanguagesService } from '../../localization/localization-la
 import { NsApiResponseError, NsApiResponseErrorType } from '../ns-api-response.error';
 import { NsApiErrorResponse } from './ns-api-error.response';
 
+/**
+ * Resolves API errors
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class NsApiErrorResolverService {
   constructor(private readonly _langService: LocalizationLanguagesService) {}
 
+  /**
+   * Uses mapper to map error to localized texts.
+   * @param mapper Mapper, see nsApiErrorMapper const
+   * @param error Error received from API call
+   */
   resolve(mapper: any, error: NsApiResponseError): string[] {
     if (mapper == null) {
       return [this._langService.getUnknownError()];

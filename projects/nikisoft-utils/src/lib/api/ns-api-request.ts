@@ -1,5 +1,8 @@
 import { HttpHeaders } from '@angular/common/http';
 
+/**
+ * Wrapper to create API request body and options
+ */
 export class NsApiRequest {
   private _body: any;
   private _options: any = {};

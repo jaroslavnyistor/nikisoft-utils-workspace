@@ -6,6 +6,9 @@ const keyId = 'id';
 const keyCredentials = 'credentials';
 const keyLanguage = 'language';
 
+/**
+ * Stores user's credentials to local storage
+ */
 @Injectable({
   providedIn: 'root',
 })

@@ -15,6 +15,11 @@ import {
 import { NsAuthenticateApiService } from './ns-authenticate-api.service';
 import { NsAuthenticateStorage } from './ns-authenticate.storage';
 
+/**
+ * Service to provide information about user ID, login status and changes
+ * to authentication state. Also handles access to routes based on authentication
+ * state and permissions
+ */
 @Injectable({
   providedIn: 'root',
 })

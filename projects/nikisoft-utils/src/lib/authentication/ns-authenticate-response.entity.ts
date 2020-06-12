@@ -1,3 +1,6 @@
+/**
+ * Contract for data returned by authentication API call
+ */
 export interface NsAuthenticateResponseEntity {
   id: number;
   firstName: string;
@@ -9,6 +12,9 @@ export interface NsAuthenticateResponseEntity {
   permissions: number[];
 }
 
+/**
+ * Helper function to create default value of NsAuthenticateResponseEntity
+ */
 export function newNsAuthenticateResponseEntity(): NsAuthenticateResponseEntity {
   return {
     id: 0,

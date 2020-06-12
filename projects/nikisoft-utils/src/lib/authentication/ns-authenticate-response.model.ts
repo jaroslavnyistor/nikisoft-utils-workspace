@@ -8,6 +8,9 @@ import { NsAuthenticateRouteData } from './ns-authenticate-route.data';
 
 const statusIntervalMs = 15 * 1000;
 
+/**
+ * Wrapper around NsAuthenticateResponseEntity
+ */
 export class NsAuthenticateResponseModel {
   private readonly _changes$: BehaviorSubject<NsAuthenticateResponseModel>;
   private readonly _isLoggedIn$: Observable<boolean>;
@@ -18,14 +21,23 @@ export class NsAuthenticateResponseModel {
   private _fullName: string;
   private _hasToken: boolean;
 
+  /**
+   * Emits if user login state has changed
+   */
   get isLoggedIn$(): Observable<boolean> {
     return this._isLoggedIn$;
   }
 
+  /**
+   * Emits if user login expired.
+   */
   get loginExpired$(): Observable<boolean> {
     return this._loginExpired$;
   }
 
+  /**
+   * Emits any changes to user login information
+   */
   get changes$(): Observable<NsAuthenticateResponseModel> {
     return this._changes$;
   }
@@ -56,6 +68,10 @@ export class NsAuthenticateResponseModel {
     );
   }
 
+  /**
+   * Updates user login information. Also changes$ emits new value
+   * @param entity New user login information
+   */
   update(entity: NsAuthenticateResponseEntity) {
     this._entity = entity;
 
@@ -74,6 +90,10 @@ export class NsAuthenticateResponseModel {
     return this._expires.isBefore(NsDateTime.from());
   }
 
+  /**
+   * Determines if user has permission based on NsAuthenticateRouteData or Data
+   * @param data
+   */
   hasPermission(data: NsAuthenticateRouteData | Data) {
     if (data == null || data.permission == null) {
       return true;
@@ -83,6 +103,10 @@ export class NsAuthenticateResponseModel {
     return this.hasPermissionById(permissionId);
   }
 
+  /**
+   * Determines if user has permission based on ID of permission
+   * @param permissionId
+   */
   hasPermissionById(permissionId: number) {
     return permissionId === 0 || this._entity.permissions.some((id) => id === permissionId);
   }

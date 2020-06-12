@@ -8,7 +8,7 @@ import { NsAuthenticateService } from './ns-authenticate.service';
  * @param component Angular component
  * @param permissionId ID of permission user must have to be able to access this route
  */
-export function buildSecureRouteToComponent(path: string, component: Type<any>, permissionId): Route {
+export function buildSecureRouteToComponent(path: string, component: Type<any>, permissionId: number): Route {
   return {
     path,
     component,

@@ -1,15 +1,17 @@
-import { Inject, Injectable } from '@angular/core';
-import { tap } from 'rxjs/operators';
-import { NsAuthenticateStorage } from '../authentication/ns-authenticate.storage';
-import { NsDate } from '../objects/ns-date';
-import { NsLanguage } from '../objects/ns-language';
-import { NsString } from '../objects/ns-string';
-import { DI_NS_DEFAULT_LANGUAGE } from './localization-languages.di-tokens';
-import { LocalizationLanguage, LocalizationLanguageItem } from './localization.language';
-import { LocalizedTextIdLanguages } from './localized-text-id.languages';
-import { LocalizedTextIdNikisoft } from './localized-text-id.nikisoft';
-import { LocalizedTextService } from './localized-text.service';
+import { Inject, Injectable } from "@angular/core";
+import { tap } from "rxjs/operators";
+import { NsAuthenticateStorage } from "../authentication/ns-authenticate.storage";
+import { NsDate } from "../objects/ns-date";
+import { NsLanguage } from "../objects/ns-language";
+import { NsString } from "../objects/ns-string";
+import { DI_NS_DEFAULT_LANGUAGE } from "./localization-languages.di-tokens";
+import { LocalizationLanguage } from "./localization.language";
+import { LocalizedTextIdNikisoft } from "./localized-text-id.nikisoft";
+import { LocalizedTextService } from "./localized-text.service";
 
+/**
+ * Provides functionality around language engine
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -17,31 +19,11 @@ export class LocalizationLanguagesService {
   private readonly _storageService: NsAuthenticateStorage;
   private readonly _localizedTextService: LocalizedTextService;
   private readonly _defaultLanguage: LocalizationLanguage;
-  private _languageItems: LocalizationLanguageItem[];
+  private _currentLanguage: LocalizationLanguage;
   private _definition: any;
-  private _selectedLanguageItem: LocalizationLanguageItem;
 
-  get currentLanguageCode(): string {
-    return this._selectedLanguageItem.language;
-  }
-
-  get languageItems(): LocalizationLanguageItem[] {
-    return this._languageItems;
-  }
-
-  get selectedLanguageItem(): LocalizationLanguageItem {
-    return this._selectedLanguageItem;
-  }
-
-  set selectedLanguageItem(value: LocalizationLanguageItem) {
-    if (this._selectedLanguageItem.id === value.id) {
-      return;
-    }
-
-    this._selectedLanguageItem = value;
-
-    this.saveSelectedLanguage(value.language);
-    window.location.reload();
+  get currentLanguage(): LocalizationLanguage {
+    return this._currentLanguage;
   }
 
   constructor(
@@ -72,39 +54,15 @@ export class LocalizationLanguagesService {
   private initialize(definition: any, localizationLanguage: LocalizationLanguage) {
     this._definition = definition;
 
-    this.selectLanguageItem(localizationLanguage);
+    this.saveSelectedLanguage(localizationLanguage);
 
     const language = NsLanguage.resolve();
     NsDate.initialize(language);
   }
 
-  private saveSelectedLanguage(language: LocalizationLanguage) {
+  saveSelectedLanguage(language: LocalizationLanguage) {
+    this._currentLanguage = language;
     this._storageService.setLanguage(language);
-  }
-
-  private selectLanguageItem(language: LocalizationLanguage) {
-    if (this._languageItems == null) {
-      this._languageItems = LocalizationLanguagesService.buildLocalizationLanguages(this);
-    }
-
-    this._selectedLanguageItem = this._languageItems.find((e) => e.language === language);
-  }
-
-  private static buildLocalizationLanguages(langService: LocalizationLanguagesService): LocalizationLanguageItem[] {
-    return [
-      {
-        id: 1,
-        language: LocalizationLanguage.EN,
-        text: langService.translate(LocalizedTextIdLanguages.LanguageEn),
-        textShortcut: 'EN',
-      },
-      {
-        id: 2,
-        language: LocalizationLanguage.SK,
-        text: langService.translate(LocalizedTextIdLanguages.LanguageSk),
-        textShortcut: 'SK',
-      },
-    ];
   }
 
   translate(prop: any, args?: any): string {
@@ -187,19 +145,5 @@ export class LocalizationLanguagesService {
 
   getOrderDesc(): string {
     return this.translate(LocalizedTextIdNikisoft.OrderDesc);
-  }
-
-  selectLanguage(language: LocalizationLanguageItem) {
-    this.selectedLanguageItem = language;
-  }
-
-  getLanguageCheckIconStyle(language: LocalizationLanguageItem) {
-    return {
-      visibility: this.isSelected(language) ? 'visible' : 'hidden',
-    };
-  }
-
-  isSelected(language: LocalizationLanguageItem) {
-    return language.id === this.selectedLanguageItem.id;
   }
 }

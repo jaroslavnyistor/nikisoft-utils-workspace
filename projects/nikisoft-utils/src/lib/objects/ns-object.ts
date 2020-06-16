@@ -11,6 +11,15 @@ export class NsObject {
   }
 
   /**
+   * If value is null or undefined, returns defaultValue, otherwise value
+   * @param value Value
+   * @param fn Function which returns default value
+   */
+  static nullOrDefaultValueFrom(value: any, fn: () => any) {
+    return value == null ? fn() : value;
+  }
+
+  /**
    * Determines if value's property is null||undefined, then return defaultValue
    * @param value
    * @param property

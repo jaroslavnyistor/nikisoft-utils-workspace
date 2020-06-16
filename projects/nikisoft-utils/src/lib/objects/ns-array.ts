@@ -56,4 +56,16 @@ export class NsArray {
 
     return value == null ? null : value.map(callback);
   }
+
+  /**
+   * For each item in array, applies transformation for null values, otherwise
+   * leaves the array as it is.
+   * @param value The array
+   * @param fn Function which returns default value for item which is null|undefined.
+   */
+  static nullOrDefaultValueFrom<T>(value: T[], fn: () => T): T[] {
+    const callback = (item) => NsObject.nullOrDefaultValueFrom(item, fn);
+
+    return value == null ? null : value.map(callback);
+  }
 }

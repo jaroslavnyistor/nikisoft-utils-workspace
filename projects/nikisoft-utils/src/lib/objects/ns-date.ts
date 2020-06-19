@@ -79,28 +79,6 @@ export class NsDate extends Object {
     return date == null ? null : date.value.toDate();
   }
 
-  static formatUi(dateString: string): string {
-    if (NsString.isNullOrEmpty(dateString)) {
-      return '';
-    }
-
-    const date = new NsDate(dateString);
-    return date.value.format('ll');
-  }
-
-  static formatLongMonthFullYear(date: NsDate): string {
-    if (date == null) {
-      return '';
-    }
-
-    let month = date.value.format('MMMM');
-    month = month.charAt(0).toUpperCase() + month.substr(1);
-
-    const year = date.value.format('YYYY');
-
-    return `${month} ${year}`;
-  }
-
   static daysInYear(year: number) {
     const start = NsDate.from(`${year}-01-01`);
     const end = NsDate.clone(start).addYears(1).addDays(-1);
@@ -303,7 +281,7 @@ export class NsDate extends Object {
     return this.value.diff(other.value, 'days');
   }
 
-  toHumanReadableString(): string {
-    return this._value.format('ll');
+  format(format: string): string {
+    return this.value.format(format);
   }
 }

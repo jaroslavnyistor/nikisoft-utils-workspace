@@ -1,6 +1,5 @@
 import moment from 'moment';
 import { NsDate } from './ns-date';
-import { NsString } from './ns-string';
 
 /**
  * Class which helps to abstract away work with date and time
@@ -76,21 +75,6 @@ export class NsDateTime extends NsDate {
    */
   static toJsDate(date: NsDateTime): Date {
     return date == null ? null : date.value.toDate();
-  }
-
-  static formatDateRangeAsHoursAndMinutesOnly(start: any, finish: any) {
-    const startDateTime = NsDateTime.formatAsHoursAndMinutesOnly(start);
-    const finishDateTime = NsDateTime.formatAsHoursAndMinutesOnly(finish);
-    return NsString.join(' - ', [startDateTime, finishDateTime]);
-  }
-
-  static formatAsHoursAndMinutesOnly(value?: any): string {
-    if (value == null) {
-      return null;
-    }
-
-    const dateTime = NsDateTime.from(value);
-    return dateTime._value.format('HH:mm');
   }
 
   static isOverlapping(a: NsDateTime, b: NsDateTime, c: NsDateTime, d: NsDateTime) {
@@ -217,14 +201,5 @@ export class NsDateTime extends NsDate {
 
   toEndOfDay(): this {
     return this.setHour(23).setMinutes(59).setSeconds(59).setMilliseconds(999);
-  }
-
-  toHumanReadableString(includeSeconds = false): string {
-    let format = 'll HH:mm';
-    if (includeSeconds) {
-      format += ':ss';
-    }
-
-    return this._value.format(format);
   }
 }

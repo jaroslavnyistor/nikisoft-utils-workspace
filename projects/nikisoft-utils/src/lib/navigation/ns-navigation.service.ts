@@ -7,7 +7,8 @@ import { NsStoragePageService } from '../storage/page/ns-storage-page.service';
 import { NsRouterService } from './ns-router.service';
 
 export abstract class NsNavigationService {
-  protected constructor(protected _routerService: NsRouterService, private _storageService: NsStorageService) {}
+  protected constructor(protected _routerService: NsRouterService, private _storageService: NsStorageService) {
+  }
 
   protected finishEditing(model: NsStoragePageModel, navigationBackState?: any) {
     const service = new NsStoragePageService(model, this._storageService);

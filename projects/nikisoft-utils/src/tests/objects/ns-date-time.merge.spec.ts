@@ -1,5 +1,5 @@
 import { NsDateTime } from '../../lib/objects/ns-date-time';
-import { NsDateTimeMerge } from "../../lib/objects/ns-date-time.merge";
+import { NsDateTimeMerge } from '../../lib/objects/ns-date-time.merge';
 
 describe('NsDateTime - Merge functionality', () => {
   const dateString = '2020-06-18';
@@ -14,7 +14,13 @@ describe('NsDateTime - Merge functionality', () => {
     const expectedTimeString = '13:30:32.562';
     const expected = NsDateTime.from(`${expectedDateString}T${expectedTimeString}+02:00`);
 
-    const actual = NsDateTimeMerge.mergeDateTime(dateTimeString, expectedDateString, expectedTimeString, fallbackDateString, fallbackTimeString);
+    const actual = NsDateTimeMerge.mergeDateTime(
+      dateTimeString,
+      expectedDateString,
+      expectedTimeString,
+      fallbackDateString,
+      fallbackTimeString
+    );
 
     expect(actual.isSame(expected)).toBe(true);
   });

@@ -1,10 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { NsAuthenticateResponseEntity } from '../authentication/ns-authenticate-response.entity';
 import { NsAuthenticateApiService } from '../authentication/ns-authenticate-api.service';
+import { NsAuthenticateResponseEntity } from '../authentication/ns-authenticate-response.entity';
 import { NsAuthenticateStorage } from '../authentication/ns-authenticate.storage';
 import { NsNoPermissionService } from './no-permission/ns-no-permission.service';
 import { NsNotFoundService } from './not-found/ns-not-found.service';
@@ -26,12 +25,14 @@ export class NsApiService implements NsAuthenticateApiService {
     private _credentialsStorageService: NsAuthenticateStorage,
     private _noPermissionNavService: NsNoPermissionService,
     private _notFoundNavService: NsNotFoundService,
-  ) {}
+  ) {
+  }
 
   /**
    * Logs out user
    */
-  logout(): void {}
+  logout(): void {
+  }
 
   /**
    * Authenticates user based on user name and password

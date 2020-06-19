@@ -9,7 +9,8 @@ import { routeNotFound } from './ns-not-found.route';
   providedIn: 'root',
 })
 export class NsNotFoundService {
-  constructor(private _routerService: NsRouterService) {}
+  constructor(private _routerService: NsRouterService) {
+  }
 
   navigate() {
     this._routerService.navigateByUrl(routeNotFound);

@@ -1,13 +1,13 @@
-import { Inject, Injectable } from "@angular/core";
-import { tap } from "rxjs/operators";
-import { NsAuthenticateStorage } from "../authentication/ns-authenticate.storage";
-import { NsDate } from "../objects/ns-date";
-import { NsLanguage } from "../objects/ns-language";
-import { NsString } from "../objects/ns-string";
-import { DI_NS_DEFAULT_LANGUAGE } from "./localization-languages.di-tokens";
-import { LocalizationLanguage } from "./localization.language";
-import { LocalizedTextIdNikisoft } from "./localized-text-id.nikisoft";
-import { LocalizedTextService } from "./localized-text.service";
+import { Inject, Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators';
+import { NsAuthenticateStorage } from '../authentication/ns-authenticate.storage';
+import { NsDate } from '../objects/ns-date';
+import { NsLanguage } from '../objects/ns-language';
+import { NsString } from '../objects/ns-string';
+import { DI_NS_DEFAULT_LANGUAGE } from './localization-languages.di-tokens';
+import { LocalizationLanguage } from './localization.language';
+import { LocalizedTextIdNikisoft } from './localized-text-id.nikisoft';
+import { LocalizedTextService } from './localized-text.service';
 
 /**
  * Provides functionality around language engine

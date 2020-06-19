@@ -29,5 +29,6 @@ export class NsNoAuthenticateApiService implements NsAuthenticateApiService {
     });
   }
 
-  logout(): void {}
+  logout(): void {
+  }
 }

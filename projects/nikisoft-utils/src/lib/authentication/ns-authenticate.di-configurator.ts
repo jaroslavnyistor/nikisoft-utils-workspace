@@ -1,9 +1,9 @@
 import { Provider, Type } from '@angular/core';
+import { NsAuthenticateApiService } from './ns-authenticate-api.service';
 import {
   DI_NS_AUTHENTICATION_API_SERVICE,
   DI_NS_AUTHENTICATION_TO_LOGIN_ON_EXPIRATION,
 } from './ns-authenticate.di-tokens';
-import { NsAuthenticateApiService } from './ns-authenticate-api.service';
 
 /**
  * Configures DI for authentication

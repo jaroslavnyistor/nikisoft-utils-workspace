@@ -3,7 +3,8 @@ import { Observable, PartialObserver, Subscription } from 'rxjs';
 export abstract class NsSubscriptionModel {
   private readonly _subscription = new Subscription();
 
-  onInit() {}
+  onInit() {
+  }
 
   onDestroy() {
     this._subscription.unsubscribe();

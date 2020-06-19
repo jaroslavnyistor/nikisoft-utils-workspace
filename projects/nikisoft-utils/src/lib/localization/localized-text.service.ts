@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DI_NS_USES_LOCALIZATION } from './localization-languages.di-tokens';
-import { LocalizationLanguage } from "./localization.language";
+import { LocalizationLanguage } from './localization.language';
 import { buildLocalizedTextEnLanguages } from './localized-text-lang-en.languages';
 import { buildLocalizedTextEnNikiSoft } from './localized-text-lang-en.nikisoft';
 import { buildLocalizedTextSkLanguages } from './localized-text-lang-sk.languages';
@@ -21,7 +21,8 @@ export class LocalizedTextService {
   constructor(
     private readonly _httpClient: HttpClient,
     @Inject(DI_NS_USES_LOCALIZATION) private readonly _useLocalization: boolean,
-  ) {}
+  ) {
+  }
 
   download(languageCode: string): Observable<any> {
     let localizedText = {};

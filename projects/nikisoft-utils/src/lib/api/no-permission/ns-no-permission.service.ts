@@ -9,7 +9,8 @@ import { routeNoPermission } from './ns-no-permission.route';
   providedIn: 'root',
 })
 export class NsNoPermissionService {
-  constructor(private _routerService: NsRouterService) {}
+  constructor(private _routerService: NsRouterService) {
+  }
 
   async navigate() {
     await this._routerService.navigateByUrl(routeNoPermission);

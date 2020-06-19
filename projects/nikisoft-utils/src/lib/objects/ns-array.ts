@@ -1,7 +1,7 @@
 /**
  * Set of functions which operates on array objects.
  */
-import { NsObject } from "./ns-object";
+import { NsObject } from './ns-object';
 
 export class NsArray {
   /**

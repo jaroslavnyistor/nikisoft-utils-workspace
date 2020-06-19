@@ -3,8 +3,8 @@ import { NsArray } from './ns-array';
 export class NsNumber {
   static formatFloatNumber(value: number, digits = 2): string {
     return value == null
-      ? null
-      : value.toLocaleString(undefined, { maximumFractionDigits: digits, useGrouping: false });
+           ? null
+           : value.toLocaleString(undefined, { maximumFractionDigits: digits, useGrouping: false });
   }
 
   static formatNumber(value: number, digits = 2): string {

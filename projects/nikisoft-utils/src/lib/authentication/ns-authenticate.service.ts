@@ -6,13 +6,13 @@ import { NsNoPermissionService } from '../api/no-permission/ns-no-permission.ser
 import { NsNavigationService } from '../navigation/ns-navigation.service';
 import { NsRouterService } from '../navigation/ns-router.service';
 import { NsString } from '../objects/ns-string';
+import { NsAuthenticateApiService } from './ns-authenticate-api.service';
 import { newNsAuthenticateResponseEntity, NsAuthenticateResponseEntity } from './ns-authenticate-response.entity';
 import { NsAuthenticateResponseModel } from './ns-authenticate-response.model';
 import {
   DI_NS_AUTHENTICATION_API_SERVICE,
   DI_NS_AUTHENTICATION_TO_LOGIN_ON_EXPIRATION,
 } from './ns-authenticate.di-tokens';
-import { NsAuthenticateApiService } from './ns-authenticate-api.service';
 import { NsAuthenticateStorage } from './ns-authenticate.storage';
 
 /**

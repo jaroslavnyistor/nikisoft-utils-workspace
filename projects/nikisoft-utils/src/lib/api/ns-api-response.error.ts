@@ -43,7 +43,8 @@ export class NsApiResponseError {
     return `${this._type}: ${this._serverValidationResult}`;
   }
 
-  constructor(private _type: NsApiResponseErrorType, private _serverValidationResult: NsApiErrorResponse[] = []) {}
+  constructor(private _type: NsApiResponseErrorType, private _serverValidationResult: NsApiErrorResponse[] = []) {
+  }
 
   /**
    * Creates NsApiResponseError based on API error code

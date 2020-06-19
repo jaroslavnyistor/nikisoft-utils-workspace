@@ -5,7 +5,8 @@ const navigationToStateKey = 'app-navigation-to-state';
 const navigationBackStateKey = 'app-navigation-back-state';
 
 export class NsStoragePageService {
-  constructor(private readonly _model: NsStoragePageModel, private readonly _storageService: NsStorageService) {}
+  constructor(private readonly _model: NsStoragePageModel, private readonly _storageService: NsStorageService) {
+  }
 
   onInit(): void {
     window.addEventListener('beforeunload', this.beforeUnloadListener);

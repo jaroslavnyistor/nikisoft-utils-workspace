@@ -4,7 +4,8 @@
 export class NsStringJoiner {
   private _result = '';
 
-  constructor(private _separator: string) {}
+  constructor(private _separator: string) {
+  }
 
   /**
    * Clear value

@@ -19,7 +19,7 @@ export function buildLocalizedTextEnNikiSoft() {
     [LocalizedTextIdNikisoft.Validation_MinValue]: 'Minimal value must be greater or equal to {{0}}!',
     [LocalizedTextIdNikisoft.Validation_Required]: 'Value is mandatory!',
     [LocalizedTextIdNikisoft.NotFoundTitle]: 'NOT FOUND',
-    [LocalizedTextIdNikisoft.NotFoundSubTitle]: "Sorry, but we haven't found what are you looking for!",
+    [LocalizedTextIdNikisoft.NotFoundSubTitle]: 'Sorry, but we haven\'t found what are you looking for!',
     [LocalizedTextIdNikisoft.NoPermissionTitle]: 'PERMISSION NOT GRANTED',
     [LocalizedTextIdNikisoft.NoPermissionSubTitle]:
       'Sorry, but you have not been granted permission to access the page!',

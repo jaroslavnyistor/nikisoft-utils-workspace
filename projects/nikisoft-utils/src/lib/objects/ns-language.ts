@@ -3,8 +3,7 @@ export class NsLanguage {
     let language;
     if (window.navigator.languages) {
       language = window.navigator.languages[0];
-    }
-    else {
+    } else {
       language = window.navigator.language;
     }
 

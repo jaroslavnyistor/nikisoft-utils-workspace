@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NsDate } from '../../../nikisoft-utils/src/lib/objects/ns-date';
+import { NsDateTimeFormatter } from '../../../nikisoft-utils/src/lib/objects/ns-date-time.formatter';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,5 @@ import { NsDate } from '../../../nikisoft-utils/src/lib/objects/ns-date';
 })
 export class AppComponent {
   title = 'nikisoft-utils-playground';
-  now = NsDate.now().toHumanReadableString();
+  now = NsDateTimeFormatter.formatDate(NsDate.now());
 }

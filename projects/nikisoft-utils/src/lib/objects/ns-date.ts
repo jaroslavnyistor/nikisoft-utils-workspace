@@ -47,7 +47,7 @@ export class NsDate extends Object {
 
   /**
    * Returns string converted from value to NsDate and then to string.
-   * If value is null, returns null.
+   * If value is null or empty, returns null.
    * @param value Value to convert
    */
   static fromAsString(value: string): string {
@@ -55,7 +55,7 @@ export class NsDate extends Object {
   }
 
   /**
-   * Returns instance of NsDate from value. If value is null, returns null.
+   * Returns instance of NsDate from value. If value is null or empty, returns null.
    * @param value Value to convert
    */
   static from(value: string): NsDate {

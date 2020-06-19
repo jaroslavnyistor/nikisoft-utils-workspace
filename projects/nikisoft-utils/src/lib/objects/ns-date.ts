@@ -51,7 +51,7 @@ export class NsDate extends Object {
    * @param value Value to convert
    */
   static fromAsString(value: string): string {
-    return value == null ? null : NsDate.from(value).toString();
+    return NsString.isNullOrEmpty(value) ? null : NsDate.from(value).toString();
   }
 
   /**
@@ -59,7 +59,7 @@ export class NsDate extends Object {
    * @param value Value to convert
    */
   static from(value: string): NsDate {
-    return value == null ? null : new NsDate(value);
+    return NsString.isNullOrEmpty(value) ? null : new NsDate(value);
   }
 
   /**

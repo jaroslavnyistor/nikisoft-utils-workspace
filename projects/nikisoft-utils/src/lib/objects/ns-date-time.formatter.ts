@@ -22,6 +22,19 @@ export enum NsDateTimeFormatType {
    * Time only with hours, minutes and seconds
    */
   TimeWithSeconds,
+  /**
+   * [Long month name] [day of month], [4 digits year]
+   */
+  MonthName_DayOfMonth_Comma_Year,
+  /**
+   * Short month name(Jan, Feb) and 4 digits year
+   */
+  MonthShortName_Year,
+
+  /**
+   * Long month name and 4 digits year
+   */
+  MonthLongName_Year
 }
 
 type NsDateTimeFormatTypeMapping = {
@@ -37,7 +50,18 @@ export class NsDateTimeFormatter {
     [NsDateTimeFormatType.Date]: 'll',
     [NsDateTimeFormatType.Time]: 'HH:mm',
     [NsDateTimeFormatType.TimeWithSeconds]: 'HH:mm:ss',
+    [NsDateTimeFormatType.MonthName_DayOfMonth_Comma_Year]: 'LL',
+    [NsDateTimeFormatType.MonthShortName_Year]: 'MMM YYYY',
+    [NsDateTimeFormatType.MonthLongName_Year]: 'MMMM YYYY',
   };
+
+  /**
+   * Gets format type as string
+   * @param type
+   */
+  static getFormatTypeValue(type: NsDateTimeFormatType): string {
+    return NsDateTimeFormatter.Mapping[type];
+  }
 
   /**
    * Gets format type based on if it should include date and/or time. Default value is
@@ -120,23 +144,6 @@ export class NsDateTimeFormatter {
 
     const format = NsDateTimeFormatter.Mapping[type];
     return date.format(format);
-  }
-
-  /**
-   * Formats date/time to long name of month and long year
-   * @param date
-   */
-  static formatLongMonthFullYear(date: NsDate): string {
-    if (date == null) {
-      return '';
-    }
-
-    let month = date.format('MMMM');
-    month = NsString.firstUpper(month);
-
-    const year = date.format('YYYY');
-
-    return `${month} ${year}`;
   }
 
   /**

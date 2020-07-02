@@ -67,6 +67,15 @@ export class NsDateTimeFormatter {
   }
 
   /**
+   * Formats only date from string
+   * @param dateString date in string format
+   */
+  static formatDateFromString(dateString: string): string {
+    const date = NsDate.from(dateString);
+    return NsDateTimeFormatter.formatDate(date);
+  }
+
+  /**
    * Formats only date
    * @param date
    */

@@ -5,16 +5,26 @@ import { filter, flatMap } from 'rxjs/operators';
 import { NsStorageService } from '../storage/ns-storage.service';
 import { NsStoragePageService } from '../storage/page/ns-storage-page.service';
 
+/**
+ * Responsible for performing navigation with state management. State is sent between
+ * two pages.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class NsRouterService {
   private readonly _isNavigating$: Observable<boolean>;
 
+  /**
+   * Outputs if the navigation is in progress.
+   */
   get isNavigating$(): Observable<boolean> {
     return this._isNavigating$;
   }
 
+  /**
+   * Current URL
+   */
   get url(): string {
     return this._router.url;
   }
@@ -26,7 +36,14 @@ export class NsRouterService {
     );
   }
 
-  async navigate(url: string, queryParams: Params = null, state: any = null) {
+  /**
+   * Performs navigation to url with optional queryParams and state.
+   * @param url URL where to navigate
+   * @param queryParams Query parameters
+   * @param state Object which is saved during navigation and can be restored after
+   * page is loaded
+   */
+  async navigateAsync(url: string, queryParams: Params = null, state: any = null): Promise<void> {
     const options: NavigationExtras = {};
     if (queryParams != null) {
       options.queryParams = queryParams;

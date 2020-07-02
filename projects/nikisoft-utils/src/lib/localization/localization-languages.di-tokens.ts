@@ -10,6 +10,6 @@ export const DI_NS_DEFAULT_LANGUAGE = new InjectionToken<LocalizationLanguage>('
 });
 
 /**
- * Allows to disabled use of localized texts.
+ * Sets if app is using localized texts
  */
 export const DI_NS_USES_LOCALIZATION = new InjectionToken<boolean>('DI_NS_USES_LOCALIZATION');

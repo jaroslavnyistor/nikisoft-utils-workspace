@@ -12,7 +12,7 @@ export class NsCurrency {
    * Formats the number as currency
    * @param value
    */
-  static format(value: number) {
+  static formatToEur(value: number): string {
     return value == null ? null : value.toLocaleString(undefined, formatterSettings);
   }
 }

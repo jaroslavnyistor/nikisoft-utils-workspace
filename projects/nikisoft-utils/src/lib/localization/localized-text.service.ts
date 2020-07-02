@@ -9,6 +9,11 @@ import { buildLocalizedTextEnNikiSoft } from './localized-text-lang-en.nikisoft'
 import { buildLocalizedTextSkLanguages } from './localized-text-lang-sk.languages';
 import { buildLocalizedTextSkNikiSoft } from './localized-text-lang-sk.nikisoft';
 
+/**
+ * Main responsibility is to download translated texts from
+ * file assets/localization/localized-text-lang-${languageCode}.json where
+ * languageCode is one of the supported languages.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -24,6 +29,10 @@ export class LocalizedTextService {
   ) {
   }
 
+  /**
+   * Provide observable which outputs the downloaded translated texts and already provided ones
+   * @param languageCode Language for which to download the translated texts
+   */
   download(languageCode: string): Observable<any> {
     let localizedText = {};
 

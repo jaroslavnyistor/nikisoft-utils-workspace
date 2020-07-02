@@ -4,7 +4,7 @@ import { NsApiResponseError, NsApiResponseErrorType } from '../ns-api-response.e
 import { NsApiErrorResponse } from './ns-api-error.response';
 
 /**
- * Resolves API errors
+ * Service to resolve API operation errors
  */
 @Injectable({
   providedIn: 'root',

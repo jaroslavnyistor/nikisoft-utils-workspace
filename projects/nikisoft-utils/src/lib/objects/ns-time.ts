@@ -1,6 +1,9 @@
 import { NsNumber } from './ns-number';
 import { NsString } from './ns-string';
 
+/**
+ * Wrapper to handle time operations.
+ */
 export class NsTime {
   /**
    * Parse time string in format hh:mm:ss.zzz where zzz are milliseconds.
@@ -28,34 +31,62 @@ export class NsTime {
   private _seconds: number;
   private _milliseconds: number;
 
+  /**
+   * Get hour
+   */
   get hour(): number {
     return this._hour;
   }
 
+  /**
+   * Set hour
+   * @param value
+   */
   set hour(value: number) {
     this._hour = value;
   }
 
+  /**
+   * Get minute
+   */
   get minute(): number {
     return this._minute;
   }
 
+  /**
+   * Set minute
+   * @param value
+   */
   set minute(value: number) {
     this._minute = value;
   }
 
+  /**
+   * Get seconds
+   */
   get seconds(): number {
     return this._seconds;
   }
 
+  /**
+   * Set seconds
+   * @param value
+   */
   set seconds(value: number) {
     this._seconds = value;
   }
 
+  /**
+   * Get milliseconds
+   */
   get milliseconds(): number {
     return this._milliseconds;
   }
 
+  /**
+   * Set milliseconds
+   * @param value
+   */
   set milliseconds(value: number) {
     this._milliseconds = value;
   }
@@ -68,6 +99,6 @@ export class NsTime {
   }
 
   toString(): string {
-    return `${this._hour}:${this._minute}:${this._seconds}:${this._milliseconds}`;
+    return `${this._hour}:${this._minute}:${this._seconds}.${this._milliseconds}`;
   }
 }

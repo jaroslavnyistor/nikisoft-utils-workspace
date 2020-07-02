@@ -1,3 +1,6 @@
+/**
+ * Defines mapping enum -> string for localized texts
+ */
 export enum LocalizedTextIdLanguages {
   Languages = 'Languages',
   LanguageEn = 'LanguageEn',

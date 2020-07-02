@@ -6,7 +6,7 @@ export class NsObject {
    * @param value Value
    * @param defaultValue Default value to return
    */
-  static nullOrDefaultValue(value: any, defaultValue: any) {
+  static nullOrDefaultValue(value: any, defaultValue: any): any {
     return value == null ? defaultValue : value;
   }
 
@@ -15,7 +15,7 @@ export class NsObject {
    * @param value Value
    * @param fn Function which returns default value
    */
-  static nullOrDefaultValueFrom(value: any, fn: () => any) {
+  static nullOrDefaultValueFrom(value: any, fn: () => any): any {
     return value == null ? fn() : value;
   }
 
@@ -105,7 +105,7 @@ export class NsObject {
    * Determines if the value is string
    * @param value
    */
-  static isString(value: any) {
+  static isString(value: any): boolean {
     return value != null && value.length !== undefined;
   }
 }

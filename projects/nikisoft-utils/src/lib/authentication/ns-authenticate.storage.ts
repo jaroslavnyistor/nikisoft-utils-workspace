@@ -2,10 +2,6 @@ import { Injectable } from '@angular/core';
 import { NsStorageService } from '../storage/ns-storage.service';
 import { newNsAuthenticateResponseEntity, NsAuthenticateResponseEntity } from './ns-authenticate-response.entity';
 
-const keyId = 'id';
-const keyCredentials = 'credentials';
-const keyLanguage = 'language';
-
 /**
  * Stores user's credentials to local storage
  */
@@ -13,8 +9,18 @@ const keyLanguage = 'language';
   providedIn: 'root',
 })
 export class NsAuthenticateStorage {
+  private static keyId = 'id';
+  private static keyCredentials = 'credentials';
+
+  /**
+   * Gets user's credentials
+   */
+  get credentials(): NsAuthenticateResponseEntity {
+    return this._storage.loadPerApplication(NsAuthenticateStorage.keyCredentials);
+  }
+
   constructor(private readonly _storage: NsStorageService) {
-    this._storage.userId = _storage.loadPerApplication(keyId);
+    this._storage.userId = _storage.loadPerApplication(NsAuthenticateStorage.keyId);
 
     const credentials = this.credentials;
     if (credentials != null) {
@@ -22,19 +28,18 @@ export class NsAuthenticateStorage {
     }
   }
 
-  get language(): string {
-    return this._storage.loadPerApplication(keyLanguage);
-  }
-
-  get credentials(): NsAuthenticateResponseEntity {
-    return this._storage.loadPerApplication(keyCredentials);
-  }
-
+  /**
+   * Stores user's credentials
+   * @param value
+   */
   login(value: NsAuthenticateResponseEntity) {
     this.saveUserId(value.id);
     this.saveCredentials(value);
   }
 
+  /**
+   * Removes user's credentials
+   */
   logout() {
     const credentials = newNsAuthenticateResponseEntity();
     this.saveCredentials(credentials);
@@ -43,15 +48,11 @@ export class NsAuthenticateStorage {
   }
 
   private saveCredentials(newCredentials: NsAuthenticateResponseEntity) {
-    this._storage.savePerApplication(keyCredentials, newCredentials);
+    this._storage.savePerApplication(NsAuthenticateStorage.keyCredentials, newCredentials);
   }
 
   private saveUserId(userId: number) {
-    this._storage.savePerApplication(keyId, userId);
+    this._storage.savePerApplication(NsAuthenticateStorage.keyId, userId);
     this._storage.userId = userId;
-  }
-
-  setLanguage(value: string) {
-    this._storage.savePerApplication(keyLanguage, value);
   }
 }

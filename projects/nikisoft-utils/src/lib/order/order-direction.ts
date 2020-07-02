@@ -1,4 +1,7 @@
+/**
+ * Defines order direction
+ */
 export enum OrderDirection {
-  Asc,
-  Desc,
+  Asc = 0,
+  Desc = 1,
 }

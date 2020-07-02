@@ -2,7 +2,7 @@ import { NsApiErrorCodes } from './error/ns-api-error.codes';
 import { NsApiErrorResponse } from './error/ns-api-error.response';
 
 /**
- * Determines API response error types
+ * Define API response error types
  */
 export enum NsApiResponseErrorType {
   UnableToConnectToServer = 0,
@@ -17,7 +17,6 @@ export enum NsApiResponseErrorType {
  * Wrapper around API response error
  */
 export class NsApiResponseError {
-
   /**
    * Gets the type
    */
@@ -39,6 +38,9 @@ export class NsApiResponseError {
     return this._serverValidationResult;
   }
 
+  /**
+   * String representation with type and server validation result
+   */
   toString(): string {
     return `${this._type}: ${this._serverValidationResult}`;
   }
@@ -50,7 +52,7 @@ export class NsApiResponseError {
    * Creates NsApiResponseError based on API error code
    * @param code API error code
    */
-  static forServerValidationFailed(code: number): NsApiResponseError {
+  static create(code: number): NsApiResponseError {
     return new NsApiResponseError(NsApiResponseErrorType.ServerValidationFailed, [{ code, subCodes: [] }]);
   }
 }

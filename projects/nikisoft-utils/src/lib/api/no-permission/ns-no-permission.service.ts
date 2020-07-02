@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { NsRouterService } from '../../navigation/ns-router.service';
-import { routeNoPermission } from './ns-no-permission.route';
 
 /**
  * Exposes API to navigate to no permission page.
@@ -9,10 +8,18 @@ import { routeNoPermission } from './ns-no-permission.route';
   providedIn: 'root',
 })
 export class NsNoPermissionService {
+  /**
+   * Default route to no permission page
+   */
+  public static routeNoPermission = 'no-permission';
+
   constructor(private _routerService: NsRouterService) {
   }
 
-  async navigate() {
-    await this._routerService.navigateByUrl(routeNoPermission);
+  /**
+   * Navigates to no permission route.
+   */
+  async navigateAsync(): Promise<void> {
+    await this._routerService.navigateByUrl(NsNoPermissionService.routeNoPermission);
   }
 }

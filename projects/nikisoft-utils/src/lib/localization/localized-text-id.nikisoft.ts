@@ -1,3 +1,6 @@
+/**
+ * Defines mapping enum -> string for localized texts
+ */
 export enum LocalizedTextIdNikisoft {
   Loading = 'Loading',
   Save = 'Save',

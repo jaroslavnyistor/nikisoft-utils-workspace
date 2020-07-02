@@ -47,6 +47,9 @@ export class NsMap<TKey, TValue> {
     return key.toString();
   }
 
+  /**
+   * Flats this instance to array where items are values from this map.
+   */
   flat(): TValue[] {
     const result: TValue[] = [];
 
@@ -58,10 +61,19 @@ export class NsMap<TKey, TValue> {
     return result;
   }
 
-  fromArray(array: TValue[], keyCallback: (item: TValue) => TKey) {
+  /**
+   * Creates instance from array
+   * @param array Array to use to populate the map
+   * @param keyCallback Function called to get key for the value.
+   */
+  static fromArray<TKey, TValue>(array: TValue[], keyCallback: (item: TValue) => TKey): NsMap<TKey, TValue> {
+    const map: NsMap<TKey, TValue> = new NsMap();
+
     array.forEach((item) => {
       const key = keyCallback(item);
-      this.push(key, item);
+      map.push(key, item);
     });
+
+    return map;
   }
 }

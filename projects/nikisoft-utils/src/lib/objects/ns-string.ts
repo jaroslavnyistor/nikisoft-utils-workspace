@@ -134,7 +134,7 @@ export class NsString {
    * Converts 1st character to lower case.
    * @param value
    */
-  static firstLower(value: string) {
+  static firstLower(value: string): string {
     return value == null ? null : value[0].toLowerCase() + value.substr(1);
   }
 
@@ -156,7 +156,7 @@ export class NsString {
    * @param value
    * @param search
    */
-  static contains(value: string, search: string) {
+  static contains(value: string, search: string): boolean {
     return NsString.isNullOrEmpty(value) || NsString.isNullOrEmpty(search) ? false : value.indexOf(search) > -1;
   }
 }

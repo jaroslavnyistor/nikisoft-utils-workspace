@@ -18,9 +18,11 @@ export class NsStringJoiner {
    * Append value and add separator on the end
    * @param value
    */
-  append(value: any) {
+  append(value: any): this {
     this._result += value.toString();
     this._result += this._separator;
+
+    return this;
   }
 
   /**

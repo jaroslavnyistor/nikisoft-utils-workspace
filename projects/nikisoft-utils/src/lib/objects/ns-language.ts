@@ -1,4 +1,7 @@
 export class NsLanguage {
+  /**
+   * Resolves language of user's browser.
+   */
   static resolve(): string {
     let language;
     if (window.navigator.languages) {

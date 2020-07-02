@@ -1,5 +1,8 @@
 import { LocalizedTextIdNikisoft } from './localized-text-id.nikisoft';
 
+/**
+ * Builds object where property name is value of enum as string and property value is actual text in Slovak
+ */
 export function buildLocalizedTextSkNikiSoft() {
   return {
     [LocalizedTextIdNikisoft.Loading]: 'Načítavam...',

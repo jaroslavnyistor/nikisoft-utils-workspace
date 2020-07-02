@@ -6,12 +6,12 @@ import { NsString } from '../objects/ns-string';
 import { NsAuthenticateResponseEntity } from './ns-authenticate-response.entity';
 import { NsAuthenticateRouteData } from './ns-authenticate-route.data';
 
-const statusIntervalMs = 15 * 1000;
-
 /**
  * Wrapper around NsAuthenticateResponseEntity
  */
 export class NsAuthenticateResponseModel {
+  private static statusIntervalMs = 15 * 1000;
+
   private readonly _changes$: BehaviorSubject<NsAuthenticateResponseModel>;
   private readonly _isLoggedIn$: Observable<boolean>;
   private readonly _loginExpired$: Observable<boolean>;
@@ -42,18 +42,30 @@ export class NsAuthenticateResponseModel {
     return this._changes$;
   }
 
+  /**
+   * Gets user's full name
+   */
   get fullName(): string {
     return this._fullName;
   }
 
+  /**
+   * Gets user name
+   */
   get userName(): string {
     return this._entity.userName;
   }
 
+  /**
+   * Gets user's email
+   */
   get email(): string {
     return this._entity.email;
   }
 
+  /**
+   * Gets user's ID
+   */
   get id(): number {
     return this._entity.id;
   }
@@ -63,7 +75,7 @@ export class NsAuthenticateResponseModel {
 
     this._isLoggedIn$ = this._changes$.pipe(map(() => this.getIsLoggedIn()));
 
-    this._loginExpired$ = combineLatest([this._changes$, timer(0, statusIntervalMs)]).pipe(
+    this._loginExpired$ = combineLatest([this._changes$, timer(0, NsAuthenticateResponseModel.statusIntervalMs)]).pipe(
       map(() => this._hasToken && !this.getIsLoggedIn()),
     );
   }

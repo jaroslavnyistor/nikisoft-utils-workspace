@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, OperatorFunction } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NsNoPermissionService } from '../api/no-permission/ns-no-permission.service';
 import { NsNavigationService } from '../navigation/ns-navigation.service';
@@ -26,14 +26,23 @@ import { NsAuthenticateStorage } from './ns-authenticate.storage';
 export class NsAuthenticateService implements CanActivate {
   private readonly _model: NsAuthenticateResponseModel;
 
+  /**
+   * Gets user ID
+   */
   get userId(): number {
     return this._model.id;
   }
 
+  /**
+   * Observable which emits true/false if user is logged in
+   */
   get isLoggedIn$(): Observable<boolean> {
     return this._model.isLoggedIn$;
   }
 
+  /**
+   * Emits changes to user login
+   */
   get changes$(): Observable<NsAuthenticateResponseModel> {
     return this._model.changes$;
   }
@@ -52,55 +61,79 @@ export class NsAuthenticateService implements CanActivate {
     this._model.update(entity);
 
     this._model.loginExpired$.subscribe({
-      next: (loginExpired) => {
+      next: (loginExpired: boolean) => {
         if (loginExpired && _toLoginOnExpiration) {
-          this.logout(_routerService.url);
+          this.logoutAsync(_routerService.url);
         }
       },
     });
   }
 
+  /**
+   * Authenticate user based on user name and password
+   * @param userName User name
+   * @param password Password
+   */
   authenticate(userName: string, password: string): Observable<NsAuthenticateResponseEntity> {
     return this._apiService.authenticate(userName, password);
   }
 
-  login(entity: NsAuthenticateResponseEntity, returnUrl: string): Promise<void> {
+  /**
+   * Performs login of user based supplied information with URL where to navigate
+   * @param entity Information about user login
+   * @param returnUrl URL where to navigate
+   */
+  async loginAsync(entity: NsAuthenticateResponseEntity, returnUrl: string): Promise<void> {
     this._credentialsStorageService.login(entity);
     this._model.update(entity);
 
-    return this._navService.toReturnUrl(returnUrl);
+    await this._navService.toUrlAsync(returnUrl);
   }
 
-  logout(url?: string): Promise<void> {
+  /**
+   * Logs out user with option return URL
+   * @param url URL to return after user logs in again
+   */
+  async logoutAsync(url?: string): Promise<void> {
     const routerUrl = NsString.nullOrEmpty(url, this._routerService.url);
 
-    return this._navService.toLogin(routerUrl).then(() => {
-      this._credentialsStorageService.logout();
-      this._apiService.logout();
+    await this._navService.toLoginUrlAsync(routerUrl);
 
-      this._model.update(newNsAuthenticateResponseEntity());
-    });
+    this._credentialsStorageService.logout();
+    this._apiService.logout();
+
+    this._model.update(newNsAuthenticateResponseEntity());
   }
 
+  /**
+   * Determines if user can activate a specific URL
+   * @param route
+   * @param state
+   */
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this._model.isLoggedIn$.pipe(map((isLoggedIn) => this.resolveCanActive(route, state, isLoggedIn)));
+    return this._model.isLoggedIn$.pipe(this.resolveCanActive(route, state));
   }
 
-  private resolveCanActive(route: ActivatedRouteSnapshot, state: RouterStateSnapshot, isLoggedIn: boolean): boolean {
-    if (!isLoggedIn) {
-      this.logout(state.url);
-      return false;
-    }
+  private resolveCanActive(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot,
+  ): OperatorFunction<boolean, boolean> {
+    return map((isLoggedIn: boolean) => {
+      if (!isLoggedIn) {
+        this.logoutAsync(state.url);
+        return false;
+      }
 
-    if (!this._model.hasPermission(route.data)) {
-      this._noPermissionService.navigate();
-      return false;
-    }
+      if (!this._model.hasPermission(route.data)) {
+        this._noPermissionService.navigateAsync();
+        return false;
+      }
 
-    return true;
+      return true;
+    });
   }
 
   hasPermission(permissionId: number) {

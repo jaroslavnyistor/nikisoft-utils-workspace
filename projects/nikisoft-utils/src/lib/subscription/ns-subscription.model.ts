@@ -1,26 +1,22 @@
-import { OnDestroy, OnInit } from '@angular/core';
 import { Observable, PartialObserver, Subscription } from 'rxjs';
 
 /**
  * Base class which exposes API to handle RXJS observable subscription
- * and disposes all subscription for components
+ * and disposes all subscription for models
  */
-export abstract class NsSubscriptionBase implements OnInit, OnDestroy {
+export abstract class NsSubscriptionModel {
   private readonly _subscription = new Subscription();
-
-  protected constructor() {
-  }
 
   /**
    * Performs initialization
    */
-  ngOnInit(): void {
+  onInit() {
   }
 
   /**
    * Performs clean-up
    */
-  ngOnDestroy(): void {
+  onDestroy() {
     this._subscription.unsubscribe();
   }
 

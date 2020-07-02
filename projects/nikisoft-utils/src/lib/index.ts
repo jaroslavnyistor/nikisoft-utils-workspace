@@ -56,3 +56,5 @@ export * from './storage/ns-storage.service';
 export * from './storage/page/ns-storage-page.model';
 export * from './storage/page/ns-storage-page.service';
 export * from './subscription/ns-subscription.base';
+export * from './subscription/ns-subscription.model';
+export * from './subscription/ns-subscription.service';
